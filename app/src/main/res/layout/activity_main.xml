@@ -57,8 +57,8 @@
     </com.google.android.material.appbar.AppBarLayout>
 
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rc_ProductView"
+    <FrameLayout
+        android:id="@+id/fr_Layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/appbarLayout"
