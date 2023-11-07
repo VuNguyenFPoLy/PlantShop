@@ -45,6 +45,7 @@
                     android:layout_alignParentTop="true"
                     android:layout_marginStart="25dp"
                     android:layout_marginTop="30dp"
+                    android:fontFamily="@font/lato"
                     android:text="@string/content_Banner"
                     android:textColor="@color/black"
                     android:textSize="24sp" />
