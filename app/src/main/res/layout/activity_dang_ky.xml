@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".activity_DangKy"
+    tools:context=".activity.Activity_DangKy"
    >
 
     <ImageView

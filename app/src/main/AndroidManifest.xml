@@ -13,24 +13,28 @@
         android:theme="@style/Theme.PlantShop"
         tools:targetApi="31">
         <activity
-            android:name=".activity_DangNhap"
+            android:name=".activity.Activity_DangNhap"
+            android:theme="@style/Theme.App.FullScreen"
             android:exported="false" />
         <activity
-            android:name=".activity_DangKy"
+            android:name=".activity.Activity_DangKy"
+            android:theme="@style/Theme.App.FullScreen"
             android:exported="false" />
         <activity
-            android:name=".activity_welcome"
+            android:name=".activity.Activity_Welcome"
             android:exported="true"
-            android:theme="@style/Theme.App.FullScreen" />
-        <activity
-            android:name=".MainActivity"
-            android:exported="true"
-            android:theme="@style/Theme.App.FullScreen">
+            android:theme="@style/Theme.App.FullScreen" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".activity.MainActivity"
+            android:exported="true"
+            android:theme="@style/Theme.App.FullScreen">
+
         </activity>
 
         <meta-data

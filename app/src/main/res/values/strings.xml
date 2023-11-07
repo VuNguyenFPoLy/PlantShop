@@ -6,4 +6,7 @@
     <string name="plant_Price">250.000đ</string>
     <string name="plant">Cây trồng</string>
     <string name="view_All_Product">Xem thêm sản phẩm</string>
+
+    //login
+    <string name="lb_login">Mua sắm và trải nghiệm sản phẩm cây trồng</string>
 </resources>

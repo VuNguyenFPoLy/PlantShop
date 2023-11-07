@@ -1,14 +1,16 @@
-package com.example.plantshop;
+package com.example.plantshop.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class activity_welcome extends AppCompatActivity {
+import com.example.plantshop.R;
+
+public class Activity_DangKy extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_welcome);
+        setContentView(R.layout.activity_dang_ky);
     }
 }
