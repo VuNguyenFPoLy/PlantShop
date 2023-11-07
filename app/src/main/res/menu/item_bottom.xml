@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/bt_Home"
+        android:icon="@drawable/ic_home_24px"
+        android:title="" />
+
+    <item
+        android:id="@+id/bt_Search"
+        android:icon="@drawable/search_24px"
+        android:title="" />
+    <item
+        android:id="@+id/bt_Notify"
+        android:icon="@drawable/ic_notify_24"
+        android:title="" />
+    <item
+        android:id="@+id/bt_Profile"
+        android:icon="@drawable/person_24px"
+        android:title="" />
+</menu>
