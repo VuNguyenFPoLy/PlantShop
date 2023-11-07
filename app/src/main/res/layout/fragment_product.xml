@@ -2,12 +2,36 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingHorizontal="24dp"
     android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/lb_Product"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/plant"
+        android:textColor="@color/black"
+        android:fontFamily="@font/lato"
+        android:textStyle="bold"
+        android:textSize="24sp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rc_Product"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginVertical="15dp"
         />
 
+    <TextView
+        android:id="@+id/tv_ViewAllProduct"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/view_All_Product"
+        android:textColor="@color/black"
+        android:fontFamily="@font/lato"
+        android:textStyle="bold"
+        android:textAlignment="textEnd"
+        android:layout_marginBottom="15dp"
+        android:textSize="16sp" />
 </LinearLayout>

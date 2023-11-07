@@ -4,4 +4,6 @@
     <string name="plant_Name">Spider Plant</string>
     <string name="plant_Type">Ưa bóng</string>
     <string name="plant_Price">250.000đ</string>
+    <string name="plant">Cây trồng</string>
+    <string name="view_All_Product">Xem thêm sản phẩm</string>
 </resources>
