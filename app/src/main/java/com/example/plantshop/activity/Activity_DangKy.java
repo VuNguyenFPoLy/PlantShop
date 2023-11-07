@@ -51,7 +51,7 @@ public class Activity_DangKy extends AppCompatActivity {
                edt_SConfirmPass.setError("Vui lòng nhập lại mật khẩu");
                edt_SConfirmPass.requestFocus();
            }else if (!pass.equals(confirmPass)){
-               edt_SConfirmPass.setError("Mật khẩu không trống nhau");
+               edt_SConfirmPass.setError("Mật khẩu không trùng khớp");
                edt_SConfirmPass.requestFocus();
            } else if (!email.matches(regex_email)) {
                edt_SEmail.setError("Email không đúng");
@@ -63,7 +63,8 @@ public class Activity_DangKy extends AppCompatActivity {
                     Toast.makeText(this, "Đăng ký thành công", Toast.LENGTH_SHORT).show();
                     finish();
                 }else {
-                    Toast.makeText(this, "Đăng ký thất bại", Toast.LENGTH_SHORT).show();
+                    edt_SEmail.setError("Email đã được đăng ký");
+                    edt_SEmail.requestFocus();
                 }
                 
            }

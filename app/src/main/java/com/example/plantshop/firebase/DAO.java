@@ -1,8 +1,11 @@
 package com.example.plantshop.firebase;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 
 import com.example.plantshop.model.Account;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -14,6 +17,7 @@ import java.util.ArrayList;
 public class DAO {
     private DatabaseReference databaseRef;
     private ArrayList<Account> listAccount;
+    boolean result = false;
 
     public DAO() {
         databaseRef = FirebaseDatabase.getInstance().getReference("Account");
@@ -43,42 +47,38 @@ public class DAO {
 
     public boolean setUser(String userName, String passWord) {
         Account account = new Account();
-        int id = getID();
-        if (!userName.isEmpty() && !passWord.isEmpty()) {
-            if (id >= 0) {
-                account.setIdAcount(id + 1);
-            } else {
-                account.setIdAcount(0);
+        boolean check = false;
+
+        if(listAccount.size() > 0){
+            for (int i = 0; i < listAccount.size(); i++){
+                if(userName.equals(listAccount.get(i).getUserName())){
+                    check = true;
+                    break;
+                }
             }
-            account.setUserName(userName);
-            account.setPassWord(passWord);
-            databaseRef.child(String.valueOf(account.getIdAcount())).setValue(account);
         }
-        return true;
+
+        if(!check){
+            if (!userName.isEmpty() && !passWord.isEmpty()) {
+                account.setIdAcount(getID());
+                account.setUserName(userName);
+                account.setPassWord(passWord);
+                databaseRef.child(String.valueOf(account.getIdAcount())).setValue(account);
+                result = true;
+            }
+        }
+
+        return result;
     }
 
 
     public int getID() {
-        int id = -1;
-        listAccount = new ArrayList<>();
-        databaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()
-                ) {
-                    Account account = dataSnapshot.getValue(Account.class);
-                    listAccount.add(account);
-                }
-            }
+        int id = 0;
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
+        Log.d("TAG", "Size: " + listAccount.size());
 
         if (listAccount.size() > 0) {
-            id = listAccount.get(listAccount.size() - 1).getIdAcount();
+            id = listAccount.get(listAccount.size() - 1).getIdAcount() + 1;
         }
 
         return id;
