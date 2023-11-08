@@ -2,6 +2,7 @@ package com.example.plantshop.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -60,8 +61,11 @@ public class Activity_DangKy extends AppCompatActivity {
 
                 dao.setUser(email, pass);
                 if(dao.setUser(email, pass)){
-                    Toast.makeText(this, "Đăng ký thành công", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(Activity_DangKy.this, Activity_DangNhap.class);
+                    startActivity(intent);
                     finish();
+                    Toast.makeText(this, "Đăng ký thành công", Toast.LENGTH_SHORT).show();
+
                 }else {
                     edt_SEmail.setError("Email đã được đăng ký");
                     edt_SEmail.requestFocus();

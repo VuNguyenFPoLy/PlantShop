@@ -75,12 +75,15 @@ public class Activity_Input_Code extends AppCompatActivity {
 
 
         tv_BackLogin.setOnClickListener(v -> {
+            Intent i_backToLogin = new Intent(Activity_Input_Code.this, Activity_DangNhap.class);
+            startActivity(i_backToLogin);
             finish();
         });
 
         tv_SignUp.setOnClickListener(v -> {
-            Intent intent = new Intent(Activity_Input_Code.this, Activity_DangKy.class);
-            startActivity(intent);
+            Intent goToSignUp = new Intent(Activity_Input_Code.this, Activity_DangKy.class);
+            startActivity(goToSignUp);
+            finish();
         });
 
         tv_ResendCode.setOnClickListener(new View.OnClickListener() {

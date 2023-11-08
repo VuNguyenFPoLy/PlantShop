@@ -30,12 +30,14 @@ public class Activity_ForgotPass extends AppCompatActivity {
         dao = new DAO();
 
         tv_BackLogin.setOnClickListener(v -> {
+            Intent i_backToLogin = new Intent(Activity_ForgotPass.this, Activity_DangNhap.class);
+            startActivity(i_backToLogin);
             finish();
         });
 
         tv_SignUp.setOnClickListener(v -> {
-            Intent intent = new Intent(Activity_ForgotPass.this, Activity_DangKy.class);
-            startActivity(intent);
+            Intent goToSignUp = new Intent(Activity_ForgotPass.this, Activity_DangKy.class);
+            startActivity(goToSignUp);
             finish();
         });
 
@@ -52,9 +54,9 @@ public class Activity_ForgotPass extends AppCompatActivity {
             }else{
                  dao.checkUser(email);
                 if(dao.checkUser(email)){
-                    Intent intent = new Intent(Activity_ForgotPass.this, Activity_Input_Code.class);
-                    intent.putExtra("email", email);
-                    startActivity(intent);
+                    Intent gotoInputCode = new Intent(Activity_ForgotPass.this, Activity_Input_Code.class);
+                    gotoInputCode.putExtra("email", email);
+                    startActivity(gotoInputCode);
                     finish();
                 }else {
                     edt_FEmai.setError("Sai email hoặc chưa được đăng ký");

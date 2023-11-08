@@ -42,11 +42,13 @@ public class Activity_DangNhap extends AppCompatActivity {
         tv_SignUp.setOnClickListener(v -> {
             Intent intent = new Intent(Activity_DangNhap.this, Activity_DangKy.class);
             startActivity(intent);
+            finish();
         });
 
         tv_Forgotpass.setOnClickListener(v -> {
             Intent intent = new Intent(Activity_DangNhap.this, Activity_ForgotPass.class);
             startActivity(intent);
+            finish();
         });
 
         btn_Login.setOnClickListener(v -> {

@@ -44,18 +44,17 @@ public class Activity_NewPass extends AppCompatActivity {
         listAccount = new ArrayList<>();
         listAccount = dao.getListAccount();
 
-        int size = listAccount.size();
+        Intent i_backToLogin = new Intent(Activity_NewPass.this, Activity_DangNhap.class);
 
         tv_Back.setOnClickListener(v -> {
+            startActivity(i_backToLogin);
             finish();
         });
-
-
-
 
         tv_SignUp.setOnClickListener(v -> {
             Intent intent = new Intent(Activity_NewPass.this, Activity_DangKy.class);
             startActivity(intent);
+            finish();
         });
 
         btn_Login.setOnClickListener(v -> {
@@ -85,8 +84,10 @@ public class Activity_NewPass extends AppCompatActivity {
                 account.setPassWord(newPass);
                 dao.updateAccount(account);
                 if(dao.updateAccount(account)){
-                    Toast.makeText(this, "Đã đổi mật khẩu thành công", Toast.LENGTH_SHORT).show();
+
+                    startActivity(i_backToLogin);
                     finish();
+                    Toast.makeText(this, "Đã đổi mật khẩu thành công", Toast.LENGTH_SHORT).show();
                 }else {
                     Toast.makeText(this, "Lỗi! kiểm tra mạng của bạn", Toast.LENGTH_SHORT).show();
                 }
