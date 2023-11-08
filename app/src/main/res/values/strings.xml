@@ -9,4 +9,6 @@
 
     //login
     <string name="lb_login">Mua sắm và trải nghiệm sản phẩm cây trồng</string>
+    <string name="channel_name">Thông báo</string>
+    <string name="channel_description">Đây là thông báo</string>
 </resources>

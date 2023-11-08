@@ -44,6 +44,11 @@ public class Activity_DangNhap extends AppCompatActivity {
             startActivity(intent);
         });
 
+        tv_Forgotpass.setOnClickListener(v -> {
+            Intent intent = new Intent(Activity_DangNhap.this, Activity_ForgotPass.class);
+            startActivity(intent);
+        });
+
         btn_Login.setOnClickListener(v -> {
 
             String email = edt_LEmai.getText().toString();

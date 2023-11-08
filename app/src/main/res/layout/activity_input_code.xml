@@ -9,12 +9,10 @@
     tools:context=".activity.Activity_Input_Code">
 
     <ImageView
-        android:id="@+id/imageView"
         android:layout_width="match_parent"
         android:layout_height="315dp"
         app:srcCompat="@drawable/logoplant" />
     <TextView
-        android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAlignment="center"
@@ -36,7 +34,7 @@
             android:layout_marginTop="31dp"
             android:gravity="center"
             android:orientation="horizontal"
-            android:layout_marginBottom="80dp">
+            android:layout_marginBottom="40dp">
 
             <EditText
                 android:id="@+id/edtNumOne"
@@ -46,6 +44,7 @@
                 android:gravity="center"
                 android:inputType="number"
                 android:textColor="@color/green"
+                android:maxLength="1"
                 android:textSize="27sp"
                 android:textStyle="bold" />
 
@@ -58,6 +57,7 @@
                 android:gravity="center"
                 android:inputType="number"
                 android:textColor="@color/green"
+                android:maxLength="1"
                 android:textSize="27sp"
                 android:textStyle="bold" />
 
@@ -70,6 +70,7 @@
                 android:gravity="center"
                 android:inputType="number"
                 android:textColor="@color/green"
+                android:maxLength="1"
                 android:textSize="27sp"
                 android:textStyle="bold" />
 
@@ -79,6 +80,7 @@
                 android:layout_height="65dp"
                 android:layout_marginLeft="20dp"
                 android:background="@drawable/shape_edt_input_code"
+                android:maxLength="1"
                 android:gravity="center"
                 android:inputType="number"
                 android:textColor="@color/green"
@@ -86,6 +88,17 @@
                 android:textStyle="bold" />
 
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_ResendCode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:fontFamily="@font/lato"
+            android:textColor="@color/black"
+            android:layout_marginBottom="30dp"
+            android:textStyle="bold"
+            android:text="Gửi lại mã OTP" />
 
         <Button
             android:id="@+id/btn_Continue"
@@ -99,7 +112,7 @@
             app:cornerRadius="8dp" />
 
         <TextView
-            android:id="@+id/tv_BackLogin"
+                android:id="@+id/tv_BackLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="center"

@@ -39,26 +39,24 @@ public class DAO {
         });
     }
 
-    public ArrayList<Account> getListAccount(){
-        ArrayList<Account> list = new ArrayList<>();
-        list = listAccount;
-        return list;
+    public ArrayList<Account> getListAccount() {
+        return listAccount;
     }
 
     public boolean setUser(String userName, String passWord) {
         Account account = new Account();
         boolean check = false;
 
-        if(listAccount.size() > 0){
-            for (int i = 0; i < listAccount.size(); i++){
-                if(userName.equals(listAccount.get(i).getUserName())){
+        if (listAccount.size() > 0) {
+            for (int i = 0; i < listAccount.size(); i++) {
+                if (userName.equals(listAccount.get(i).getUserName())) {
                     check = true;
                     break;
                 }
             }
         }
 
-        if(!check){
+        if (!check) {
             if (!userName.isEmpty() && !passWord.isEmpty()) {
                 account.setIdAcount(getID());
                 account.setUserName(userName);
@@ -69,6 +67,17 @@ public class DAO {
         }
 
         return result;
+    }
+
+    public boolean updateAccount(Account account){
+        boolean check = false;
+
+        if (account != null){
+            databaseRef.child(String.valueOf(account.getIdAcount())).setValue(account);
+            check = true;
+        }
+
+        return check;
     }
 
 
@@ -82,6 +91,20 @@ public class DAO {
         }
 
         return id;
+    }
+
+    public boolean checkUser(String userName) {
+        boolean check = false;
+        if (!userName.isEmpty()) {
+            for (Account ac : listAccount
+            ) {
+                if(userName.equals(ac.getUserName())){
+                    check = true;
+                    break;
+                }
+            }
+        }
+        return check;
     }
 
 
