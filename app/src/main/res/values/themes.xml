@@ -7,8 +7,8 @@
 
     <style name="Theme.PlantShop" parent="Base.Theme.PlantShop" />
 
-    <style name="Theme.App.FullScreen" parent="Base.Theme.PlantShop">
-        <item name="android:windowFullscreen">true</item>
-        <item name="android:statusBarColor">@android:color/transparent</item>
-    </style>
+<!--    <style name="Theme.App.FullScreen" parent="Base.Theme.PlantShop">-->
+<!--        <item name="android:windowFullscreen">true</item>-->
+<!--        <item name="android:statusBarColor">@android:color/transparent</item>-->
+<!--    </style>-->
 </resources>

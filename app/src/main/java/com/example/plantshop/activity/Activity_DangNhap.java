@@ -1,9 +1,15 @@
 package com.example.plantshop.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -28,12 +34,15 @@ public class Activity_DangNhap extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dang_nhap);
+        makeStatusBarTransparent(getWindow(), Activity_DangNhap.this);
+
 
         edt_LEmai = findViewById(R.id.edt_LEmai);
         edt_Lpass = findViewById(R.id.edt_Lpass);
         btn_Login = findViewById(R.id.btn_Login);
         tv_Forgotpass = findViewById(R.id.tv_Forgotpass);
         tv_SignUp = findViewById(R.id.tv_SignUp);
+
 
         dao = new DAO();
         listAccount = new ArrayList<>();
@@ -74,26 +83,26 @@ public class Activity_DangNhap extends AppCompatActivity {
 
                 for (Account ac : listAccount
                 ) {
-                    if(email.equals(ac.getUserName())){
+                    if (email.equals(ac.getUserName())) {
                         checkUser = true;
                         if (pass.equals(ac.getPassWord())) {
                             checkPass = true;
                             id = ac.getIdAcount();
                             break;
-                        }else {
+                        } else {
                             edt_Lpass.setError("Mật khẩu không đúng");
                             edt_Lpass.requestFocus();
                         }
                     }
                 }
 
-                if(!checkUser){
+                if (!checkUser) {
                     edt_LEmai.setError("Sai email hoặc chưa đăng ký");
                     edt_LEmai.requestFocus();
-                }else if(!checkPass) {
+                } else if (!checkPass) {
                     edt_Lpass.setError("Mật khẩu không đúng");
                     edt_Lpass.requestFocus();
-                }else {
+                } else {
                     Intent intent = new Intent(Activity_DangNhap.this, MainActivity.class);
                     intent.putExtra("id", id);
                     startActivity(intent);
@@ -102,5 +111,18 @@ public class Activity_DangNhap extends AppCompatActivity {
 
             }
         });
+
     }
-}
+
+    public static void makeStatusBarTransparent(Window window, Activity activity) {
+
+            window.getDecorView().setSystemUiVisibility(
+                    View.SYSTEM_UI_FLAG_LAYOUT_STABLE |
+
+                            View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR // Thêm flag này để biểu tượng trở thành màu đen
+            );
+            window.setStatusBarColor(ContextCompat.getColor(activity, R.color.white)); // Đặt màu nền thành màu trắng
+
+    }
+
+    }

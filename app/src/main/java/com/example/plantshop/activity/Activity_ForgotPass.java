@@ -21,6 +21,8 @@ public class Activity_ForgotPass extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forgotpass);
+        Activity_DangNhap.makeStatusBarTransparent(getWindow(), Activity_ForgotPass.this);
+
 
         edt_FEmai = findViewById(R.id.edt_FEmai);
         btn_Continue = findViewById(R.id.btn_Continue);

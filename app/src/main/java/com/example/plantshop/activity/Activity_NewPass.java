@@ -29,6 +29,8 @@ public class Activity_NewPass extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_pass);
+        Activity_DangNhap.makeStatusBarTransparent(getWindow(), Activity_NewPass.this);
+
 
         edt_NewPass = findViewById(R.id.edt_NewPass);
         edt_ConfirmNewPass = findViewById(R.id.edt_ConfirmNewPass);

@@ -23,6 +23,8 @@ public class Activity_DangKy extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dang_ky);
+        Activity_DangNhap.makeStatusBarTransparent(getWindow(), Activity_DangKy.this);
+
 
         edt_SEmail = findViewById(R.id.edt_SEmai);
         edt_Spass = findViewById(R.id.edt_Spass);

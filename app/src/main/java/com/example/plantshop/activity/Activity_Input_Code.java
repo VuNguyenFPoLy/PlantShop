@@ -37,6 +37,8 @@ public class Activity_Input_Code extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_input_code);
+        Activity_DangNhap.makeStatusBarTransparent(getWindow(), Activity_Input_Code.this);
+
 
         edtNumOne = findViewById(R.id.edtNumOne);
         edtNumTwo = findViewById(R.id.edtNumTwo);
@@ -157,7 +159,8 @@ public class Activity_Input_Code extends AppCompatActivity {
                 .setSmallIcon(R.drawable.baseline_notifications_24)
                 .setContentTitle("Mã OPT CỦA BẠN")
                 .setContentText("Mã OPT của bạn là: " + otp1 + otp2 + otp3 + otp4 +
-                        " .Vui lòng không chia sẻ mã này cho người khác");
+                        " .Vui lòng không chia sẻ mã này cho người khác")
+                .setStyle(new NotificationCompat.DecoratedCustomViewStyle());
         NotificationManagerCompat managerCompat = NotificationManagerCompat.from(this);
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED) {

@@ -22,27 +22,27 @@
         <activity
             android:name=".activity.Activity_NewPass"
             android:exported="false"
-            android:theme="@style/Theme.App.FullScreen" />
+             />
         <activity
             android:name=".activity.Activity_Input_Code"
             android:exported="true"
-            android:theme="@style/Theme.App.FullScreen"></activity>
+            ></activity>
         <activity
             android:name=".activity.Activity_ForgotPass"
             android:exported="false"
-            android:theme="@style/Theme.App.FullScreen" />
+           />
         <activity
             android:name=".activity.Activity_DangNhap"
             android:exported="false"
-            android:theme="@style/Theme.App.FullScreen" />
+            />
         <activity
             android:name=".activity.Activity_DangKy"
             android:exported="false"
-            android:theme="@style/Theme.App.FullScreen" />
+             />
         <activity
             android:name=".activity.Activity_Welcome"
             android:exported="true"
-            android:theme="@style/Theme.App.FullScreen">
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -52,7 +52,7 @@
         <activity
             android:name=".activity.MainActivity"
             android:exported="true"
-            android:theme="@style/Theme.App.FullScreen" />
+             />
 
         <meta-data
             android:name="preloaded_fonts"
