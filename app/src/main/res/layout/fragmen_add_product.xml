@@ -82,26 +82,31 @@
             android:orientation="horizontal"
             android:gravity="center|left">
 
-            <Button
-                android:id="@+id/button_ct"
-                android:layout_width="100dp"
-                android:layout_height="40dp"
-                android:backgroundTint="@color/green"
-                android:layout_gravity="center"
-                android:text="Cây trồng"
-                android:textSize="11dp"
-                app:cornerRadius="8dp" />
+            <TextView
+                android:id="@+id/tv_TypeProduct"
+                android:layout_width="wrap_content"
+                android:layout_height="28dp"
+                android:padding="5dp"
+                android:layout_marginHorizontal="5dp"
+                android:gravity="center"
+                android:text="Chọn loại sản phẩm"
+                android:textColor="@color/white"
+                android:background="@drawable/background_type_product"
+                android:textSize="14sp"
+                android:fontFamily="@font/lato"/>
 
-            <Button
-                android:id="@+id/button_lc"
-                android:layout_width="100dp"
-                android:layout_marginLeft="20dp"
-                android:layout_height="40dp"
-                android:backgroundTint="@color/green"
-                android:layout_gravity="center"
-                android:text="Ưa bóng"
-                android:textSize="11dp"
-                app:cornerRadius="8dp" />
+            <TextView
+                android:id="@+id/tv_TypeOfProduct"
+                android:layout_width="wrap_content"
+                android:layout_height="28dp"
+                android:padding="5dp"
+                android:layout_marginHorizontal="5dp"
+                android:gravity="center"
+                android:text="Chọn thể loại sản phẩm"
+                android:textColor="@color/white"
+                android:background="@drawable/background_type_product"
+                android:textSize="14sp"
+                android:fontFamily="@font/lato"/>
 
         </LinearLayout>
 
@@ -161,6 +166,8 @@
                 android:gravity="end"
                 android:layout_weight="1"
                 android:background="@color/white"
+                android:focusable="false"
+                android:clickable="false"
                 />
 
         </LinearLayout>

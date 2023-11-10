@@ -4,6 +4,7 @@ public class Product {
     private int idSanPham;
     private String tenSanPham;
     private String loaiSanPham;
+    private String theLoaiSanPham;
     private String kichCo;
     private String xuatXu;
     private int soLuong;
@@ -13,7 +14,7 @@ public class Product {
     public Product() {
     }
 
-    public Product(int idSanPham, String tenSanPham, String loaiSanPham, String kichCo, String xuatXu, int soLuong, String moTa, double giaTien) {
+    public Product(int idSanPham, String tenSanPham, String loaiSanPham, String theLoaiSanPham, String kichCo, String xuatXu, int soLuong, String moTa, double giaTien) {
         this.idSanPham = idSanPham;
         this.tenSanPham = tenSanPham;
         this.loaiSanPham = loaiSanPham;
@@ -22,6 +23,7 @@ public class Product {
         this.soLuong = soLuong;
         this.moTa = moTa;
         this.giaTien = giaTien;
+        this.theLoaiSanPham = theLoaiSanPham;
     }
 
     public int getIdSanPham() {
@@ -46,6 +48,14 @@ public class Product {
 
     public void setLoaiSanPham(String loaiSanPham) {
         this.loaiSanPham = loaiSanPham;
+    }
+
+    public String getTheLoaiSanPham() {
+        return theLoaiSanPham;
+    }
+
+    public void setTheLoaiSanPham(String theLoaiSanPham) {
+        this.theLoaiSanPham = theLoaiSanPham;
     }
 
     public String getKichCo() {
