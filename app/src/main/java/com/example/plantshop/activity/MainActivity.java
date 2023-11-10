@@ -3,8 +3,11 @@ package com.example.plantshop.activity;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -43,21 +46,43 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 Fragment fr_SelectBottom = null;
+                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.addToBackStack(null);
 
                 if(item.getItemId() == R.id.bt_Home){
-                    appbarLayout.setVisibility(View.VISIBLE);
                     fr_SelectBottom = new Fragment_Home();
                 } else if (item.getItemId() == R.id.bt_Search) {
-                    appbarLayout.setVisibility(View.GONE);
                     fr_SelectBottom = new Fragment_Search();
                 } else if (item.getItemId() == R.id.bt_Notify) {
-                    appbarLayout.setVisibility(View.GONE);
                     fr_SelectBottom = new Fragment_Notify();
                 }
 
-                getSupportFragmentManager().beginTransaction().replace(R.id.fr_Layout, fr_SelectBottom).commit();
+                fragmentTransaction.replace(R.id.fr_Layout, fr_SelectBottom).commit();
+
                 return true;
             }
         });
+
+        bottom_Navigation.setSelectedItemId(R.id.bt_Home);
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
+            @Override
+            public void onBackStackChanged() {
+                // Kiểm tra Fragment hiện tại
+                Fragment currentFragment = fragmentManager.findFragmentById(R.id.fr_Layout);
+                Log.d("MainActivity", "onBackStackChanged: " + currentFragment.getClass().getSimpleName());
+
+                // Hiển thị hoặc ẩn AppBarLayout dựa trên Fragment hiện tại
+                if (currentFragment instanceof Fragment_Home) {
+                    appbarLayout.setVisibility(View.VISIBLE);
+                } else {
+                    appbarLayout.setVisibility(View.GONE);
+                }
+            }
+        });
+
+
+
     }
 }

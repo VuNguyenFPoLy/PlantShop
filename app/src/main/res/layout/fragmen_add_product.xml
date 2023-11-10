@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    >
+
+    <LinearLayout
+        android:id="@+id/ll_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:orientation="horizontal"
+        android:paddingHorizontal="24dp"
+        android:layout_marginTop="20dp"
+        >
+
+        <ImageView
+            android:id="@+id/img_Back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/baseline_keyboard_arrow_left_24"
+            android:layout_alignParentStart="true"/>
+
+        <EditText
+            android:id="@+id/edt_NameProduct"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/img_Back"
+            android:hint="Nhập tên sản phẩm"
+            android:fontFamily="@font/lato"
+            android:textAlignment="center"
+            android:background="@color/white"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        >
+
+        <ImageView
+            android:id="@+id/img_addProduct"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            android:scaleType="fitCenter"/>
+
+        <TextView
+            android:id="@+id/lb_Notify"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Nhấn vào để thêm ảnh"
+            android:textColor="@color/black"
+            android:fontFamily="@font/lato"
+            android:textSize="14sp"
+            android:textAlignment="center"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="50dp"/>
+
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingHorizontal="24dp"
+        android:layout_marginTop="15dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center|left">
+
+            <Button
+                android:id="@+id/button_ct"
+                android:layout_width="100dp"
+                android:layout_height="40dp"
+                android:backgroundTint="@color/green"
+                android:layout_gravity="center"
+                android:text="Cây trồng"
+                android:textSize="11dp"
+                app:cornerRadius="8dp" />
+
+            <Button
+                android:id="@+id/button_lc"
+                android:layout_width="100dp"
+                android:layout_marginLeft="20dp"
+                android:layout_height="40dp"
+                android:backgroundTint="@color/green"
+                android:layout_gravity="center"
+                android:text="Ưa bóng"
+                android:textSize="11dp"
+                app:cornerRadius="8dp" />
+
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/edt_Price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:textSize="24sp"
+            android:textColor="@color/black"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="10dp"
+            android:fontFamily="@font/lato"
+            android:background="@color/white"
+            android:hint="Nhập giá sản phẩm" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Chi tiết sản phẩm"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:fontFamily="@font/lato"
+            android:layout_marginTop="15dp"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/black"
+            android:layout_marginTop="4dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="14dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/lato"
+                android:text="Kích cỡ"/>
+
+            <EditText
+                android:id="@+id/edt_Size"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:textColor="@color/black"
+                android:textSize="16dp"
+                android:hint="Chọn kích cỡ"
+                android:fontFamily="@font/lato"
+                android:gravity="end"
+                android:layout_weight="1"
+                android:background="@color/white"
+                />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/black"
+            android:layout_marginTop="4dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="14dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/lato"
+                android:text="Xuất xứ"/>
+
+            <EditText
+                android:id="@+id/edt_Brand"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:textColor="@color/black"
+                android:textSize="16dp"
+                android:hint="Nhập xuất xứ"
+                android:fontFamily="@font/lato"
+                android:gravity="end"
+                android:layout_weight="1"
+                android:background="@color/white"
+                />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/black"
+            android:layout_marginTop="4dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="14dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/lato"
+                android:text="Tình trạng"/>
+
+            <EditText
+                android:id="@+id/edt_Quantity"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:textColor="@color/black"
+                android:textSize="16dp"
+                android:hint="Nhập số lượng"
+                android:fontFamily="@font/lato"
+                android:gravity="end"
+                android:layout_weight="1"
+                android:background="@color/white"
+                />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/black"
+            android:layout_marginTop="4dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:textSize="16dp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:text="Mô tả sản phẩm"/>
+
+        <View
+            android:id="@+id/lane"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/black"
+            android:layout_marginTop="4dp"/>
+    </LinearLayout>
+    </LinearLayout>
+
+        <EditText
+            android:id="@+id/edt_Describe"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_marginTop="10dp"
+            android:inputType="text"
+            android:textSize="18dp"
+            android:layout_below="@+id/ll_header"
+            android:layout_above="@+id/ll_bottom"
+            android:layout_marginHorizontal="24dp"
+            android:gravity="left|top"
+            android:hint="Thêm mô tả"
+            android:background="@color/white"/>
+
+
+
+    <LinearLayout
+        android:id="@+id/ll_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/custom_linearlayout"
+        android:gravity="center"
+        android:layout_alignParentBottom="true"
+        >
+
+        <Button
+            style="?attr/materialButtonOutlinedStyle"
+            android:id="@+id/btn_Cancel"
+            android:layout_width="170dp"
+            android:layout_height="50dp"
+            android:text="Hủy"
+            android:textColor="@color/color_Plant_Type"
+            android:textSize="20dp"
+            app:cornerRadius="8dp" />
+
+        <Button
+            android:id="@+id/btn_Submit"
+            android:layout_width="170dp"
+            android:layout_height="50dp"
+            android:backgroundTint="@color/green"
+            android:layout_marginLeft="15dp"
+            android:text="Đồng ý"
+            android:textColor="@color/white"
+            android:textSize="20dp"
+            app:cornerRadius="8dp" />
+    </LinearLayout>
+
+
+
+</RelativeLayout>

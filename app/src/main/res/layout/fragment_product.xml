@@ -2,36 +2,120 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingHorizontal="24dp"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:paddingHorizontal="24dp">
 
-    <TextView
-        android:id="@+id/lb_Product"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/plant"
-        android:textColor="@color/black"
-        android:fontFamily="@font/lato"
-        android:textStyle="bold"
-        android:textSize="24sp" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp"
+        >
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rc_Product"
+        <ImageView
+            android:id="@+id/img_Back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/baseline_keyboard_arrow_left_24"
+            android:layout_alignParentStart="true"/>
+
+        <TextView
+            android:id="@+id/tv_Label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Thông báo"
+            android:textColor="@color/black"
+            android:fontFamily="@font/lato"
+            android:textSize="16sp"
+            android:textAlignment="center"
+            />
+
+        <ImageView
+            android:id="@+id/ic_Cart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/shopping_cart_24px"
+            android:layout_alignParentEnd="true"/>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:paddingVertical="15dp"
+        android:gravity="center">
+        
+        <TextView
+            android:id="@+id/tv_All"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="28dp"
+            android:gravity="center"
+            android:text="Tất cả"
+            android:textColor="@color/white"
+            android:background="@drawable/background_type_product"
+            android:textSize="14sp"
+            android:fontFamily="@font/lato"/>
+
+        <TextView
+            android:id="@+id/tv_MoiVe"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="28dp"
+            android:gravity="center"
+            android:text="Mới về"
+            android:textColor="@color/select_tv_type"
+            android:textSize="14sp"
+            android:fontFamily="@font/lato"/>
+
+        <TextView
+                android:id="@+id/tv_UaBong"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="28dp"
+            android:gravity="center"
+            android:text="Ưa bóng"
+            android:textColor="@color/select_tv_type"
+            android:textSize="14sp"
+            android:fontFamily="@font/lato"/>
+
+        <TextView
+            android:id="@+id/tv_UaMat"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="28dp"
+            android:gravity="center"
+            android:text="Ưa mát"
+            android:textColor="@color/select_tv_type"
+            android:textSize="14sp"
+            android:fontFamily="@font/lato"/>
+
+    </LinearLayout>
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:layout_marginVertical="15dp"
-        />
+        android:layout_weight="1">
 
-    <TextView
-        android:id="@+id/tv_ViewAllProduct"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/view_All_Product"
-        android:textColor="@color/black"
-        android:fontFamily="@font/lato"
-        android:textStyle="bold"
-        android:textAlignment="textEnd"
-        android:layout_marginBottom="15dp"
-        android:textSize="16sp" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rc_Plant"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+
+        <TextView
+            android:id="@+id/tv_FAB"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="28dp"
+            android:layout_marginBottom="30dp"
+            android:background="@drawable/circle"
+            android:gravity="center"
+            android:text="+"
+            android:textColor="@color/white"
+            android:textSize="30sp" />
+    </RelativeLayout>
+
+
 </LinearLayout>
