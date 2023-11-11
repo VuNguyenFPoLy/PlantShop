@@ -4,6 +4,7 @@ import static android.app.Activity.RESULT_OK;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -21,6 +22,9 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.plantshop.R;
+import com.example.plantshop.firebase.DAO;
+import com.example.plantshop.firebase.DAO_Product;
+import com.example.plantshop.model.Product;
 
 public class Fragment_AddProduct extends Fragment {
 
@@ -30,6 +34,7 @@ public class Fragment_AddProduct extends Fragment {
     private Button btn_Cancel, btn_Submit;
     private final int PICK_IMAGE_REQUEST = 1;
     private Uri uri;
+    private DAO_Product dao_product;
 
     @Nullable
     @Override
@@ -50,6 +55,7 @@ public class Fragment_AddProduct extends Fragment {
         tv_TypeProduct = view.findViewById(R.id.tv_TypeProduct);
         tv_TypeOfProduct = view.findViewById(R.id.tv_TypeOfProduct);
 
+        dao_product = new DAO_Product();
 
         // trở về
         img_Back.setOnClickListener(v -> {
@@ -99,16 +105,16 @@ public class Fragment_AddProduct extends Fragment {
             String[] typeOfTool = {"Găng tay", "Cuốc", "Xẻng", "Cào đất", "Bay", "Cưa", "Đinh ba"};
 
             String typeProduct = tv_TypeProduct.getText().toString();
-            if(typeProduct.equals("Chọn loại sản phẩm")){
+            if (typeProduct.equals("Chọn loại sản phẩm")) {
                 Toast.makeText(getContext(), "Vui lòng chọn loại sản phẩm trước", Toast.LENGTH_SHORT).show();
-            }else {
+            } else {
 
                 String[] typeOf;
-                if(typeProduct.equals("Cây trồng")){
+                if (typeProduct.equals("Cây trồng")) {
                     typeOf = typeOfPlant;
                 } else if (typeProduct.equals("Chậu cây")) {
                     typeOf = typeOfPots;
-                }else {
+                } else {
                     typeOf = typeOfTool;
                 }
 
@@ -124,8 +130,6 @@ public class Fragment_AddProduct extends Fragment {
         });
 
 
-
-
         img_addProduct.setOnClickListener(v -> {
             Intent intent = new Intent();
             intent.setType("image/*");
@@ -137,10 +141,56 @@ public class Fragment_AddProduct extends Fragment {
 
             String name = edt_NameProduct.getText().toString();
             String price = edt_Price.getText().toString();
+            String typeProduct = tv_TypeProduct.getText().toString();
+            String typeOfProduct = tv_TypeOfProduct.getText().toString();
             String size = edt_Size.getText().toString();
             String brand = edt_Brand.getText().toString();
             String quantity = edt_Quantity.getText().toString();
             String describe = edt_Describe.getText().toString();
+
+            if(name.isEmpty()){
+                edt_NameProduct.setError("Trống");
+                edt_NameProduct.requestFocus();
+            } else if (price.isEmpty()) {
+                edt_Price.setError("Trống");
+                edt_Price.requestFocus();
+            } else if (typeProduct.equals("Chọn loại sản phẩm")) {
+                Toast.makeText(getContext(), "Vui lòng chọn loại sản phẩm", Toast.LENGTH_SHORT).show();
+            } else if (typeOfProduct.equals("Chọn thể loại sản phẩm")) {
+                Toast.makeText(getContext(), "Vui lòng chọn thể loại sản phẩm", Toast.LENGTH_SHORT).show();
+            } else if (size.isEmpty()) {
+                edt_Size.setError("Trống");
+                edt_Size.requestFocus();
+            } else if (brand.isEmpty()) {
+                edt_Brand.setError("Trống");
+                edt_Brand.requestFocus();
+            } else if (quantity.isEmpty()) {
+                edt_Quantity.setError("Trống");
+                edt_Quantity.requestFocus();
+            } else if (describe.isEmpty()) {
+                edt_Describe.setError("Trống");
+                edt_Describe.requestFocus();
+            } else {
+
+                Product product = new Product();
+                product.setTenSanPham(name);
+                product.setLoaiSanPham(typeProduct);
+                product.setTheLoaiSanPham(typeOfProduct);
+                product.setGiaTien(Double.parseDouble(price));
+                product.setKichCo(size);
+                product.setXuatXu(brand);
+                product.setSoLuong(Integer.parseInt(quantity));
+                product.setMoTa(describe);
+
+                dao_product.pushProduct(product, uri);
+                if(dao_product.pushProduct(product, uri)){
+                    setNullEdt();
+                    Toast.makeText(getContext(), "Đã thêm sản phẩm mới", Toast.LENGTH_SHORT).show();
+                    FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                    fragmentTransaction.replace(R.id.fr_Layout, new Fragment_Product()).commit();
+                    fragmentTransaction.addToBackStack(null);
+                }
+            }
 
         });
 
@@ -148,11 +198,22 @@ public class Fragment_AddProduct extends Fragment {
         return view;
     }
 
+    public void setNullEdt(){
+        edt_NameProduct.setText(null);
+        edt_Price.setText(null);
+        edt_Size.setText(null);
+        edt_Brand.setText(null);
+        edt_Quantity.setText(null);
+        edt_Describe.setText(null);
+        tv_TypeProduct.setText("Chọn loại sản phẩm");
+        tv_TypeOfProduct.setText("Chọn thể loại sản phẩm");
+    }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode == 1 && resultCode == RESULT_OK && data != null && data.getData() != null) {
+        if (requestCode == 1 && resultCode == RESULT_OK && data != null && data.getData() != null) {
             uri = data.getData();
             img_addProduct.setImageURI(uri);
         }

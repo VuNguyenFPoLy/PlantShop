@@ -1,20 +1,15 @@
 package com.example.plantshop.model;
 
 public class Product {
-    private int idSanPham;
-    private String tenSanPham;
-    private String loaiSanPham;
-    private String theLoaiSanPham;
-    private String kichCo;
-    private String xuatXu;
-    private int soLuong;
-    private String moTa;
+    private int idSanPham, soLuong;
+    private String tenSanPham, loaiSanPham, theLoaiSanPham,
+            kichCo, xuatXu, moTa, url_Img;
     private double giaTien;
 
     public Product() {
     }
 
-    public Product(int idSanPham, String tenSanPham, String loaiSanPham, String theLoaiSanPham, String kichCo, String xuatXu, int soLuong, String moTa, double giaTien) {
+    public Product(int idSanPham, String tenSanPham, String loaiSanPham, String theLoaiSanPham, String kichCo, String xuatXu, int soLuong, String moTa, double giaTien, String url_Img) {
         this.idSanPham = idSanPham;
         this.tenSanPham = tenSanPham;
         this.loaiSanPham = loaiSanPham;
@@ -24,6 +19,7 @@ public class Product {
         this.moTa = moTa;
         this.giaTien = giaTien;
         this.theLoaiSanPham = theLoaiSanPham;
+        this.url_Img = url_Img;
     }
 
     public int getIdSanPham() {
@@ -96,5 +92,13 @@ public class Product {
 
     public void setGiaTien(double giaTien) {
         this.giaTien = giaTien;
+    }
+
+    public String getUrl_Img() {
+        return url_Img;
+    }
+
+    public void setUrl_Img(String url_Img) {
+        this.url_Img = url_Img;
     }
 }

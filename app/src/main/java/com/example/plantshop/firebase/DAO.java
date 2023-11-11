@@ -47,7 +47,7 @@ public class DAO {
         Account account = new Account();
         boolean check = false;
 
-        if (listAccount.size() > 0) {
+        if (listAccount.size() > 0) { // Kiểm tra trùng lặp tài khoản
             for (int i = 0; i < listAccount.size(); i++) {
                 if (userName.equals(listAccount.get(i).getUserName())) {
                     check = true;
@@ -83,8 +83,6 @@ public class DAO {
 
     public int getID() {
         int id = 0;
-
-        Log.d("TAG", "Size: " + listAccount.size());
 
         if (listAccount.size() > 0) {
             id = listAccount.get(listAccount.size() - 1).getIdAcount() + 1;

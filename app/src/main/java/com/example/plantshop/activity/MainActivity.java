@@ -58,12 +58,16 @@ public class MainActivity extends AppCompatActivity {
                 fragmentTransaction.addToBackStack(null);
 
                 if(item.getItemId() == R.id.bt_Home){
+                    item.setTitle(".");
                     fr_SelectBottom = new Fragment_Home();
                 } else if (item.getItemId() == R.id.bt_Search) {
+                    item.setTitle(".");
                     fr_SelectBottom = new Fragment_Search();
                 } else if (item.getItemId() == R.id.bt_Notify) {
+                    item.setTitle(".");
                     fr_SelectBottom = new Fragment_Notify();
                 }else {
+                    item.setTitle(".");
                     fr_SelectBottom = new Fragment_Profile();
                 }
 
