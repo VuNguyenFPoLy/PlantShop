@@ -35,6 +35,7 @@ public class Fragment_AddProduct extends Fragment {
     private final int PICK_IMAGE_REQUEST = 1;
     private Uri uri;
     private DAO_Product dao_product;
+    private Fragment fragment;
 
     @Nullable
     @Override
@@ -56,12 +57,14 @@ public class Fragment_AddProduct extends Fragment {
         tv_TypeOfProduct = view.findViewById(R.id.tv_TypeOfProduct);
 
         dao_product = new DAO_Product();
-
+        Bundle bundle = new Bundle();
         // trở về
         img_Back.setOnClickListener(v -> {
-            FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.fr_Layout, new Fragment_Product()).commit();
-            fragmentTransaction.addToBackStack(null);
+            fragment = new Fragment_Product();
+            bundle.putString("key", Fragment_Product.key);
+            fragment.setArguments(bundle);
+            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fr_Layout, fragment).commit();
+
         });
 
         // trở về
@@ -182,7 +185,6 @@ public class Fragment_AddProduct extends Fragment {
                     setNullEdt();
                     Toast.makeText(getContext(), "Đã thêm sản phẩm mới", Toast.LENGTH_SHORT).show();
                     Fragment fragment = new Fragment_Product();
-                    Bundle bundle = new Bundle();
                     bundle.putString("key", Fragment_Product.key);
                     fragment.setArguments(bundle);
 

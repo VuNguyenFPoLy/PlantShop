@@ -26,6 +26,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
+
 public class Fragment_Product extends Fragment {
 
     private ImageView img_Back, ic_Cart;
@@ -35,6 +37,7 @@ public class Fragment_Product extends Fragment {
     private boolean checktv_All, checktv_UaBong, checktv_UaMat, checktv_UaSang, checktv_UaToi;
     private Query query;
     public static String key;
+    public static ArrayList<Product> listProduct = new ArrayList<>();
 
 
     @Nullable
@@ -53,16 +56,22 @@ public class Fragment_Product extends Fragment {
         tv_FAB = view.findViewById(R.id.tv_FAB);
         rc_Product = view.findViewById(R.id.rc_Product);
 
+        if (MainActivity.id <= 0) {
+            ic_Cart.setVisibility(View.GONE);
+        }
+
         DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference("Product");
 
         Bundle bundle = getArguments();
         key = bundle.getString("key");
 
 
+        // Kiểm tra và chỉnh sửa truy xuất
         if(key.equals("Xem thêm cây trồng")){
             query = databaseRef.child("Cây trồng");
         }
 
+        // Thiết lập màu, background và lệnh truy xuất
         tv_All.setOnClickListener(v -> {
             checktv_All = true;
             checktv_UaBong = false;
@@ -120,9 +129,7 @@ public class Fragment_Product extends Fragment {
         });
 
 
-        if (MainActivity.id <= 0) {
-            ic_Cart.setVisibility(View.GONE);
-        }
+        // Thiết lập danh sách và gán dữ liệu lên recycle
 
         FirebaseRecyclerOptions options = new FirebaseRecyclerOptions.Builder<Product>()
                 .setQuery(query, Product.class)
@@ -131,10 +138,23 @@ public class Fragment_Product extends Fragment {
             @Override
             protected void onBindViewHolder(@NonNull ProductAdapter.ViewHolder holder, int position, @NonNull Product model) {
 
+                // Gán dữ liệu
                 Picasso.get().load(model.getUrl_Img()).into(holder.img_Item_Product);
                 holder.tv_PlantName.setText(model.getTenSanPham());
                 holder.tv_PlantType.setText(model.getTheLoaiSanPham());
                 holder.tv_PlantPrice.setText(String.valueOf(model.getGiaTien()) + " VNĐ");
+
+                listProduct.add(model);
+
+                holder.itemView.setOnClickListener(v -> {
+                    Fragment fragment = new Fragment_Edit_Or_Delete();
+                    Bundle bundle1 = new Bundle();
+
+                    bundle1.putInt("id", model.getIdSanPham());
+                    fragment.setArguments(bundle1);
+                    getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fr_Layout, fragment).commit();
+                });
+
             }
 
             @NonNull
@@ -149,6 +169,7 @@ public class Fragment_Product extends Fragment {
         rc_Product.setAdapter(adapter);
         adapter.startListening();
 
+        // Chuyền fragment
         img_Back.setOnClickListener(v -> {
             adapter.stopListening();
             FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
@@ -166,6 +187,7 @@ public class Fragment_Product extends Fragment {
         return view;
     }
 
+    // phương thức hiển thị product theo từng lựa chọn
     private void updateRecyclerView(Query newQuery) {
         FirebaseRecyclerOptions<Product> newOptions = new FirebaseRecyclerOptions.Builder<Product>()
                 .setQuery(newQuery, Product.class)
@@ -191,6 +213,7 @@ public class Fragment_Product extends Fragment {
     }
 
 
+    // phương thức thay đổi màu chữ và nền
     public void changeTV(boolean checktv_All, boolean checktv_UaBong, boolean checktv_UaMat, boolean checktv_UaSang, boolean checktv_UaToi){
         if(checktv_All){
             tv_All.setTextColor(getResources().getColor(R.color.white));
