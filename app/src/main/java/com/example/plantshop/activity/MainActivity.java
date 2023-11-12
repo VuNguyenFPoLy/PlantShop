@@ -26,10 +26,10 @@ import com.google.android.material.navigation.NavigationBarView;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ImageView img_cart;
-    private FrameLayout fr_Layout;
+
     private BottomNavigationView bottom_Navigation;
     private AppBarLayout appbarLayout;
+    public static int id;
 
 
     @Override
@@ -38,16 +38,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Activity_DangNhap.makeStatusBarTransparent(getWindow(), MainActivity.this);
 
-        img_cart = findViewById(R.id.img_cart);
-        fr_Layout = findViewById(R.id.fr_Layout);
         bottom_Navigation = findViewById(R.id.bottom_Navigation);
         appbarLayout = findViewById(R.id.appbarLayout);
 
         Intent intent = getIntent();
-        int id = intent.getIntExtra("id", -1);
-        if(id == 0){
-            img_cart.setVisibility(View.GONE);
-        }
+        id = intent.getIntExtra("id", -1);
 
 
         bottom_Navigation.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
@@ -78,25 +73,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
         bottom_Navigation.setSelectedItemId(R.id.bt_Home);
-
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
-            @Override
-            public void onBackStackChanged() {
-                // Kiểm tra Fragment hiện tại
-                Fragment currentFragment = fragmentManager.findFragmentById(R.id.fr_Layout);
-                Log.d("MainActivity", "onBackStackChanged: " + currentFragment.getClass().getSimpleName());
-
-                // Hiển thị hoặc ẩn AppBarLayout dựa trên Fragment hiện tại
-                if (currentFragment instanceof Fragment_Home) {
-                    appbarLayout.setVisibility(View.VISIBLE);
-                } else {
-                    appbarLayout.setVisibility(View.GONE);
-                }
-            }
-        });
-
-
 
     }
 }

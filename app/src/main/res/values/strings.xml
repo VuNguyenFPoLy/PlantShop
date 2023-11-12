@@ -11,4 +11,9 @@
     <string name="lb_login">Mua sắm và trải nghiệm sản phẩm cây trồng</string>
     <string name="channel_name">Thông báo</string>
     <string name="channel_description">Đây là thông báo</string>
+
+    // home
+    <string name="viewAllPlant">Xem thêm cây trồng</string>
+    <string name="viewAllPots">Xem thêm  chậu cây</string>
+    <string name="viewAllTools">Xem thêm  dụng cụ</string>
 </resources>

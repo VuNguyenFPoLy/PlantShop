@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+    android:layout_width="190dp"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:padding="10dp">
+    android:paddingHorizontal="5dp"
+    android:layout_marginVertical="5dp">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -12,7 +13,7 @@
         app:cardCornerRadius="8dp"
         >
         <ImageView
-            android:id="@+id/img_Item_Product"
+            android:id="@+id/img_Item_Product_Gr"
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:background="@color/background_item_product"
@@ -20,7 +21,7 @@
     </androidx.cardview.widget.CardView>
 
     <TextView
-        android:id="@+id/tv_PlantName"
+        android:id="@+id/tv_PlantName_Gr"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/plant_Name"
@@ -31,7 +32,7 @@
         android:layout_marginTop="5dp"/>
 
     <TextView
-        android:id="@+id/tv_PlantType"
+        android:id="@+id/tv_PlantType_Gr"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/plant_Type"
@@ -41,7 +42,7 @@
         android:layout_marginTop="5dp"/>
 
     <TextView
-        android:id="@+id/tv_PlantPrice"
+        android:id="@+id/tv_PlantPrice_Gr"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/lato"

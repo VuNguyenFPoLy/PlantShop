@@ -1,38 +1,146 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingHorizontal="24dp"
-    android:orientation="vertical"
-    android:id="@+id/fragment_home">
-
-    <TextView
-        android:id="@+id/lb_Product"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/plant"
-        android:textColor="@color/black"
-        android:fontFamily="@font/lato"
-        android:textStyle="bold"
-        android:textSize="24sp" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rc_Product"
+    >
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:layout_marginVertical="15dp"
-        />
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:id="@+id/fragment_home">
 
-    <TextView
-        android:id="@+id/tv_ViewAllProduct"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/view_All_Product"
-        android:textColor="@color/black"
-        android:fontFamily="@font/lato"
-        android:textStyle="bold"
-        android:textAlignment="textEnd"
-        android:layout_marginBottom="15dp"
-        android:textSize="16sp" />
-</LinearLayout>
+        <RelativeLayout
+            android:id="@+id/header"
+            android:layout_width="match_parent"
+            android:layout_height="320dp"
+            android:background="@drawable/banner"
+            >
+
+            <ImageView
+                android:id="@+id/img_cart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:src="@drawable/shopping_cart_24px"
+                android:background="@drawable/background_circle"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginEnd="25dp"
+                android:layout_marginTop="23dp"/>
+
+            <TextView
+                android:layout_width="241dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="30dp"
+                android:fontFamily="@font/lato"
+                android:text="@string/content_Banner"
+                android:textColor="@color/black"
+                android:textSize="24sp" />
+
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingHorizontal="24dp"
+            android:orientation="vertical"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/plant"
+                android:textColor="@color/black"
+                android:fontFamily="@font/lato"
+                android:textStyle="bold"
+                android:textSize="24sp" />
+
+            <GridLayout
+                android:id="@+id/gridLayout_Plant"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:columnCount="2"
+                android:rowCount="3"
+                android:alignmentMode="alignMargins"
+                android:columnOrderPreserved="false"/>
+
+
+            <TextView
+                android:id="@+id/tv_ViewAllPlant"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/viewAllPlant"
+                android:textColor="@color/black"
+                android:fontFamily="@font/lato"
+                android:textStyle="bold"
+                android:textAlignment="textEnd"
+                android:layout_marginBottom="15dp"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Chậu cây trồng"
+                android:textColor="@color/black"
+                android:fontFamily="@font/lato"
+                android:textStyle="bold"
+                android:textSize="24sp" />
+
+            <GridLayout
+                android:id="@+id/gridLayout_Pots"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:columnCount="2"
+                android:rowCount="3"
+                android:alignmentMode="alignMargins"
+                android:columnOrderPreserved="false"/>
+
+            <TextView
+                android:id="@+id/tv_ViewAllPots"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/viewAllPots"
+                android:textColor="@color/black"
+                android:fontFamily="@font/lato"
+                android:textStyle="bold"
+                android:textAlignment="textEnd"
+                android:layout_marginBottom="15dp"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Dụng cụ"
+                android:textColor="@color/black"
+                android:fontFamily="@font/lato"
+                android:textStyle="bold"
+                android:textSize="24sp" />
+
+            <GridLayout
+                android:id="@+id/gridLayout_Tool"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:columnCount="2"
+                android:rowCount="3"
+                android:alignmentMode="alignMargins"
+                android:columnOrderPreserved="false"/>
+
+            <TextView
+                android:id="@+id/tv_ViewAllTools"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/viewAllTools"
+                android:textColor="@color/black"
+                android:fontFamily="@font/lato"
+                android:textStyle="bold"
+                android:textAlignment="textEnd"
+                android:layout_marginBottom="15dp"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+</ScrollView>

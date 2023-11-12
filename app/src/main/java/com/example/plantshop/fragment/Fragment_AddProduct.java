@@ -85,19 +85,13 @@ public class Fragment_AddProduct extends Fragment {
             dialog.show();
         });
 
-        tv_TypeProduct.setOnClickListener(v -> {
-            String[] type = {"Cây trồng", "Chậu cây", "Dụng cụ"};
-
-            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-            builder.setTitle("Chọn loại sản phẩm");
-            builder.setItems(type, (dialog, which) -> { // Thiết lập Item lên thông báo
-                tv_TypeProduct.setText(type[which]);
-                tv_TypeOfProduct.setText("Chọn thể loại sản phẩm");
-            });
-
-            AlertDialog dialog = builder.create();
-            dialog.show();
-        });
+        if(Fragment_Product.key.equals("Xem thêm cây trồng")){
+            tv_TypeProduct.setText("Cây trồng");
+        } else if (Fragment_Product.key.equals("Xem thêm  chậu cây")) {
+            tv_TypeProduct.setText("Chậu cây");
+        }else {
+            tv_TypeProduct.setText("Dụng cụ");
+        }
 
         tv_TypeOfProduct.setOnClickListener(v -> {
             String[] typeOfPlant = {"Ưa bóng", "Ưa mát", "Ưa sáng", "Ưa tối"};
@@ -135,6 +129,7 @@ public class Fragment_AddProduct extends Fragment {
             intent.setType("image/*");
             intent.setAction(Intent.ACTION_OPEN_DOCUMENT);
             startActivityForResult(Intent.createChooser(intent, "Select Picture"), 1);
+            lb_Notify.setVisibility(View.GONE);
         });
 
         btn_Submit.setOnClickListener(v -> {
@@ -186,8 +181,13 @@ public class Fragment_AddProduct extends Fragment {
                 if(dao_product.pushProduct(product, uri)){
                     setNullEdt();
                     Toast.makeText(getContext(), "Đã thêm sản phẩm mới", Toast.LENGTH_SHORT).show();
+                    Fragment fragment = new Fragment_Product();
+                    Bundle bundle = new Bundle();
+                    bundle.putString("key", Fragment_Product.key);
+                    fragment.setArguments(bundle);
+
                     FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                    fragmentTransaction.replace(R.id.fr_Layout, new Fragment_Product()).commit();
+                    fragmentTransaction.replace(R.id.fr_Layout, fragment).commit();
                     fragmentTransaction.addToBackStack(null);
                 }
             }

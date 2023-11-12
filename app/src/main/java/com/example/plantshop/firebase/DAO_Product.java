@@ -4,6 +4,7 @@ import android.net.Uri;
 
 import androidx.annotation.NonNull;
 
+import com.example.plantshop.fragment.Fragment_Product;
 import com.example.plantshop.model.Account;
 import com.example.plantshop.model.Product;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -26,9 +27,15 @@ public class DAO_Product {
     private ArrayList<Product> listProduct;
     boolean result = false;
 
+
+
+
     public DAO_Product() {
-        databaseRef = FirebaseDatabase.getInstance().getReference("Product");
-        storageRef = FirebaseStorage.getInstance().getReference("Product");
+        if(Fragment_Product.key.equals("Xem thêm cây trồng")){
+            databaseRef = FirebaseDatabase.getInstance().getReference("Product").child("Cây trồng");
+            storageRef = FirebaseStorage.getInstance().getReference("Product").child("Cây trồng");
+        }
+
         listProduct = new ArrayList<>();
         databaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -45,6 +52,31 @@ public class DAO_Product {
 
             }
         });
+    }
+
+//    public ArrayList<Product> getListProduct() {
+//        return listProduct;
+//    }
+
+    public static ArrayList<Product> getListPlant(){
+        ArrayList<Product> listPlant = new ArrayList<>();
+       DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference("Product").child("Cây trồng");
+        databaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()
+                ) {
+                    Product product = dataSnapshot.getValue(Product.class);
+                    listPlant.add(product);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        return listPlant;
     }
 
     public boolean pushProduct(Product product, Uri uri){
@@ -64,7 +96,7 @@ public class DAO_Product {
 
             if(uri != null){
                 result = true;
-                storageRef.child(String.valueOf(getID())).putFile(uri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                storageRef.child(product.getLoaiSanPham()+"/"+String.valueOf(getID())).putFile(uri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
                         task.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {

@@ -18,41 +18,8 @@
             android:layout_height="wrap_content"
             android:fitsSystemWindows="true"
             app:layout_scrollFlags="scroll|snap|exitUntilCollapsed"
-
             >
-            <RelativeLayout
-                android:id="@+id/header"
-                android:layout_width="match_parent"
-                android:layout_height="320dp"
-                android:background="@drawable/banner"
-                >
 
-                <ImageView
-                    android:id="@+id/img_cart"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="10dp"
-                    android:src="@drawable/shopping_cart_24px"
-                    android:background="@drawable/background_circle"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginEnd="25dp"
-                    android:layout_marginTop="23dp"/>
-
-                <TextView
-                    android:layout_width="241dp"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginStart="25dp"
-                    android:layout_marginTop="30dp"
-                    android:fontFamily="@font/lato"
-                    android:text="@string/content_Banner"
-                    android:textColor="@color/black"
-                    android:textSize="24sp" />
-
-
-            </RelativeLayout>
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
