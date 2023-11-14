@@ -32,7 +32,7 @@ public class Fragment_Edit_Or_Delete extends Fragment {
     private Button btn_Delete, btn_Edit;
     private ArrayList<Product> listProduct = Fragment_Product.listProduct;
     public static int id;
-
+    private boolean check = false;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -100,9 +100,21 @@ public class Fragment_Edit_Or_Delete extends Fragment {
             Button btn_Accept = bottomDialog.findViewById(R.id.btn_Accept);
             TextView tv_Cancel = bottomDialog.findViewById(R.id.tv_Cancel);
 
-            btn_Accept.setOnClickListener(v1 -> {
-                DAO_Product.deletePlant(id);
-                if(DAO_Product.deletePlant(id)){
+            String typeProduct = tv_Type_Product.getText().toString();
+            btn_Accept.setOnClickListener(v1 -> { // chấp nhận xoá
+
+                if(typeProduct.equals("Cây trồng")){
+                    DAO_Product.deletePlant(id);
+                    check = true;
+                } else if (typeProduct.equals("Chậu cây")) {
+                    DAO_Product.deletePots(id);
+                    check = true;
+                }else {
+                    DAO_Product.deleteTools(id);
+                    check = true;
+                }
+
+                if(check){
                     Fragment fragment = new Fragment_Product();
                     Bundle bundle = new Bundle();
                     bundle.putString("key", Fragment_Product.key);
@@ -111,9 +123,11 @@ public class Fragment_Edit_Or_Delete extends Fragment {
                     bottomDialog.dismiss();
                     Toast.makeText(getContext(), "Đã xoá " + tv_NameProduct.getText().toString(), Toast.LENGTH_SHORT).show();
                 }
+
+
             });
 
-            tv_Cancel.setOnClickListener(v1 -> {
+            tv_Cancel.setOnClickListener(v1 -> { // huỷ xoá
                 bottomDialog.dismiss();
             });
 

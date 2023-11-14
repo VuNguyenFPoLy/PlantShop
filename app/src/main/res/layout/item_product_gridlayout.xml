@@ -21,7 +21,7 @@
     </androidx.cardview.widget.CardView>
 
     <TextView
-        android:id="@+id/tv_PlantName_Gr"
+        android:id="@+id/tv_ItemName_Gr"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/plant_Name"
@@ -32,7 +32,7 @@
         android:layout_marginTop="5dp"/>
 
     <TextView
-        android:id="@+id/tv_PlantType_Gr"
+        android:id="@+id/tv_ItemType_Gr"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/plant_Type"
@@ -42,7 +42,7 @@
         android:layout_marginTop="5dp"/>
 
     <TextView
-        android:id="@+id/tv_PlantPrice_Gr"
+        android:id="@+id/tv_ItemPrice_Gr"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/lato"

@@ -33,6 +33,12 @@ public class DAO_Product {
         if (Fragment_Product.key.equals("Xem thêm cây trồng")) {
             databaseRef = FirebaseDatabase.getInstance().getReference("Product").child("Cây trồng");
             storageRef = FirebaseStorage.getInstance().getReference("Product").child("Cây trồng");
+        } else if (Fragment_Product.key.equals("Xem thêm chậu cây")) {
+            databaseRef = FirebaseDatabase.getInstance().getReference("Product").child("Chậu cây");
+            storageRef = FirebaseStorage.getInstance().getReference("Product").child("Chậu cây");
+        } else if (Fragment_Product.key.equals("Xem thêm dụng cụ")) {
+            databaseRef = FirebaseDatabase.getInstance().getReference("Product").child("Dụng cụ");
+            storageRef = FirebaseStorage.getInstance().getReference("Product").child("Dụng cụ");
         }
 
         listProduct = new ArrayList<>();
@@ -53,9 +59,6 @@ public class DAO_Product {
         });
     }
 
-//    public ArrayList<Product> getListProduct() {
-//        return listProduct;
-//    }
 
     public static ArrayList<Product> getListPlant() {
         ArrayList<Product> listPlant = new ArrayList<>();
@@ -78,6 +81,48 @@ public class DAO_Product {
         return listPlant;
     }
 
+    public static ArrayList<Product> getListPots(){
+        ArrayList<Product> listPots = new ArrayList<>();
+        DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference("Product").child("Chậu cây");
+        databaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()
+                ) {
+                    Product product = dataSnapshot.getValue(Product.class);
+                    listPots.add(product);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        return listPots;
+    }
+
+    public static ArrayList<Product> getListTools(){
+        ArrayList<Product> listTools = new ArrayList<>();
+        DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference("Product").child("Dụng cụ");
+        databaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()
+                ) {
+                    Product product = dataSnapshot.getValue(Product.class);
+                    listTools.add(product);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        return listTools;
+    }
+
     public static boolean deletePlant(int id) {
 
         DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference("Product").child("Cây trồng");
@@ -92,7 +137,33 @@ public class DAO_Product {
         return true;
     }
 
-    // Viết hàm update sản phẩm
+    public static boolean deletePots(int id) {
+
+        DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference("Product").child("Chậu cây");
+        StorageReference storageRef = FirebaseStorage.getInstance().getReference("Product").child("Chậu cây");
+
+        databaseRef.child(String.valueOf(id)).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                storageRef.child(String.valueOf(id)).delete();
+            }
+        });
+        return true;
+    }
+
+    public static boolean deleteTools(int id) {
+
+        DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference("Product").child("Dụng cụ");
+        StorageReference storageRef = FirebaseStorage.getInstance().getReference("Product").child("Dụng cụ");
+
+        databaseRef.child(String.valueOf(id)).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                storageRef.child(String.valueOf(id)).delete();
+            }
+        });
+        return true;
+    }
 
     public boolean pushProduct(Product product, Uri uri) {
 
@@ -111,7 +182,7 @@ public class DAO_Product {
         if (!check) {
             if (uri != null) {
                 result = true;
-                storageRef.child(product.getLoaiSanPham() + "/" + String.valueOf(getID())).putFile(uri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                storageRef.child(String.valueOf(getID())).putFile(uri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
                         task.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -126,7 +197,7 @@ public class DAO_Product {
                                 if (product.getIdSanPham() == -1) {
                                     product.setIdSanPham(getID());
                                 }
-                                if (product.getUrl_Img().isEmpty() || product.getUrl_Img() == null) {
+                                if (product.getUrl_Img() == null) {
                                     product.setUrl_Img(url);
 
                                 }

@@ -40,7 +40,7 @@ public class Fragment_AddProduct extends Fragment {
     private DAO_Product dao_product;
     private Fragment fragment;
     private ArrayList<Product> listProduct = Fragment_Product.listProduct;
-    private String getURl;
+    private String getURl, checkEditPD;
 
     @Nullable
     @Override
@@ -65,9 +65,11 @@ public class Fragment_AddProduct extends Fragment {
         Bundle bundle = new Bundle();
 
         Bundle checkEdit = getArguments();
-        String checkEditPD = checkEdit.getString("edit");
+        if(checkEdit != null){
+            checkEditPD = checkEdit.getString("edit");
+        }
 
-        if(!checkEditPD.isEmpty()){
+        if(checkEditPD != null){
 
             for (Product pd : listProduct
             ) {
@@ -122,7 +124,7 @@ public class Fragment_AddProduct extends Fragment {
 
         if(Fragment_Product.key.equals("Xem thêm cây trồng")){
             tv_TypeProduct.setText("Cây trồng");
-        } else if (Fragment_Product.key.equals("Xem thêm  chậu cây")) {
+        } else if (Fragment_Product.key.equals("Xem thêm chậu cây")) {
             tv_TypeProduct.setText("Chậu cây");
         }else {
             tv_TypeProduct.setText("Dụng cụ");
@@ -203,7 +205,7 @@ public class Fragment_AddProduct extends Fragment {
             } else {
 
                 Product product = new Product();
-                if(!checkEditPD.isEmpty()){
+                if(checkEditPD != null){
                     product.setIdSanPham(Fragment_Edit_Or_Delete.id);
                 }else {
                     product.setIdSanPham(-1);

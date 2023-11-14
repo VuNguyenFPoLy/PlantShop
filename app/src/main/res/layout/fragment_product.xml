@@ -38,15 +38,23 @@
             android:layout_alignParentEnd="true"/>
     </RelativeLayout>
 
-    <GridLayout
-        android:id="@+id/grid_ItemLayout"
+    <HorizontalScrollView
         android:layout_width="match_parent"
-        android:layout_height="65dp"
-        android:paddingVertical="15dp"
-        android:rowCount="1"
-        >
+        android:layout_height="wrap_content"
+        android:scrollbars="none"
+        android:fillViewport="true">
 
-    </GridLayout>
+        <GridLayout
+            android:id="@+id/grid_ItemLayout"
+            android:layout_width="match_parent"
+            android:layout_height="65dp"
+            android:paddingVertical="15dp"
+            android:orientation="vertical"
+            android:rowCount="1">
+
+        </GridLayout>
+    </HorizontalScrollView>
+
 
     <RelativeLayout
         android:layout_width="match_parent"

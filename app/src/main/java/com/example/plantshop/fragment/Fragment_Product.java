@@ -121,12 +121,103 @@ public class Fragment_Product extends Fragment {
                 grid_ItemLayout.addView(viewIT);
             }
 
-        } else if (key.equals("Xem thêm  chậu cây")) {
+        } else if (key.equals("Xem thêm chậu cây")) {
+
             query = databaseRef.child("Chậu cây");
             tv_Label.setText("Chậu cây");
+
+            List<String> itemType = Arrays.asList("Tất cả", "Gốm", "Xứ", "Xi măng", "Nhựa", "Đất nung");
+
+            grid_ItemLayout.setColumnCount(itemType.size());
+
+            for (int i = 0; i < itemType.size(); i++) {
+                View itemProductView = LayoutInflater.from(getContext()).inflate(R.layout.item_type_product, grid_ItemLayout, false);
+                TextView textItem = itemProductView.findViewById(R.id.textItem);
+
+                String string = itemType.get(i).toString();
+                textItem.setText(string);
+
+                item_View.add(itemProductView);
+
+                if(string.equals("Tất cả")){ // mặc định màu cho type tất cả
+                    textItem.setTextColor(getResources().getColor(R.color.white));
+                    textItem.setBackground(getResources().getDrawable(R.drawable.background_type_product));
+                }
+
+                textItem.setOnClickListener(v -> { // thay đổi màu chữ, màu nền, và câu lệnh truy vấn
+                    for (int j = 0; j < itemType.size(); j++) {
+                        TextView currentItem = item_View.get(j).findViewById(R.id.textItem);
+                        if (itemType.get(j).toString().equals(string)) {
+                            currentItem.setTextColor(getResources().getColor(R.color.white));
+                            currentItem.setBackground(getResources().getDrawable(R.drawable.background_type_product));
+                            if(string.equals("Tất cả")){
+                                query = databaseRef.child("Chậu cây");
+                            }else {
+                                query = databaseRef.child("Chậu cây").orderByChild("theLoaiSanPham").equalTo(string);
+
+                            }
+                            updateRecyclerView(query);
+
+                        } else {
+                            currentItem.setTextColor(getResources().getColor(R.color.color_Plant_Type));
+                            currentItem.setBackgroundColor(getResources().getColor(R.color.white));
+                        }
+                    }
+                });
+            }
+
+            for (View viewIT : item_View) { // đổ item lên view
+                grid_ItemLayout.addView(viewIT);
+            }
+
         } else {
             query = databaseRef.child("Dụng cụ");
             tv_Label.setText("Dụng cụ");
+
+            List<String> itemType = Arrays.asList("Tất cả", "Găng tay", "Cuốc", "Xẻng", "Cào đất", "Bay", "Cưa", "Đinh ba");
+
+            grid_ItemLayout.setColumnCount(itemType.size());
+
+            for (int i = 0; i < itemType.size(); i++) {
+                View itemProductView = LayoutInflater.from(getContext()).inflate(R.layout.item_type_product, grid_ItemLayout, false);
+                TextView textItem = itemProductView.findViewById(R.id.textItem);
+
+                String string = itemType.get(i).toString();
+                textItem.setText(string);
+
+                item_View.add(itemProductView);
+
+                if(string.equals("Tất cả")){ // mặc định màu cho type tất cả
+                    textItem.setTextColor(getResources().getColor(R.color.white));
+                    textItem.setBackground(getResources().getDrawable(R.drawable.background_type_product));
+                }
+
+                textItem.setOnClickListener(v -> { // thay đổi màu chữ, màu nền, và câu lệnh truy vấn
+                    for (int j = 0; j < itemType.size(); j++) {
+                        TextView currentItem = item_View.get(j).findViewById(R.id.textItem);
+                        if (itemType.get(j).toString().equals(string)) {
+                            currentItem.setTextColor(getResources().getColor(R.color.white));
+                            currentItem.setBackground(getResources().getDrawable(R.drawable.background_type_product));
+                            if(string.equals("Tất cả")){
+                                query = databaseRef.child("Chậu cây");
+                            }else {
+                                query = databaseRef.child("Chậu cây").orderByChild("theLoaiSanPham").equalTo(string);
+
+                            }
+                            updateRecyclerView(query);
+
+                        } else {
+                            currentItem.setTextColor(getResources().getColor(R.color.color_Plant_Type));
+                            currentItem.setBackgroundColor(getResources().getColor(R.color.white));
+                        }
+                    }
+                });
+            }
+
+            for (View viewIT : item_View) { // đổ item lên view
+                grid_ItemLayout.addView(viewIT);
+            }
+
         }
 
 
@@ -175,14 +266,12 @@ public class Fragment_Product extends Fragment {
             adapter.stopListening();
             FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.fr_Layout, new Fragment_Home()).commit();
-            fragmentTransaction.addToBackStack(null);
         });
 
         tv_FAB.setOnClickListener(v -> {
             adapter.stopListening();
             FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.fr_Layout, new Fragment_AddProduct()).commit();
-            fragmentTransaction.addToBackStack(null);
         });
 
         return view;
@@ -211,51 +300,6 @@ public class Fragment_Product extends Fragment {
 
         rc_Product.setAdapter(newAdapter);
         newAdapter.startListening();
-    }
-
-
-    // phương thức thay đổi màu chữ và nền
-    public void changeTV(boolean checktv_All, boolean checktv_UaBong, boolean checktv_UaMat, boolean checktv_UaSang, boolean checktv_UaToi) {
-        if (checktv_All) {
-            tv_All.setTextColor(getResources().getColor(R.color.white));
-            tv_All.setBackground(getResources().getDrawable(R.drawable.background_type_product));
-        } else {
-            tv_All.setTextColor(getResources().getColor(R.color.color_Plant_Type));
-            tv_All.setBackgroundColor(getResources().getColor(R.color.white));
-        }
-
-
-        if (checktv_UaBong) {
-            tv_UaBong.setTextColor(getResources().getColor(R.color.white));
-            tv_UaBong.setBackground(getResources().getDrawable(R.drawable.background_type_product));
-        } else {
-            tv_UaBong.setTextColor(getResources().getColor(R.color.color_Plant_Type));
-            tv_UaBong.setBackgroundColor(getResources().getColor(R.color.white));
-        }
-
-        if (checktv_UaMat) {
-            tv_UaMat.setTextColor(getResources().getColor(R.color.white));
-            tv_UaMat.setBackground(getResources().getDrawable(R.drawable.background_type_product));
-        } else {
-            tv_UaMat.setTextColor(getResources().getColor(R.color.color_Plant_Type));
-            tv_UaMat.setBackgroundColor(getResources().getColor(R.color.white));
-        }
-
-        if (checktv_UaSang) {
-            tv_UaSang.setTextColor(getResources().getColor(R.color.white));
-            tv_UaSang.setBackground(getResources().getDrawable(R.drawable.background_type_product));
-        } else {
-            tv_UaSang.setTextColor(getResources().getColor(R.color.color_Plant_Type));
-            tv_UaSang.setBackgroundColor(getResources().getColor(R.color.white));
-        }
-
-        if (checktv_UaToi) {
-            tv_UaToi.setTextColor(getResources().getColor(R.color.white));
-            tv_UaToi.setBackground(getResources().getDrawable(R.drawable.background_type_product));
-        } else {
-            tv_UaToi.setTextColor(getResources().getColor(R.color.color_Plant_Type));
-            tv_UaToi.setBackgroundColor(getResources().getColor(R.color.white));
-        }
     }
 
 }

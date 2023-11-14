@@ -14,6 +14,6 @@
 
     // home
     <string name="viewAllPlant">Xem thêm cây trồng</string>
-    <string name="viewAllPots">Xem thêm  chậu cây</string>
-    <string name="viewAllTools">Xem thêm  dụng cụ</string>
+    <string name="viewAllPots">Xem thêm chậu cây</string>
+    <string name="viewAllTools">Xem thêm dụng cụ</string>
 </resources>

@@ -4,7 +4,6 @@ import android.graphics.Paint;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,18 +16,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.plantshop.R;
 import com.example.plantshop.activity.MainActivity;
-import com.example.plantshop.adapter.ProductAdapter;
 import com.example.plantshop.firebase.DAO_Product;
 import com.example.plantshop.model.Product;
-import com.firebase.ui.database.FirebaseRecyclerAdapter;
-import com.firebase.ui.database.FirebaseRecyclerOptions;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -40,7 +32,7 @@ public class Fragment_Home extends Fragment {
     private ImageView img_cart;
     private GridLayout gridLayout_Plant, gridLayout_Pots, gridLayout_Tool;
     private DAO_Product dao_product;
-    private ArrayList<Product> listPlant;
+    private ArrayList<Product> listPlant, listPots, listTools;
     private int size = -1;
     boolean firstTime = true;
 
@@ -52,9 +44,9 @@ public class Fragment_Home extends Fragment {
         tv_ViewAllPlant = view.findViewById(R.id.tv_ViewAllPlant);
         tv_ViewAllPots = view.findViewById(R.id.tv_ViewAllPots);
         tv_ViewAllTools = view.findViewById(R.id.tv_ViewAllTools);
-        gridLayout_Plant = view.findViewById(R.id.gridLayout_Plant);
         img_cart = view.findViewById(R.id.img_cart);
 
+        gridLayout_Plant = view.findViewById(R.id.gridLayout_Plant);
         gridLayout_Pots = view.findViewById(R.id.gridLayout_Pots);
         gridLayout_Tool = view.findViewById(R.id.gridLayout_Tool);
 
@@ -68,12 +60,18 @@ public class Fragment_Home extends Fragment {
         }
 
         listPlant = new ArrayList<>();
-        listPlant = dao_product.getListPlant();
+        listPots = new ArrayList<>();
+        listTools = new ArrayList<>();
 
+        listPlant = dao_product.getListPlant();
+        listPots = DAO_Product.getListPots();
+        listTools = DAO_Product.getListTools();
 
         Handler handler = new Handler(Looper.getMainLooper());
 
-        List<View> productViews = new ArrayList<>();
+        List<View> ViewItemPlant = new ArrayList<>();
+        List<View> ViewItemPots = new ArrayList<>();
+        List<View> ViewItemTools = new ArrayList<>();
 
         Runnable runnable = new Runnable() {
 
@@ -82,44 +80,105 @@ public class Fragment_Home extends Fragment {
 
                 if (firstTime) {
                     gridLayout_Plant.removeAllViews();
+                    gridLayout_Pots.removeAllViews();
+                    gridLayout_Tool.removeAllViews();
                     firstTime = false;
                 }
 
-                int size = listPlant.size();
-
-                if (size > 0) {
-
+                if (listPlant.size() > 0 ) { // đổ dữ liệu lên gridlayout cây trồng
                     handler.removeCallbacks(this);
+
 
                     for (Product product : listPlant) {
 
-                        View itemProductView = LayoutInflater.from(getContext()).inflate(R.layout.item_product_gridlayout, gridLayout_Plant, false);
+                        View itemPlantView = LayoutInflater.from(getContext()).inflate(R.layout.item_product_gridlayout, gridLayout_Plant, false);
 
-                        ImageView img_Item_Product_Gr = itemProductView.findViewById(R.id.img_Item_Product_Gr);
-                        TextView tv_PlantName_Gr = itemProductView.findViewById(R.id.tv_PlantName_Gr);
-                        TextView tv_PlantType_Gr = itemProductView.findViewById(R.id.tv_PlantType_Gr);
-                        TextView tv_PlantPrice_Gr = itemProductView.findViewById(R.id.tv_PlantPrice_Gr);
+                        ImageView img_Item_Product_Gr = itemPlantView.findViewById(R.id.img_Item_Product_Gr);
+                        TextView tv_ItemName_Gr = itemPlantView.findViewById(R.id.tv_ItemName_Gr);
+                        TextView tv_ItemType_Gr = itemPlantView.findViewById(R.id.tv_ItemType_Gr);
+                        TextView tv_ItemPrice_Gr = itemPlantView.findViewById(R.id.tv_ItemPrice_Gr);
 
                         Picasso.get().load(product.getUrl_Img()).into(img_Item_Product_Gr);
-                        tv_PlantName_Gr.setText(product.getTenSanPham());
-                        tv_PlantType_Gr.setText(product.getTheLoaiSanPham());
-                        tv_PlantPrice_Gr.setText(String.valueOf(product.getGiaTien()));
+                        tv_ItemName_Gr.setText(product.getTenSanPham());
+                        tv_ItemType_Gr.setText(product.getTheLoaiSanPham());
+                        tv_ItemPrice_Gr.setText(String.valueOf(product.getGiaTien()));
 
-                        productViews.add(itemProductView);
+                        ViewItemPlant.add(itemPlantView);
 
-                        itemProductView.setOnClickListener(v -> {
+                        itemPlantView.setOnClickListener(v -> {
                             Toast.makeText(getContext(), ""+product.getTenSanPham(), Toast.LENGTH_SHORT).show();
                         });
 
                     }
 
-                    for (View view : productViews) {
-                        gridLayout_Plant.addView(view);
+                    for (View viewPlant : ViewItemPlant) {
+                        gridLayout_Plant.addView(viewPlant);
                     }
 
                 } else {
                     handler.postDelayed(this, 500);
                 }
+
+                if (listPots.size() > 0 ) { // đổ dữ liệu lên gridlayout chậu cây
+
+                    for (Product product : listPots) {
+
+                        View itemPotsView = LayoutInflater.from(getContext()).inflate(R.layout.item_product_gridlayout, gridLayout_Pots, false);
+
+                        ImageView img_Item_Product_Gr = itemPotsView.findViewById(R.id.img_Item_Product_Gr);
+                        TextView tv_ItemName_Gr = itemPotsView.findViewById(R.id.tv_ItemName_Gr);
+                        TextView tv_ItemType_Gr = itemPotsView.findViewById(R.id.tv_ItemType_Gr);
+                        TextView tv_ItemPrice_Gr = itemPotsView.findViewById(R.id.tv_ItemPrice_Gr);
+
+                        Picasso.get().load(product.getUrl_Img()).into(img_Item_Product_Gr);
+                        tv_ItemName_Gr.setText(product.getTenSanPham());
+                        tv_ItemType_Gr.setText(product.getTheLoaiSanPham());
+                        tv_ItemPrice_Gr.setText(String.valueOf(product.getGiaTien()));
+
+                        ViewItemPots.add(itemPotsView);
+
+                        itemPotsView.setOnClickListener(v -> {
+                            Toast.makeText(getContext(), ""+product.getTenSanPham(), Toast.LENGTH_SHORT).show();
+                        });
+
+                    }
+
+                    for (View viewPots : ViewItemPots) {
+                        gridLayout_Pots.addView(viewPots);
+                    }
+
+                }
+
+                if (listTools.size() > 0 ) { // đổ dữ liệu lên gridlayout dụng cụ
+
+                    for (Product product : listTools) {
+
+                        View itemToolsView = LayoutInflater.from(getContext()).inflate(R.layout.item_product_gridlayout, gridLayout_Tool, false);
+
+                        ImageView img_Item_Product_Gr = itemToolsView.findViewById(R.id.img_Item_Product_Gr);
+                        TextView tv_ItemName_Gr = itemToolsView.findViewById(R.id.tv_ItemName_Gr);
+                        TextView tv_ItemType_Gr = itemToolsView.findViewById(R.id.tv_ItemType_Gr);
+                        TextView tv_ItemPrice_Gr = itemToolsView.findViewById(R.id.tv_ItemPrice_Gr);
+
+                        Picasso.get().load(product.getUrl_Img()).into(img_Item_Product_Gr);
+                        tv_ItemName_Gr.setText(product.getTenSanPham());
+                        tv_ItemType_Gr.setText(product.getTheLoaiSanPham());
+                        tv_ItemPrice_Gr.setText(String.valueOf(product.getGiaTien()));
+
+                        ViewItemTools.add(itemToolsView);
+
+                        itemToolsView.setOnClickListener(v -> {
+                            Toast.makeText(getContext(), ""+product.getTenSanPham(), Toast.LENGTH_SHORT).show();
+                        });
+
+                    }
+
+                    for (View viewTools : ViewItemTools) {
+                        gridLayout_Tool.addView(viewTools);
+                    }
+
+                }
+
 
             }
 
@@ -132,7 +191,7 @@ public class Fragment_Home extends Fragment {
         FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
         Bundle bundle = new Bundle();
 
-        tv_ViewAllPlant.setOnClickListener(v -> {
+        tv_ViewAllPlant.setOnClickListener(v -> { // xem tất cả cây
             Fragment fragment = new Fragment_Product();
             bundle.putString("key", tv_ViewAllPlant.getText().toString());
             fragment.setArguments(bundle);
@@ -140,9 +199,17 @@ public class Fragment_Home extends Fragment {
             fragmentTransaction.replace(R.id.fr_Layout, fragment).commit();
         });
 
-        tv_ViewAllPots.setOnClickListener(v -> {
+        tv_ViewAllPots.setOnClickListener(v -> { // xem tất cả chậu
             Fragment fragment = new Fragment_Product();
             bundle.putString("key", tv_ViewAllPots.getText().toString());
+            fragment.setArguments(bundle);
+
+            fragmentTransaction.replace(R.id.fr_Layout, fragment).commit();
+        });
+
+        tv_ViewAllTools.setOnClickListener(v -> { // xem tất cả dụng cụ
+            Fragment fragment = new Fragment_Product();
+            bundle.putString("key", tv_ViewAllTools.getText().toString());
             fragment.setArguments(bundle);
 
             fragmentTransaction.replace(R.id.fr_Layout, fragment).commit();
