@@ -1,11 +1,16 @@
 package com.example.plantshop.fragment;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -27,6 +32,8 @@ import com.google.firebase.database.Query;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class Fragment_Product extends Fragment {
 
@@ -38,6 +45,7 @@ public class Fragment_Product extends Fragment {
     private Query query;
     public static String key;
     public static ArrayList<Product> listProduct = new ArrayList<>();
+    private GridLayout grid_ItemLayout;
 
 
     @Nullable
@@ -48,11 +56,7 @@ public class Fragment_Product extends Fragment {
         img_Back = view.findViewById(R.id.img_Back);
         ic_Cart = view.findViewById(R.id.ic_Cart);
         tv_Label = view.findViewById(R.id.tv_Label);
-        tv_All = view.findViewById(R.id.tv_All);
-        tv_UaBong = view.findViewById(R.id.tv_UaBong);
-        tv_UaMat = view.findViewById(R.id.tv_UaMat);
-        tv_UaSang = view.findViewById(R.id.tv_UaSang);
-        tv_UaToi = view.findViewById(R.id.tv_UaToi);
+        grid_ItemLayout = view.findViewById(R.id.grid_ItemLayout);
         tv_FAB = view.findViewById(R.id.tv_FAB);
         rc_Product = view.findViewById(R.id.rc_Product);
 
@@ -65,68 +69,65 @@ public class Fragment_Product extends Fragment {
         Bundle bundle = getArguments();
         key = bundle.getString("key");
 
+        List<View> item_View = new ArrayList<>();
+        grid_ItemLayout.removeAllViews();
 
-        // Kiểm tra và chỉnh sửa truy xuất
-        if(key.equals("Xem thêm cây trồng")){
+        if (key.equals("Xem thêm cây trồng")) {
+
             query = databaseRef.child("Cây trồng");
+            tv_Label.setText("Cây trồng");
+
+            List<String> itemType = Arrays.asList("Tất cả", "Ưa bóng", "Ưa mát", "Ưa sáng", "Ưa tối");
+
+            grid_ItemLayout.setColumnCount(itemType.size());
+
+            for (int i = 0; i < itemType.size(); i++) {
+                View itemProductView = LayoutInflater.from(getContext()).inflate(R.layout.item_type_product, grid_ItemLayout, false);
+                TextView textItem = itemProductView.findViewById(R.id.textItem);
+
+                String string = itemType.get(i).toString();
+                textItem.setText(string);
+
+                item_View.add(itemProductView);
+
+                if(string.equals("Tất cả")){ // mặc định màu cho type tất cả
+                    textItem.setTextColor(getResources().getColor(R.color.white));
+                    textItem.setBackground(getResources().getDrawable(R.drawable.background_type_product));
+                }
+
+                textItem.setOnClickListener(v -> { // thay đổi màu chữ, màu nền, và câu lệnh truy vấn
+                    for (int j = 0; j < itemType.size(); j++) {
+                        TextView currentItem = item_View.get(j).findViewById(R.id.textItem);
+                        if (itemType.get(j).toString().equals(string)) {
+                            currentItem.setTextColor(getResources().getColor(R.color.white));
+                            currentItem.setBackground(getResources().getDrawable(R.drawable.background_type_product));
+                            if(string.equals("Tất cả")){
+                                query = databaseRef.child("Cây trồng");
+                            }else {
+                                query = databaseRef.child("Cây trồng").orderByChild("theLoaiSanPham").equalTo(string);
+
+                            }
+                            updateRecyclerView(query);
+
+                        } else {
+                            currentItem.setTextColor(getResources().getColor(R.color.color_Plant_Type));
+                            currentItem.setBackgroundColor(getResources().getColor(R.color.white));
+                        }
+                    }
+                });
+            }
+
+            for (View viewIT : item_View) { // đổ item lên view
+                grid_ItemLayout.addView(viewIT);
+            }
+
+        } else if (key.equals("Xem thêm  chậu cây")) {
+            query = databaseRef.child("Chậu cây");
+            tv_Label.setText("Chậu cây");
+        } else {
+            query = databaseRef.child("Dụng cụ");
+            tv_Label.setText("Dụng cụ");
         }
-
-        // Thiết lập màu, background và lệnh truy xuất
-        tv_All.setOnClickListener(v -> {
-            checktv_All = true;
-            checktv_UaBong = false;
-            checktv_UaMat = false;
-            checktv_UaSang = false;
-            checktv_UaToi = false;
-            changeTV(checktv_All, checktv_UaBong, checktv_UaMat, checktv_UaSang, checktv_UaToi);
-            query = databaseRef.child("Cây trồng");
-            updateRecyclerView(query);
-        });
-
-
-        tv_UaBong.setOnClickListener(v -> {
-            checktv_All = false;
-            checktv_UaBong = true;
-            checktv_UaMat = false;
-            checktv_UaSang = false;
-            checktv_UaToi = false;
-            changeTV(checktv_All, checktv_UaBong, checktv_UaMat, checktv_UaSang, checktv_UaToi);
-            query = databaseRef.child("Cây trồng").orderByChild("theLoaiSanPham").equalTo("Ưa bóng");
-            updateRecyclerView(query);
-        });
-
-        tv_UaMat.setOnClickListener(v -> {
-            checktv_All = false;
-            checktv_UaBong = false;
-            checktv_UaMat = true;
-            checktv_UaSang = false;
-            checktv_UaToi = false;
-            changeTV(checktv_All, checktv_UaBong, checktv_UaMat, checktv_UaSang, checktv_UaToi);
-            query = databaseRef.child("Cây trồng").orderByChild("theLoaiSanPham").equalTo("Ưa mát");
-            updateRecyclerView(query);
-        });
-
-        tv_UaSang.setOnClickListener(v -> {
-            checktv_All = false;
-            checktv_UaBong = false;
-            checktv_UaMat = false;
-            checktv_UaSang = true;
-            checktv_UaToi = false;
-            changeTV(checktv_All, checktv_UaBong, checktv_UaMat, checktv_UaSang, checktv_UaToi);
-            query = databaseRef.child("Cây trồng").orderByChild("theLoaiSanPham").equalTo("Ưa sáng");
-            updateRecyclerView(query);
-        });
-
-        tv_UaToi.setOnClickListener(v -> {
-            checktv_All = false;
-            checktv_UaBong = false;
-            checktv_UaMat = false;
-            checktv_UaSang = false;
-            checktv_UaToi = true;
-            changeTV(checktv_All, checktv_UaBong, checktv_UaMat, checktv_UaSang, checktv_UaToi);
-            query = databaseRef.child("Cây trồng").orderByChild("theLoaiSanPham").equalTo("Ưa tối");
-            updateRecyclerView(query);
-        });
 
 
         // Thiết lập danh sách và gán dữ liệu lên recycle
@@ -214,44 +215,44 @@ public class Fragment_Product extends Fragment {
 
 
     // phương thức thay đổi màu chữ và nền
-    public void changeTV(boolean checktv_All, boolean checktv_UaBong, boolean checktv_UaMat, boolean checktv_UaSang, boolean checktv_UaToi){
-        if(checktv_All){
+    public void changeTV(boolean checktv_All, boolean checktv_UaBong, boolean checktv_UaMat, boolean checktv_UaSang, boolean checktv_UaToi) {
+        if (checktv_All) {
             tv_All.setTextColor(getResources().getColor(R.color.white));
             tv_All.setBackground(getResources().getDrawable(R.drawable.background_type_product));
-        }else {
+        } else {
             tv_All.setTextColor(getResources().getColor(R.color.color_Plant_Type));
             tv_All.setBackgroundColor(getResources().getColor(R.color.white));
         }
 
 
-        if(checktv_UaBong){
+        if (checktv_UaBong) {
             tv_UaBong.setTextColor(getResources().getColor(R.color.white));
             tv_UaBong.setBackground(getResources().getDrawable(R.drawable.background_type_product));
-        }else {
+        } else {
             tv_UaBong.setTextColor(getResources().getColor(R.color.color_Plant_Type));
             tv_UaBong.setBackgroundColor(getResources().getColor(R.color.white));
         }
 
-        if(checktv_UaMat){
+        if (checktv_UaMat) {
             tv_UaMat.setTextColor(getResources().getColor(R.color.white));
             tv_UaMat.setBackground(getResources().getDrawable(R.drawable.background_type_product));
-        }else {
+        } else {
             tv_UaMat.setTextColor(getResources().getColor(R.color.color_Plant_Type));
             tv_UaMat.setBackgroundColor(getResources().getColor(R.color.white));
         }
 
-        if(checktv_UaSang){
+        if (checktv_UaSang) {
             tv_UaSang.setTextColor(getResources().getColor(R.color.white));
             tv_UaSang.setBackground(getResources().getDrawable(R.drawable.background_type_product));
-        }else {
+        } else {
             tv_UaSang.setTextColor(getResources().getColor(R.color.color_Plant_Type));
             tv_UaSang.setBackgroundColor(getResources().getColor(R.color.white));
         }
 
-        if(checktv_UaToi){
+        if (checktv_UaToi) {
             tv_UaToi.setTextColor(getResources().getColor(R.color.white));
             tv_UaToi.setBackground(getResources().getDrawable(R.drawable.background_type_product));
-        }else {
+        } else {
             tv_UaToi.setTextColor(getResources().getColor(R.color.color_Plant_Type));
             tv_UaToi.setBackgroundColor(getResources().getColor(R.color.white));
         }

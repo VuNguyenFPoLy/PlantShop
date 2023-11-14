@@ -26,12 +26,11 @@ public class DAO_Product {
     private StorageReference storageRef;
     private ArrayList<Product> listProduct;
     boolean result = false;
-
-
+    private boolean check = false;
 
 
     public DAO_Product() {
-        if(Fragment_Product.key.equals("Xem thêm cây trồng")){
+        if (Fragment_Product.key.equals("Xem thêm cây trồng")) {
             databaseRef = FirebaseDatabase.getInstance().getReference("Product").child("Cây trồng");
             storageRef = FirebaseStorage.getInstance().getReference("Product").child("Cây trồng");
         }
@@ -58,9 +57,9 @@ public class DAO_Product {
 //        return listProduct;
 //    }
 
-    public static ArrayList<Product> getListPlant(){
+    public static ArrayList<Product> getListPlant() {
         ArrayList<Product> listPlant = new ArrayList<>();
-       DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference("Product").child("Cây trồng");
+        DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference("Product").child("Cây trồng");
         databaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -79,7 +78,23 @@ public class DAO_Product {
         return listPlant;
     }
 
-    public boolean pushProduct(Product product, Uri uri){
+    public static boolean deletePlant(int id) {
+
+        DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference("Product").child("Cây trồng");
+        StorageReference storageRef = FirebaseStorage.getInstance().getReference("Product").child("Cây trồng");
+
+        databaseRef.child(String.valueOf(id)).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                storageRef.child(String.valueOf(id)).delete();
+            }
+        });
+        return true;
+    }
+
+    // Viết hàm update sản phẩm
+
+    public boolean pushProduct(Product product, Uri uri) {
 
         boolean check = false;
 
@@ -87,16 +102,16 @@ public class DAO_Product {
             for (int i = 0; i < listProduct.size(); i++) {
                 if (product.getTenSanPham().equals(listProduct.get(i).getTenSanPham())) {
                     check = true;
+                    result = false;
                     break;
                 }
             }
         }
 
-        if(!check){
-
-            if(uri != null){
+        if (!check) {
+            if (uri != null) {
                 result = true;
-                storageRef.child(product.getLoaiSanPham()+"/"+String.valueOf(getID())).putFile(uri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                storageRef.child(product.getLoaiSanPham() + "/" + String.valueOf(getID())).putFile(uri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
                         task.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -104,23 +119,32 @@ public class DAO_Product {
                             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
                                 Task<Uri> uriTask = taskSnapshot.getStorage().getDownloadUrl();
-                                while (!uriTask.isSuccessful());
+                                while (!uriTask.isSuccessful()) ;
                                 Uri downloadUri = uriTask.getResult();
                                 String url = downloadUri.toString();
 
-                                product.setIdSanPham(getID());
-                                product.setUrl_Img(url);
+                                if (product.getIdSanPham() == -1) {
+                                    product.setIdSanPham(getID());
+                                }
+                                if (product.getUrl_Img().isEmpty() || product.getUrl_Img() == null) {
+                                    product.setUrl_Img(url);
+
+                                }
                                 databaseRef.child(String.valueOf(getID())).setValue(product);
 
                             }
                         });
-
                     }
                 });
             }
         }
 
         return result;
+    }
+
+    public boolean updateProduct(Product product){
+        databaseRef.child(String.valueOf(product.getIdSanPham())).setValue(product);
+        return true;
     }
 
     public int getID() {

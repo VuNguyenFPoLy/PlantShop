@@ -6,4 +6,6 @@
     <color name="background_item_product">#F6F6F6</color>
     <color name="color_Plant_Type">#7D7B7B</color>
     <color name="delete">#4F4F4F</color>
+    <color name="light_gray">#F4F4F4</color>
+
 </resources>

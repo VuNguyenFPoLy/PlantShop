@@ -1,5 +1,6 @@
 package com.example.plantshop.fragment;
 
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -10,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -56,6 +58,11 @@ public class Fragment_Home extends Fragment {
         gridLayout_Pots = view.findViewById(R.id.gridLayout_Pots);
         gridLayout_Tool = view.findViewById(R.id.gridLayout_Tool);
 
+        // thêm gạch chân textview
+        tv_ViewAllPlant.setPaintFlags(tv_ViewAllPlant.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+        tv_ViewAllTools.setPaintFlags(tv_ViewAllTools.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+        tv_ViewAllPots.setPaintFlags(tv_ViewAllPots.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+
         if(MainActivity.id == 0){
             img_cart.setVisibility(View.GONE);
         }
@@ -100,11 +107,13 @@ public class Fragment_Home extends Fragment {
 
                         productViews.add(itemProductView);
 
+                        itemProductView.setOnClickListener(v -> {
+                            Toast.makeText(getContext(), ""+product.getTenSanPham(), Toast.LENGTH_SHORT).show();
+                        });
 
                     }
 
                     for (View view : productViews) {
-
                         gridLayout_Plant.addView(view);
                     }
 
@@ -129,7 +138,14 @@ public class Fragment_Home extends Fragment {
             fragment.setArguments(bundle);
 
             fragmentTransaction.replace(R.id.fr_Layout, fragment).commit();
-            fragmentTransaction.addToBackStack(null);
+        });
+
+        tv_ViewAllPots.setOnClickListener(v -> {
+            Fragment fragment = new Fragment_Product();
+            bundle.putString("key", tv_ViewAllPots.getText().toString());
+            fragment.setArguments(bundle);
+
+            fragmentTransaction.replace(R.id.fr_Layout, fragment).commit();
         });
 
 

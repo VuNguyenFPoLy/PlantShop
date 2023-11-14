@@ -25,6 +25,9 @@ import com.example.plantshop.R;
 import com.example.plantshop.firebase.DAO;
 import com.example.plantshop.firebase.DAO_Product;
 import com.example.plantshop.model.Product;
+import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
 
 public class Fragment_AddProduct extends Fragment {
 
@@ -36,6 +39,8 @@ public class Fragment_AddProduct extends Fragment {
     private Uri uri;
     private DAO_Product dao_product;
     private Fragment fragment;
+    private ArrayList<Product> listProduct = Fragment_Product.listProduct;
+    private String getURl;
 
     @Nullable
     @Override
@@ -58,6 +63,33 @@ public class Fragment_AddProduct extends Fragment {
 
         dao_product = new DAO_Product();
         Bundle bundle = new Bundle();
+
+        Bundle checkEdit = getArguments();
+        String checkEditPD = checkEdit.getString("edit");
+
+        if(!checkEditPD.isEmpty()){
+
+            for (Product pd : listProduct
+            ) {
+                if (Fragment_Edit_Or_Delete.id == pd.getIdSanPham()) {
+
+                    Picasso.get().load(pd.getUrl_Img()).into(img_addProduct);
+                    edt_NameProduct.setText(pd.getTenSanPham());
+                    tv_TypeProduct.setText(pd.getLoaiSanPham());
+                    tv_TypeOfProduct.setText(pd.getTheLoaiSanPham());
+                    edt_Price.setText(String.valueOf(pd.getGiaTien()));
+                    edt_Size.setText(pd.getKichCo());
+                    edt_Brand.setText(pd.getXuatXu());
+                    edt_Quantity.setText(String.valueOf(pd.getSoLuong()));
+                    edt_Describe.setText(pd.getMoTa());
+                    lb_Notify.setText("Nhấn để đổi ảnh");
+                    getURl = pd.getUrl_Img();
+                }
+            }
+        }
+
+
+
         // trở về
         img_Back.setOnClickListener(v -> {
             fragment = new Fragment_Product();
@@ -171,6 +203,12 @@ public class Fragment_AddProduct extends Fragment {
             } else {
 
                 Product product = new Product();
+                if(!checkEditPD.isEmpty()){
+                    product.setIdSanPham(Fragment_Edit_Or_Delete.id);
+                }else {
+                    product.setIdSanPham(-1);
+                }
+
                 product.setTenSanPham(name);
                 product.setLoaiSanPham(typeProduct);
                 product.setTheLoaiSanPham(typeOfProduct);
@@ -180,8 +218,15 @@ public class Fragment_AddProduct extends Fragment {
                 product.setSoLuong(Integer.parseInt(quantity));
                 product.setMoTa(describe);
 
-                dao_product.pushProduct(product, uri);
-                if(dao_product.pushProduct(product, uri)){
+                if(uri != null){
+                    dao_product.pushProduct(product, uri);
+                }else {
+                    product.setUrl_Img(getURl);
+                    dao_product.updateProduct(product);
+                }
+
+
+                if(dao_product.pushProduct(product, uri) || dao_product.updateProduct(product)){
                     setNullEdt();
                     Toast.makeText(getContext(), "Đã thêm sản phẩm mới", Toast.LENGTH_SHORT).show();
                     Fragment fragment = new Fragment_Product();

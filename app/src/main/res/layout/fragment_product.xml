@@ -38,70 +38,15 @@
             android:layout_alignParentEnd="true"/>
     </RelativeLayout>
 
-    <LinearLayout
+    <GridLayout
+        android:id="@+id/grid_ItemLayout"
         android:layout_width="match_parent"
         android:layout_height="65dp"
         android:paddingVertical="15dp"
-        android:gravity="center">
-        
-        <TextView
-            android:id="@+id/tv_All"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="28dp"
-            android:gravity="center"
-            android:text="Tất cả"
-            android:textColor="@color/white"
-            android:background="@drawable/background_type_product"
-            android:textSize="14sp"
-            android:fontFamily="@font/lato"/>
+        android:rowCount="1"
+        >
 
-        <TextView
-            android:id="@+id/tv_UaBong"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="28dp"
-            android:gravity="center"
-            android:text="Ưa bóng"
-            android:textColor="@color/select_tv_type"
-            android:background="@drawable/select_type_product"
-            android:textSize="14sp"
-            android:fontFamily="@font/lato"/>
-
-        <TextView
-                android:id="@+id/tv_UaMat"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="28dp"
-            android:gravity="center"
-            android:text="Ưa mát"
-            android:textColor="@color/select_tv_type"
-            android:textSize="14sp"
-            android:fontFamily="@font/lato"/>
-
-        <TextView
-            android:id="@+id/tv_UaSang"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="28dp"
-            android:gravity="center"
-            android:text="Ưa sáng"
-            android:textColor="@color/select_tv_type"
-            android:textSize="14sp"
-            android:fontFamily="@font/lato"/>
-
-        <TextView
-            android:id="@+id/tv_UaToi"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="28dp"
-            android:gravity="center"
-            android:text="Ưa tối"
-            android:textColor="@color/select_tv_type"
-            android:textSize="14sp"
-            android:fontFamily="@font/lato"/>
-
-    </LinearLayout>
+    </GridLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"

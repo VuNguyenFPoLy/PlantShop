@@ -7,8 +7,9 @@
 
     <style name="Theme.PlantShop" parent="Base.Theme.PlantShop" />
 
-<!--    <style name="Theme.App.FullScreen" parent="Base.Theme.PlantShop">-->
-<!--        <item name="android:windowFullscreen">true</item>-->
-<!--        <item name="android:statusBarColor">@android:color/transparent</item>-->
-<!--    </style>-->
+    <style name="DialogAnimation">
+        <item name="android:windowEnterAnimation">@anim/slide_in_bottom</item>
+        <item name="android:windowExitAnimation">@anim/slide_out_bottom</item>
+    </style>
+
 </resources>
