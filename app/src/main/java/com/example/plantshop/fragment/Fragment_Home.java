@@ -32,7 +32,7 @@ public class Fragment_Home extends Fragment {
     private ImageView img_cart;
     private GridLayout gridLayout_Plant, gridLayout_Pots, gridLayout_Tool;
     private DAO_Product dao_product;
-    private ArrayList<Product> listPlant, listPots, listTools;
+    public static ArrayList<Product> listPlant, listPots, listTools;
     private int size = -1;
     boolean firstTime = true;
 
@@ -106,7 +106,13 @@ public class Fragment_Home extends Fragment {
                         ViewItemPlant.add(itemPlantView);
 
                         itemPlantView.setOnClickListener(v -> {
-                            Toast.makeText(getContext(), ""+product.getTenSanPham(), Toast.LENGTH_SHORT).show();
+                            Fragment fragment = new Fragment_Edit_Or_Delete();
+                            Bundle bundle1 = new Bundle();
+                            bundle1.putInt("id", product.getIdSanPham());
+                            bundle1.putString("from", "home");
+                            bundle1.putString("type", "plant");
+                            fragment.setArguments(bundle1);
+                            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fr_Layout, fragment).commit();
                         });
 
                     }
@@ -138,7 +144,13 @@ public class Fragment_Home extends Fragment {
                         ViewItemPots.add(itemPotsView);
 
                         itemPotsView.setOnClickListener(v -> {
-                            Toast.makeText(getContext(), ""+product.getTenSanPham(), Toast.LENGTH_SHORT).show();
+                            Fragment fragment = new Fragment_Edit_Or_Delete();
+                            Bundle bundle1 = new Bundle();
+                            bundle1.putInt("id", product.getIdSanPham());
+                            bundle1.putString("from", "home");
+                            bundle1.putString("type", "pots");
+                            fragment.setArguments(bundle1);
+                            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fr_Layout, fragment).commit();
                         });
 
                     }
@@ -168,7 +180,13 @@ public class Fragment_Home extends Fragment {
                         ViewItemTools.add(itemToolsView);
 
                         itemToolsView.setOnClickListener(v -> {
-                            Toast.makeText(getContext(), ""+product.getTenSanPham(), Toast.LENGTH_SHORT).show();
+                            Fragment fragment = new Fragment_Edit_Or_Delete();
+                            Bundle bundle1 = new Bundle();
+                            bundle1.putInt("id", product.getIdSanPham());
+                            bundle1.putString("from", "home");
+                            bundle1.putString("type", "tools");
+                            fragment.setArguments(bundle1);
+                            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fr_Layout, fragment).commit();
                         });
 
                     }

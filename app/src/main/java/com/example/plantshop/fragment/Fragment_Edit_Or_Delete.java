@@ -30,9 +30,10 @@ public class Fragment_Edit_Or_Delete extends Fragment {
     private TextView tv_NameProduct, tv_Type_Product, tv_TypeOf_Product,
             tv_Price_Product, tv_Size_Product, tv_Brand_Product, tv_Quantity_Product, tv_Describe_Product;
     private Button btn_Delete, btn_Edit;
-    private ArrayList<Product> listProduct = Fragment_Product.listProduct;
+    private ArrayList<Product> listProduct;
     public static int id;
     private boolean check = false;
+    private String getFrom, type;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -51,8 +52,22 @@ public class Fragment_Edit_Or_Delete extends Fragment {
         btn_Delete = view.findViewById(R.id.btn_Delete);
         btn_Edit = view.findViewById(R.id.btn_Edit);
 
-        Bundle getId = getArguments();
-        id = getId.getInt("id");
+        Bundle getData = getArguments(); // lấy dữ liệu khi fragment khác chuyển đến
+        id = getData.getInt("id");
+        getFrom = getData.getString("from");
+        type = getData.getString("type");
+
+        if(getFrom.equals("product")){ // kiểm tra dữ liệu từ fragment nào chuyển đến
+            listProduct = Fragment_Product.listProduct;
+        }else {
+            if(type.equals("plant")){
+                listProduct = Fragment_Home.listPlant;
+            } else if (type.equals("pots")) {
+                listProduct = Fragment_Home.listPots;
+            }else {
+                listProduct = Fragment_Home.listTools;
+            }
+        }
 
         // Gán dữ liệu
         for (Product pd : listProduct
@@ -82,13 +97,19 @@ public class Fragment_Edit_Or_Delete extends Fragment {
         });
 
         img_BackToProduct.setOnClickListener(v -> {
-            Fragment fragment = new Fragment_Product();
-            Bundle bundle = new Bundle();
+            if(getFrom.equals("product")){
+                Fragment fragment = new Fragment_Product();
+                Bundle bundle = new Bundle();
 
-            bundle.putString("key", Fragment_Product.key);
-            fragment.setArguments(bundle);
+                bundle.putString("key", Fragment_Product.key);
+                fragment.setArguments(bundle);
 
-            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fr_Layout, fragment).commit();
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fr_Layout, fragment).commit();
+            }else if (getFrom.equals("home")){
+                Fragment fragment = new Fragment_Home();
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fr_Layout, fragment).commit();
+            }
+
         });
 
         // xoá sản phẩm

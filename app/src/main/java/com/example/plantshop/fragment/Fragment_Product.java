@@ -241,7 +241,7 @@ public class Fragment_Product extends Fragment {
                 holder.itemView.setOnClickListener(v -> {
                     Fragment fragment = new Fragment_Edit_Or_Delete();
                     Bundle bundle1 = new Bundle();
-
+                    bundle1.putString("from", "product");
                     bundle1.putInt("id", model.getIdSanPham());
                     fragment.setArguments(bundle1);
                     getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fr_Layout, fragment).commit();
