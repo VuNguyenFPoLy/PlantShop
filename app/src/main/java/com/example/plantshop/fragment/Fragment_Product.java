@@ -174,7 +174,7 @@ public class Fragment_Product extends Fragment {
             query = databaseRef.child("Dụng cụ");
             tv_Label.setText("Dụng cụ");
 
-            List<String> itemType = Arrays.asList("Tất cả", "Găng tay", "Cuốc", "Xẻng", "Cào đất", "Bay", "Cưa", "Đinh ba");
+            List<String> itemType = Arrays.asList("Tất cả", "Găng tay", "Cuốc", "Xẻng", "Cào đất", "Bay", "Cưa", "Đinh ba","Bình tưới");
 
             grid_ItemLayout.setColumnCount(itemType.size());
 

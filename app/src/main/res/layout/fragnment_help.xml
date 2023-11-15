@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp"
+        android:gravity="left|center">
+
+        <ImageView
+            android:id="@+id/img_Back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/baseline_keyboard_arrow_left_24"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TRỢ GIÚP"
+            android:textColor="@color/black"
+            android:fontFamily="@font/lato"
+            android:layout_marginStart="130dp"
+            android:textSize="16sp"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginLeft="30dp"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="5"
+                android:fontFamily="@font/lato"
+                android:text="Tôi trộn các chất dinh dưỡng theo thứ tự nào?"
+                android:textColor="@color/black"
+                android:textSize="15dp" />
+
+            <ImageView
+                android:id="@+id/img_show1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/arrow_down"/>
+        </LinearLayout>
+        <TextView
+            android:id="@+id/tv_show1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/lato"
+            android:layout_marginTop="15dp"
+            android:textSize="15dp"
+            android:layout_marginBottom="15dp"
+            android:visibility="gone"
+            android:textColor="@color/color_Plant_Type"
+            android:text="@string/nd1"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="5"
+                android:fontFamily="@font/lato"
+                android:text="Tôi có thể giữ dung dịch dinh dưỡng hỗn hợp trong bao lâu?"
+                android:textColor="@color/black"
+                android:textSize="15dp" />
+
+            <ImageView
+                android:id="@+id/img_show2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/arrow_down"/>
+        </LinearLayout>
+        <TextView
+            android:id="@+id/tv_show2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/lato"
+            android:layout_marginBottom="15dp"
+            android:visibility="gone"
+            android:layout_marginTop="15dp"
+            android:textSize="15dp"
+            android:textColor="@color/color_Plant_Type"
+            android:text="@string/nd2"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="5"
+                android:fontFamily="@font/lato"
+                android:text="Khi nào tôi thêm bộ điều chỉnh pH?"
+                android:textColor="@color/black"
+                android:textSize="15dp" />
+
+            <ImageView
+                android:id="@+id/img_show3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/arrow_down"/>
+        </LinearLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/lato"
+            android:visibility="gone"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:textSize="15dp"
+            android:textColor="@color/color_Plant_Type"
+            android:text="@string/nd3"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="5"
+                android:fontFamily="@font/lato"
+                android:text="Các chất điều chỉnh dinh dưỡng có được thêm trong các sản phâm plant không"
+                android:textColor="@color/black"
+                android:textSize="15dp" />
+
+            <ImageView
+                android:id="@+id/img_show4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/arrow_down"/>
+        </LinearLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:fontFamily="@font/lato"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:textSize="15dp"
+            android:textColor="@color/color_Plant_Type"
+            android:text="@string/nd1"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="5"
+                android:fontFamily="@font/lato"
+                android:text="Các sản phẩm Plant'S có phải là hữu cơ không?"
+                android:textColor="@color/black"
+                android:textSize="15dp" />
+
+            <ImageView
+                android:id="@+id/img_show5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/arrow_down"/>
+        </LinearLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/lato"
+            android:layout_marginTop="15dp"
+            android:visibility="gone"
+            android:textSize="15dp"
+            android:textColor="@color/color_Plant_Type"
+            android:text="@string/nd1"/>
+    </LinearLayout>
+
+
+</LinearLayout>

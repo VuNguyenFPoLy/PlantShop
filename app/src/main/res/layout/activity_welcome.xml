@@ -15,7 +15,6 @@
         app:lottie_loop="true"
         app:lottie_rawRes="@raw/welcome_animation" />
     <ImageView
-        style=""
         android:layout_width="match_parent"
         android:layout_height="330dp"
         android:src="@drawable/logoplant"

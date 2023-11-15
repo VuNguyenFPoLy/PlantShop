@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    >
+
+    <LinearLayout
+        android:id="@+id/ll_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:orientation="horizontal"
+            android:paddingHorizontal="24dp"
+            android:layout_marginTop="20dp"
+            >
+
+            <ImageView
+                android:id="@+id/img_Back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/baseline_keyboard_arrow_left_24"
+                android:layout_alignParentStart="true"/>
+
+            <EditText
+                android:id="@+id/edt_NameProduct"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@+id/img_Back"
+                android:hint="Nhập tên sản phẩm"
+                android:fontFamily="@font/lato"
+                android:textAlignment="center"
+                android:background="@color/white"/>
+        </RelativeLayout>
+    
+</RelativeLayout>

@@ -133,7 +133,7 @@ public class Fragment_AddProduct extends Fragment {
         tv_TypeOfProduct.setOnClickListener(v -> {
             String[] typeOfPlant = {"Ưa bóng", "Ưa mát", "Ưa sáng", "Ưa tối"};
             String[] typeOfPots = {"Gốm", "Xứ", "Xi măng", "Nhựa", "Đất nung"};
-            String[] typeOfTool = {"Găng tay", "Cuốc", "Xẻng", "Cào đất", "Bay", "Cưa", "Đinh ba"};
+            String[] typeOfTool = {"Găng tay", "Cuốc", "Xẻng", "Cào đất", "Bay", "Cưa", "Đinh ba", "Bình tưới"};
 
             String typeProduct = tv_TypeProduct.getText().toString();
             if (typeProduct.equals("Chọn loại sản phẩm")) {

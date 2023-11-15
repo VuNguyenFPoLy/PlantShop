@@ -7,6 +7,10 @@
     <string name="plant">Cây trồng</string>
     <string name="view_All_Product">Xem thêm sản phẩm</string>
 
+    // help
+    <string name="nd1">Trộn NPK từ Ure, DAP và Kali Clorua · Số lượng phân Kali Clorua cần để cung cấp 35% K2O = (a x 100) / b = (35 x 100) / 60 = 58 kg </string>
+    <string name="nd2">Hạn sử dụng thực phẩm sẽ đưa ra hướng dẫn về thời gian của thực phẩm cho người tiêu dùng; thời gian sản phẩm có thể giữ được chất lượng và an toàn trước khi bắt đầu hư hỏng và có thể trở nên không an toàn.</string>
+    <string name="nd3"> Độ pH dùng để phân biệt các loại dung dịch hay đặc tính của từng loại dung dịch. Theo quy ước thì độ pH của nước là chuẩn nhất có giá trị = 7.</string>
     //login
     <string name="lb_login">Mua sắm và trải nghiệm sản phẩm cây trồng</string>
     <string name="channel_name">Thông báo</string>
