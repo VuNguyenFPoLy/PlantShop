@@ -18,6 +18,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.plantshop.R;
+import com.example.plantshop.activity.MainActivity;
 import com.example.plantshop.firebase.DAO_Product;
 import com.example.plantshop.model.Product;
 import com.squareup.picasso.Picasso;
@@ -60,9 +61,9 @@ public class Fragment_Edit_Or_Delete extends Fragment {
         if(getFrom.equals("product")){ // kiểm tra dữ liệu từ fragment nào chuyển đến
             listProduct = Fragment_Product.listProduct;
         }else {
-            if(type.equals("plant")){
+            if(type.equals("Cây trồng")){
                 listProduct = Fragment_Home.listPlant;
-            } else if (type.equals("pots")) {
+            } else if (type.equals("Chậu cây")) {
                 listProduct = Fragment_Home.listPots;
             }else {
                 listProduct = Fragment_Home.listTools;
@@ -106,8 +107,9 @@ public class Fragment_Edit_Or_Delete extends Fragment {
 
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fr_Layout, fragment).commit();
             }else if (getFrom.equals("home")){
-                Fragment fragment = new Fragment_Home();
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fr_Layout, fragment).commit();
+                MainActivity.bottom_Navigation.setSelectedItemId(R.id.bt_Home);
+            } else if (getFrom.equals("search")) {
+                MainActivity.bottom_Navigation.setSelectedItemId(R.id.bt_Search);
             }
 
         });

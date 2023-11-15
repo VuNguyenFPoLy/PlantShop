@@ -110,7 +110,7 @@ public class Fragment_Home extends Fragment {
                             Bundle bundle1 = new Bundle();
                             bundle1.putInt("id", product.getIdSanPham());
                             bundle1.putString("from", "home");
-                            bundle1.putString("type", "plant");
+                            bundle1.putString("type", product.getLoaiSanPham());
                             fragment.setArguments(bundle1);
                             getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fr_Layout, fragment).commit();
                         });
@@ -148,7 +148,7 @@ public class Fragment_Home extends Fragment {
                             Bundle bundle1 = new Bundle();
                             bundle1.putInt("id", product.getIdSanPham());
                             bundle1.putString("from", "home");
-                            bundle1.putString("type", "pots");
+                            bundle1.putString("type", product.getLoaiSanPham());
                             fragment.setArguments(bundle1);
                             getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fr_Layout, fragment).commit();
                         });
@@ -184,7 +184,7 @@ public class Fragment_Home extends Fragment {
                             Bundle bundle1 = new Bundle();
                             bundle1.putInt("id", product.getIdSanPham());
                             bundle1.putString("from", "home");
-                            bundle1.putString("type", "tools");
+                            bundle1.putString("type", product.getLoaiSanPham());
                             fragment.setArguments(bundle1);
                             getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fr_Layout, fragment).commit();
                         });

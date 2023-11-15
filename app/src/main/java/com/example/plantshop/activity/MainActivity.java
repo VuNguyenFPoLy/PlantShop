@@ -27,7 +27,7 @@ import com.google.android.material.navigation.NavigationBarView;
 public class MainActivity extends AppCompatActivity {
 
 
-    private BottomNavigationView bottom_Navigation;
+    public static BottomNavigationView bottom_Navigation;
     private AppBarLayout appbarLayout;
     public static int id;
 
