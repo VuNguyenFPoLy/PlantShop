@@ -199,9 +199,9 @@ public class Fragment_Product extends Fragment {
                             currentItem.setTextColor(getResources().getColor(R.color.white));
                             currentItem.setBackground(getResources().getDrawable(R.drawable.background_type_product));
                             if(string.equals("Tất cả")){
-                                query = databaseRef.child("Chậu cây");
+                                query = databaseRef.child("Dụng cụ");
                             }else {
-                                query = databaseRef.child("Chậu cây").orderByChild("theLoaiSanPham").equalTo(string);
+                                query = databaseRef.child("Dụng cụ").orderByChild("theLoaiSanPham").equalTo(string);
 
                             }
                             updateRecyclerView(query);
