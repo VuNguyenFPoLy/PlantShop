@@ -5,6 +5,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 
 import com.example.plantshop.model.Account;
+import com.example.plantshop.model.Customer;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -58,9 +59,12 @@ public class DAO {
 
         if (!check) {
             if (!userName.isEmpty() && !passWord.isEmpty()) {
+
                 account.setIdAcount(getID());
                 account.setUserName(userName);
                 account.setPassWord(passWord);
+
+
                 databaseRef.child(String.valueOf(account.getIdAcount())).setValue(account);
                 result = true;
             }

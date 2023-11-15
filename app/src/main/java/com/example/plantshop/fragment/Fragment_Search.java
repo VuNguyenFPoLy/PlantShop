@@ -42,8 +42,8 @@ public class Fragment_Search extends Fragment {
         rc_SearchHistory = view.findViewById(R.id.rc_SearchHistory);
 
         for (Product product : Fragment_Home.listPlant
-             ) {
-           allProductList.add(product);
+        ) {
+            allProductList.add(product);
         }
 
         for (Product product : Fragment_Home.listPots
@@ -55,7 +55,7 @@ public class Fragment_Search extends Fragment {
         ) {
             allProductList.add(product);
         }
-        edt_Search.addTextChangedListener(new SearchProduct(edt_Search));
+        edt_Search.addTextChangedListener(new SearchProduct(edt_Search, allProductList));
 
         img_Back.setOnClickListener(v -> {
             Fragment fragment = new Fragment_Home();
@@ -71,9 +71,11 @@ public class Fragment_Search extends Fragment {
     private class SearchProduct implements TextWatcher {
 
         private EditText searchName;
+        private ArrayList<Product> fillList;
 
-        public SearchProduct(EditText searchName) {
+        public SearchProduct(EditText searchName, ArrayList<Product> fillList) {
             this.searchName = searchName;
+            this.fillList = fillList;
         }
 
         @Override
@@ -88,10 +90,11 @@ public class Fragment_Search extends Fragment {
         public void afterTextChanged(Editable editable) {
             String findName = editable.toString().trim();
 
-            for (Product pd : allProductList
-                 ) {
+            int size = fillList.size();
+            for (Product pd : fillList
+            ) {
 
-                if(findName.toLowerCase().startsWith(pd.getTenSanPham().toLowerCase())){
+                if (findName.toLowerCase().startsWith(pd.getTenSanPham().toLowerCase())) {
 
                     fillList.add(pd);
                     searchAdapter = new SearchAdapter(getContext(), fillList);
