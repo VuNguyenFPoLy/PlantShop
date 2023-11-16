@@ -7,14 +7,12 @@
     android:background="@color/white"
     android:orientation="vertical"
     >
-
     <LinearLayout
         android:id="@+id/ll_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         >
-
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="35dp"
@@ -51,6 +49,53 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/lato"
+            android:text="Nhập thông tin thẻ"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="4dp"
+            android:background="@color/black" />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:textSize="15dp"
+            android:textColor="@color/black"
+            android:inputType="text"
+            android:hint="XXXX XXXX XXXX XXXX" />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:textSize="15dp"
+            android:textColor="@color/black"
+            android:inputType="text"
+            android:hint="Nhập họ và tên " />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:textSize="15dp"
+            android:textColor="@color/black"
+            android:inputType="text"
+            android:hint="Ngày phát hành thẻ" />
+
+        <EditText
+            android:layout_width="220dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:textSize="15dp"
+            android:textColor="@color/black"
+            android:inputType="text"
+            android:hint="***" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/lato"
             android:text="Thông tin khách hàng"
             android:textColor="@color/black"
             android:textSize="16sp"
@@ -62,45 +107,45 @@
             android:layout_marginTop="4dp"
             android:background="@color/black" />
 
-        <EditText
-            android:id="@+id/edt_FullName"
+        <TextView
+            android:id="@+id/tv_get_FullName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
             android:textSize="15dp"
             android:textColor="@color/black"
             android:inputType="text"
-            android:text="Nhập họ và tên" />
+            android:hint="Get Name" />
 
-        <EditText
-            android:id="@+id/edt_Email"
+        <TextView
+            android:id="@+id/tv_get_Email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
             android:textSize="15dp"
             android:textColor="@color/black"
             android:inputType="text"
-            android:text="Nhập Email" />
+            android:hint="Get Email" />
 
-        <EditText
-            android:id="@+id/edt_Address"
+        <TextView
+            android:id="@+id/tv_get_Address"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
             android:textSize="15dp"
             android:textColor="@color/black"
             android:inputType="text"
-            android:text="Nhập địa chỉ" />
+            android:hint="Get Adress" />
 
-        <EditText
-            android:id="@+id/edt_PhoneNumber"
+        <TextView
+            android:id="@+id/tv_get_PhoneNumber"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
             android:textSize="15dp"
             android:textColor="@color/black"
             android:inputType="text"
-            android:text="Nhập số điện thoại" />
+            android:hint="Get phone number" />
 
         <TextView
             android:layout_width="match_parent"
@@ -127,7 +172,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:visibility="gone">
                 <TextView
                     android:id="@+id/tv_FastShip"
                     android:layout_width="match_parent"
@@ -151,7 +197,8 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/check_icon"
                 android:layout_gravity="center"
-                android:layout_alignParentStart="true"/>
+                android:layout_alignParentStart="true"
+                android:visibility="gone"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -163,7 +210,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:visibility="gone">
                 <TextView
                     android:id="@+id/tv_CODShip"
                     android:layout_width="match_parent"
@@ -187,71 +235,18 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/check_icon"
                 android:layout_gravity="center"
-                android:layout_alignParentStart="true"/>
+                android:layout_alignParentStart="true"
+                android:visibility="gone"/>
     </LinearLayout>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:fontFamily="@font/lato"
-            android:text="Phương thức vận chuyển"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            android:textStyle="bold" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="4dp"
-            android:background="@color/black" />
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <TextView
-                    android:id="@+id/tv_PayCash"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/lato"
-                    android:text="Thanh toán khi nhận hàng"
-                    android:layout_weight="1"
-                    android:textColor="@color/black"
-                    android:textSize="14dp" />
-                <ImageView
-                    android:id="@+id/check3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/check_icon"
-                    android:layout_alignParentStart="true"/>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <TextView
-                    android:id="@+id/tv_PayCreditCard"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/lato"
-                    android:text="Thanh toán bằng thẻ tín dụng"
-                    android:layout_weight="1"
-                    android:textColor="@color/black"
-                    android:textSize="14dp" />
-                <ImageView
-                    android:id="@+id/check4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/check_icon"
-                    android:layout_alignParentStart="true"/>
-            </LinearLayout>
         </LinearLayout>
 <!-- thanh toán-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="100dp">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -347,8 +342,7 @@
         <Button
             android:id="@+id/btn_Submit"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
+            android:layout_height="50dp"
             android:backgroundTint="@color/green"
             android:text="Tiếp tục"
             android:textColor="@color/white"
