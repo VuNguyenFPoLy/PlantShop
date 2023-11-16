@@ -1,18 +1,18 @@
 package com.example.plantshop.model;
 
-public class Customer {
-    private int idCustomer;
+public class Guest {
+    private int idGuest;
     private String email;
     private String address;
     private String phoneNumber;
     private String fullName;
     private String url_img;
 
-    public Customer() {
+    public Guest() {
     }
 
-    public Customer(int idCustomer, String email, String address, String phoneNumber, String fullName, String url_img) {
-        this.idCustomer = idCustomer;
+    public Guest(int idCustomer, String email, String address, String phoneNumber, String fullName, String url_img) {
+        this.idGuest = idCustomer;
         this.email = email;
         this.address = address;
         this.phoneNumber = phoneNumber;
@@ -20,12 +20,12 @@ public class Customer {
         this.url_img = url_img;
     }
 
-    public int getIdCustomer() {
-        return idCustomer;
+    public int getIdGuest() {
+        return idGuest;
     }
 
-    public void setIdCustomer(int idCustomer) {
-        this.idCustomer = idCustomer;
+    public void setIdGuest(int idGuest) {
+        this.idGuest = idGuest;
     }
 
     public String getEmail() {

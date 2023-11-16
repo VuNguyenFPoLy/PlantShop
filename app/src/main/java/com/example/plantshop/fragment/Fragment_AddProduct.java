@@ -165,7 +165,7 @@ public class Fragment_AddProduct extends Fragment {
             Intent intent = new Intent();
             intent.setType("image/*");
             intent.setAction(Intent.ACTION_OPEN_DOCUMENT);
-            startActivityForResult(Intent.createChooser(intent, "Select Picture"), 1);
+            startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
             lb_Notify.setVisibility(View.GONE);
         });
 
@@ -262,7 +262,7 @@ public class Fragment_AddProduct extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == 1 && resultCode == RESULT_OK && data != null && data.getData() != null) {
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
             uri = data.getData();
             img_addProduct.setImageURI(uri);
         }

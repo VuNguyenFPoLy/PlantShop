@@ -18,6 +18,8 @@ import android.widget.Toast;
 import com.example.plantshop.R;
 import com.example.plantshop.firebase.DAO;
 import com.example.plantshop.model.Account;
+import com.example.plantshop.model.Guest;
+import com.example.plantshop.model.HistorySearch;
 
 import java.util.ArrayList;
 
@@ -28,6 +30,7 @@ public class Activity_DangNhap extends AppCompatActivity {
     private TextView tv_Forgotpass, tv_SignUp;
     private DAO dao;
     private ArrayList<Account> listAccount;
+    public static ArrayList<Guest> listGuest;
     private int id = -1;
 
     @Override
@@ -46,7 +49,11 @@ public class Activity_DangNhap extends AppCompatActivity {
 
         dao = new DAO();
         listAccount = new ArrayList<>();
+        listGuest = new ArrayList<>();
+
+
         listAccount = dao.getListAccount();
+        listGuest = dao.getListGuest();
 
         tv_SignUp.setOnClickListener(v -> {
             Intent intent = new Intent(Activity_DangNhap.this, Activity_DangKy.class);
@@ -106,7 +113,6 @@ public class Activity_DangNhap extends AppCompatActivity {
                     Intent intent = new Intent(Activity_DangNhap.this, MainActivity.class);
                     intent.putExtra("id", id);
                     startActivity(intent);
-                    Toast.makeText(this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
                 }
 
             }
