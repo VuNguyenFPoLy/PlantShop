@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -55,7 +54,7 @@ public class Fragment_Home extends Fragment {
         tv_ViewAllTools.setPaintFlags(tv_ViewAllTools.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
         tv_ViewAllPots.setPaintFlags(tv_ViewAllPots.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
 
-        if(MainActivity.id == 0){
+        if (MainActivity.getID == 0) {
             img_cart.setVisibility(View.GONE);
         }
 
@@ -67,12 +66,12 @@ public class Fragment_Home extends Fragment {
         listPots = DAO_Product.getListPots();
         listTools = DAO_Product.getListTools();
 
-        Handler handler = new Handler(Looper.getMainLooper());
 
         List<View> ViewItemPlant = new ArrayList<>();
         List<View> ViewItemPots = new ArrayList<>();
         List<View> ViewItemTools = new ArrayList<>();
 
+        Handler handler = new Handler(Looper.getMainLooper());
         Runnable runnable = new Runnable() {
 
             @Override
@@ -85,7 +84,7 @@ public class Fragment_Home extends Fragment {
                     firstTime = false;
                 }
 
-                if (listPlant.size() > 0 ) { // đổ dữ liệu lên gridlayout cây trồng
+                if (listPlant.size() > 0) { // đổ dữ liệu lên gridlayout cây trồng
                     handler.removeCallbacks(this);
 
 
@@ -125,7 +124,7 @@ public class Fragment_Home extends Fragment {
                     handler.postDelayed(this, 500);
                 }
 
-                if (listPots.size() > 0 ) { // đổ dữ liệu lên gridlayout chậu cây
+                if (listPots.size() > 0) { // đổ dữ liệu lên gridlayout chậu cây
 
                     for (Product product : listPots) {
 
@@ -161,7 +160,7 @@ public class Fragment_Home extends Fragment {
 
                 }
 
-                if (listTools.size() > 0 ) { // đổ dữ liệu lên gridlayout dụng cụ
+                if (listTools.size() > 0) { // đổ dữ liệu lên gridlayout dụng cụ
 
                     for (Product product : listTools) {
 
@@ -203,7 +202,6 @@ public class Fragment_Home extends Fragment {
         };
 
         handler.post(runnable);
-
 
 
         FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();

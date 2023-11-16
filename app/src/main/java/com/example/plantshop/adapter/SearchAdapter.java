@@ -16,6 +16,9 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.plantshop.R;
+import com.example.plantshop.activity.MainActivity;
+import com.example.plantshop.firebase.DAO;
+import com.example.plantshop.firebase.DAO_History;
 import com.example.plantshop.fragment.Fragment_Edit_Or_Delete;
 import com.example.plantshop.fragment.Fragment_Search;
 import com.example.plantshop.model.Product;
@@ -27,6 +30,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
     private Context context;
     private ArrayList<Product> listAllProduct;
     private OnItemClickListener onItemClickListener;
+    private DAO_History daoH;
 
 
     public interface OnItemClickListener{
@@ -58,10 +62,11 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
         holder.tv_Search_PlantType.setText(product.getTheLoaiSanPham());
         holder.tv_Search_PlantPrice.setText(String.valueOf(product.getGiaTien()));
 
-
+        daoH = new DAO_History();
 
         holder.itemView.setOnClickListener(v -> {
             if(onItemClickListener != null){
+
                 Fragment fragment = new Fragment_Edit_Or_Delete();
                 Bundle bundle1 = new Bundle();
                 bundle1.putInt("id", product.getIdSanPham());
@@ -69,6 +74,10 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
                 bundle1.putString("type", product.getLoaiSanPham());
                 fragment.setArguments(bundle1);
                 onItemClickListener.onItemClick(fragment);
+
+                if(MainActivity.getID > 0){
+                    daoH.saveHistory(product.getTenSanPham(), MainActivity.getID);
+                }
             }
 
         });

@@ -14,6 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.plantshop.R;
 
+import java.util.Calendar;
+
 public class Fragment_Notify extends Fragment {
 
     private ImageView img_Back;
@@ -29,7 +31,12 @@ public class Fragment_Notify extends Fragment {
         tv_Notify = view.findViewById(R.id.tv_Notify);
         rc_Notify = view.findViewById(R.id.rc_Notify);
 
-
+//        Calendar calendar = Calendar.getInstance();
+//        int day = calendar.get(Calendar.DAY_OF_MONTH);
+//        int month = calendar.get(Calendar.MONTH);
+//        int year = calendar.get(Calendar.YEAR);
+//
+//        String date = day + ""
 
         return view;
     }

@@ -1,16 +1,12 @@
 package com.example.plantshop.fragment;
 
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -60,7 +56,7 @@ public class Fragment_Product extends Fragment {
         tv_FAB = view.findViewById(R.id.tv_FAB);
         rc_Product = view.findViewById(R.id.rc_Product);
 
-        if (MainActivity.id <= 0) {
+        if (MainActivity.getID <= 0) {
             ic_Cart.setVisibility(View.GONE);
         }
 

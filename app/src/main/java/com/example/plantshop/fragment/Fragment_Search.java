@@ -1,6 +1,7 @@
 package com.example.plantshop.fragment;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -18,8 +19,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.plantshop.R;
+import com.example.plantshop.activity.Activity_DangNhap;
 import com.example.plantshop.activity.MainActivity;
+import com.example.plantshop.adapter.HistoryAdapter;
 import com.example.plantshop.adapter.SearchAdapter;
+import com.example.plantshop.firebase.DAO_History;
+import com.example.plantshop.model.HistorySearch;
 import com.example.plantshop.model.Product;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -32,8 +37,8 @@ public class Fragment_Search extends Fragment implements SearchAdapter.OnItemCli
     private EditText edt_Search;
     private RecyclerView rc_SearchHistory;
     private ArrayList<Product> allProductList = new ArrayList<>();
-    private ArrayList<Product> fillList = new ArrayList<>();
-    private SearchAdapter searchAdapter;
+    private HistoryAdapter historyAdapter;
+    private DAO_History daoH;
     public static TextView lb_search;
 
     @Nullable
@@ -61,14 +66,27 @@ public class Fragment_Search extends Fragment implements SearchAdapter.OnItemCli
         ) {
             allProductList.add(product);
         }
-        edt_Search.addTextChangedListener(new SearchProduct(edt_Search, allProductList));
+
+
 
         img_Back.setOnClickListener(v -> {
             MainActivity.bottom_Navigation.setSelectedItemId(R.id.bt_Home);
         });
 
+        daoH = new DAO_History();
+
         rc_SearchHistory.setHasFixedSize(true);
         rc_SearchHistory.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                edt_Search.addTextChangedListener(new SearchProduct(edt_Search, allProductList, daoH.getListHistory()));
+                historyAdapter = new HistoryAdapter(daoH.getListHistory(), getContext());
+
+                rc_SearchHistory.setAdapter(historyAdapter);
+            }
+        }, 500);
 
         return view;
     }
@@ -85,13 +103,15 @@ public class Fragment_Search extends Fragment implements SearchAdapter.OnItemCli
         private EditText searchName;
         private ArrayList<Product> fillList;
         private ArrayList<Product> listFind = new ArrayList<>();
-        private SearchAdapter searchAdapter; // Đưa adapter ra khỏi vòng lặp
+        private ArrayList<HistorySearch> listH;
 
-        public SearchProduct(EditText searchName, ArrayList<Product> fillList) {
+        private SearchAdapter searchAdapter;
+
+        public SearchProduct(EditText searchName, ArrayList<Product> fillList, ArrayList<HistorySearch> listH) {
             this.searchName = searchName;
             this.fillList = fillList;
+            this.listH = listH;
             this.searchAdapter = new SearchAdapter(getContext(), listFind, Fragment_Search.this);
-            rc_SearchHistory.setAdapter(searchAdapter);
         }
 
         @Override
@@ -121,9 +141,13 @@ public class Fragment_Search extends Fragment implements SearchAdapter.OnItemCli
             }
             if(listFind.size() > 0){
                 Fragment_Search.lb_search.setVisibility(View.GONE);
+                rc_SearchHistory.setAdapter(searchAdapter);
+
             }else {
                 Fragment_Search.lb_search.setVisibility(View.VISIBLE);
 
+                historyAdapter = new HistoryAdapter(listH, getContext());
+                rc_SearchHistory.setAdapter(historyAdapter);
             }
 
             // Cập nhật adapter sau khi hoàn thành việc tìm kiếm
