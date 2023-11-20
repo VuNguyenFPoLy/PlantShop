@@ -35,10 +35,8 @@ import java.util.List;
 public class Fragment_Product extends Fragment {
 
     private ImageView img_Back, ic_Cart;
-    private TextView tv_Label, tv_All, tv_UaBong, tv_UaMat, tv_UaSang, tv_UaToi, tv_FAB;
+    private TextView tv_Label, tv_FAB;
     private RecyclerView rc_Product;
-    private DAO_Product dao_product;
-    private boolean checktv_All, checktv_UaBong, checktv_UaMat, checktv_UaSang, checktv_UaToi;
     private Query query;
     public static String key;
     public static ArrayList<Product> listProduct = new ArrayList<>();
@@ -87,7 +85,7 @@ public class Fragment_Product extends Fragment {
 
                 item_View.add(itemProductView);
 
-                if(string.equals("Tất cả")){ // mặc định màu cho type tất cả
+                if (string.equals("Tất cả")) { // mặc định màu cho type tất cả
                     textItem.setTextColor(getResources().getColor(R.color.white));
                     textItem.setBackground(getResources().getDrawable(R.drawable.background_type_product));
                 }
@@ -98,9 +96,9 @@ public class Fragment_Product extends Fragment {
                         if (itemType.get(j).toString().equals(string)) {
                             currentItem.setTextColor(getResources().getColor(R.color.white));
                             currentItem.setBackground(getResources().getDrawable(R.drawable.background_type_product));
-                            if(string.equals("Tất cả")){
+                            if (string.equals("Tất cả")) {
                                 query = databaseRef.child("Cây trồng");
-                            }else {
+                            } else {
                                 query = databaseRef.child("Cây trồng").orderByChild("theLoaiSanPham").equalTo(string);
 
                             }
@@ -136,7 +134,7 @@ public class Fragment_Product extends Fragment {
 
                 item_View.add(itemProductView);
 
-                if(string.equals("Tất cả")){ // mặc định màu cho type tất cả
+                if (string.equals("Tất cả")) { // mặc định màu cho type tất cả
                     textItem.setTextColor(getResources().getColor(R.color.white));
                     textItem.setBackground(getResources().getDrawable(R.drawable.background_type_product));
                 }
@@ -147,9 +145,9 @@ public class Fragment_Product extends Fragment {
                         if (itemType.get(j).toString().equals(string)) {
                             currentItem.setTextColor(getResources().getColor(R.color.white));
                             currentItem.setBackground(getResources().getDrawable(R.drawable.background_type_product));
-                            if(string.equals("Tất cả")){
+                            if (string.equals("Tất cả")) {
                                 query = databaseRef.child("Chậu cây");
-                            }else {
+                            } else {
                                 query = databaseRef.child("Chậu cây").orderByChild("theLoaiSanPham").equalTo(string);
 
                             }
@@ -171,7 +169,7 @@ public class Fragment_Product extends Fragment {
             query = databaseRef.child("Dụng cụ");
             tv_Label.setText("Dụng cụ");
 
-            List<String> itemType = Arrays.asList("Tất cả", "Găng tay", "Cuốc", "Xẻng", "Cào đất", "Bay", "Cưa", "Đinh ba","Bình tưới");
+            List<String> itemType = Arrays.asList("Tất cả", "Găng tay", "Cuốc", "Xẻng", "Cào đất", "Bay", "Cưa", "Đinh ba", "Bình tưới");
 
             grid_ItemLayout.setColumnCount(itemType.size());
 
@@ -184,7 +182,7 @@ public class Fragment_Product extends Fragment {
 
                 item_View.add(itemProductView);
 
-                if(string.equals("Tất cả")){ // mặc định màu cho type tất cả
+                if (string.equals("Tất cả")) { // mặc định màu cho type tất cả
                     textItem.setTextColor(getResources().getColor(R.color.white));
                     textItem.setBackground(getResources().getDrawable(R.drawable.background_type_product));
                 }
@@ -195,9 +193,9 @@ public class Fragment_Product extends Fragment {
                         if (itemType.get(j).toString().equals(string)) {
                             currentItem.setTextColor(getResources().getColor(R.color.white));
                             currentItem.setBackground(getResources().getDrawable(R.drawable.background_type_product));
-                            if(string.equals("Tất cả")){
+                            if (string.equals("Tất cả")) {
                                 query = databaseRef.child("Dụng cụ");
-                            }else {
+                            } else {
                                 query = databaseRef.child("Dụng cụ").orderByChild("theLoaiSanPham").equalTo(string);
 
                             }

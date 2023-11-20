@@ -30,6 +30,7 @@ public class DAO_Product {
 
 
     public DAO_Product() {
+
         if (Fragment_Product.key.equals("Xem thêm cây trồng")) {
             databaseRef = FirebaseDatabase.getInstance().getReference("Product").child("Cây trồng");
             storageRef = FirebaseStorage.getInstance().getReference("Product").child("Cây trồng");

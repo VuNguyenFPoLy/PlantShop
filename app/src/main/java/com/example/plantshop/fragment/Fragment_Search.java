@@ -26,6 +26,8 @@ import com.example.plantshop.adapter.SearchAdapter;
 import com.example.plantshop.firebase.DAO_History;
 import com.example.plantshop.model.HistorySearch;
 import com.example.plantshop.model.Product;
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -52,6 +54,7 @@ public class Fragment_Search extends Fragment implements SearchAdapter.OnItemCli
         lb_search = view.findViewById(R.id.lb_search);
 
 
+
         for (Product product : Fragment_Home.listPlant
         ) {
             allProductList.add(product);
@@ -67,26 +70,48 @@ public class Fragment_Search extends Fragment implements SearchAdapter.OnItemCli
             allProductList.add(product);
         }
 
-
-
         img_Back.setOnClickListener(v -> {
             MainActivity.bottom_Navigation.setSelectedItemId(R.id.bt_Home);
         });
 
-        daoH = new DAO_History();
+
 
         rc_SearchHistory.setHasFixedSize(true);
         rc_SearchHistory.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                edt_Search.addTextChangedListener(new SearchProduct(edt_Search, allProductList, daoH.getListHistory()));
-                historyAdapter = new HistoryAdapter(daoH.getListHistory(), getContext());
+        DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference("History").child(String.valueOf(MainActivity.getID));
 
-                rc_SearchHistory.setAdapter(historyAdapter);
+        FirebaseRecyclerOptions options = new FirebaseRecyclerOptions.Builder<HistorySearch>()
+                .setQuery(databaseRef, HistorySearch.class)
+                .build();
+
+        FirebaseRecyclerAdapter<HistorySearch, HistoryAdapter.ViewHolder> adapter = new FirebaseRecyclerAdapter<HistorySearch, HistoryAdapter.ViewHolder>(options) {
+            @Override
+            protected void onBindViewHolder(@NonNull HistoryAdapter.ViewHolder holder, int position, @NonNull HistorySearch model) {
+                holder.tv_historyName.setText(model.getNameSearch());
+
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        edt_Search.setText(holder.tv_historyName.getText().toString());
+
+                    }
+                });
             }
-        }, 500);
+
+            @NonNull
+            @Override
+            public HistoryAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                return new HistoryAdapter.ViewHolder(LayoutInflater.from(getContext()).inflate(R.layout.item_history, parent, false));
+            }
+        };
+
+        rc_SearchHistory.setAdapter(adapter);
+        edt_Search.addTextChangedListener(new SearchProduct(edt_Search, allProductList, adapter));
+
+        adapter.startListening();
+
 
         return view;
     }
@@ -103,14 +128,14 @@ public class Fragment_Search extends Fragment implements SearchAdapter.OnItemCli
         private EditText searchName;
         private ArrayList<Product> fillList;
         private ArrayList<Product> listFind = new ArrayList<>();
-        private ArrayList<HistorySearch> listH;
+        private FirebaseRecyclerAdapter<HistorySearch, HistoryAdapter.ViewHolder> adapter;
 
         private SearchAdapter searchAdapter;
 
-        public SearchProduct(EditText searchName, ArrayList<Product> fillList, ArrayList<HistorySearch> listH) {
+        public SearchProduct(EditText searchName, ArrayList<Product> fillList, FirebaseRecyclerAdapter<HistorySearch, HistoryAdapter.ViewHolder> adapter) {
             this.searchName = searchName;
             this.fillList = fillList;
-            this.listH = listH;
+            this.adapter = adapter;
             this.searchAdapter = new SearchAdapter(getContext(), listFind, Fragment_Search.this);
         }
 
@@ -146,11 +171,12 @@ public class Fragment_Search extends Fragment implements SearchAdapter.OnItemCli
             }else {
                 Fragment_Search.lb_search.setVisibility(View.VISIBLE);
 
-                historyAdapter = new HistoryAdapter(listH, getContext());
-                rc_SearchHistory.setAdapter(historyAdapter);
+                rc_SearchHistory.setAdapter(adapter);
+                adapter.startListening();
+
+
             }
 
-            // Cập nhật adapter sau khi hoàn thành việc tìm kiếm
             searchAdapter.notifyDataSetChanged();
         }
     }

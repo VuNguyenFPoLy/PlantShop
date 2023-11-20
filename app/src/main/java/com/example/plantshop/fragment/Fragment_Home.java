@@ -58,6 +58,11 @@ public class Fragment_Home extends Fragment {
             img_cart.setVisibility(View.GONE);
         }
 
+        img_cart.setOnClickListener(v -> {
+           Fragment fragment = new Fragment_Cart();
+           getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fr_Layout, fragment).commit();
+        });
+
         listPlant = new ArrayList<>();
         listPots = new ArrayList<>();
         listTools = new ArrayList<>();
@@ -105,13 +110,22 @@ public class Fragment_Home extends Fragment {
                         ViewItemPlant.add(itemPlantView);
 
                         itemPlantView.setOnClickListener(v -> {
-                            Fragment fragment = new Fragment_Edit_Or_Delete();
+
+                            Fragment fragment;
+
+                            if(MainActivity.getID == 0){
+                                fragment = new Fragment_Edit_Or_Delete();
+                            }else {
+                                fragment = new Fragment_ViewProduct();
+                            }
+
                             Bundle bundle1 = new Bundle();
                             bundle1.putInt("id", product.getIdSanPham());
                             bundle1.putString("from", "home");
                             bundle1.putString("type", product.getLoaiSanPham());
                             fragment.setArguments(bundle1);
                             getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fr_Layout, fragment).commit();
+
                         });
 
                     }
@@ -143,13 +157,21 @@ public class Fragment_Home extends Fragment {
                         ViewItemPots.add(itemPotsView);
 
                         itemPotsView.setOnClickListener(v -> {
-                            Fragment fragment = new Fragment_Edit_Or_Delete();
+                            Fragment fragment;
+
+                            if(MainActivity.getID == 0){
+                                fragment = new Fragment_Edit_Or_Delete();
+                            }else {
+                                fragment = new Fragment_ViewProduct();
+                            }
+
                             Bundle bundle1 = new Bundle();
                             bundle1.putInt("id", product.getIdSanPham());
                             bundle1.putString("from", "home");
                             bundle1.putString("type", product.getLoaiSanPham());
                             fragment.setArguments(bundle1);
                             getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fr_Layout, fragment).commit();
+
                         });
 
                     }
@@ -179,7 +201,14 @@ public class Fragment_Home extends Fragment {
                         ViewItemTools.add(itemToolsView);
 
                         itemToolsView.setOnClickListener(v -> {
-                            Fragment fragment = new Fragment_Edit_Or_Delete();
+                            Fragment fragment;
+
+                            if(MainActivity.getID == 0){
+                                fragment = new Fragment_Edit_Or_Delete();
+                            }else {
+                                fragment = new Fragment_ViewProduct();
+                            }
+
                             Bundle bundle1 = new Bundle();
                             bundle1.putInt("id", product.getIdSanPham());
                             bundle1.putString("from", "home");

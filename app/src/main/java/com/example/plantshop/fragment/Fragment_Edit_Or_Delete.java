@@ -92,6 +92,17 @@ public class Fragment_Edit_Or_Delete extends Fragment {
             Fragment fragment = new Fragment_AddProduct();
             Bundle bundle = new Bundle();
             bundle.putString("edit", "edit");
+            bundle.putString("from", getFrom);
+            String type = tv_Type_Product.getText().toString();
+
+            if(type.equals("Cây trồng")){
+                Fragment_Product.key = "Xem thêm cây trồng";
+            } else if (type.equals("Chậu cây")) {
+                Fragment_Product.key = "Xem thêm chậu cây";
+            }else {
+                Fragment_Product.key = "Xem thêm dụng cụ";
+            }
+
             fragment.setArguments(bundle);
             getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fr_Layout, fragment).commit();
 

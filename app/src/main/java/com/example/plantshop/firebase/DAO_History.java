@@ -56,7 +56,7 @@ public class DAO_History {
         HistorySearch historySearch = new HistorySearch();
         historySearch.setIdHistory(idH);
         historySearch.setNameSearch(nameProduct);
-        databaseRef_History_Search.child(String.valueOf(idH)).setValue(historySearch);
+        databaseRef_History_Search.child(nameProduct).setValue(historySearch);
 
     }
 

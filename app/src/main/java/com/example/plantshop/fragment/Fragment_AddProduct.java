@@ -39,7 +39,7 @@ public class Fragment_AddProduct extends Fragment {
     private Uri uri;
     private DAO_Product dao_product;
     private Fragment fragment;
-    private ArrayList<Product> listProduct = Fragment_Product.listProduct;
+    private ArrayList<Product> listProduct;
     private String getURl, checkEditPD;
 
     @Nullable
@@ -61,15 +61,31 @@ public class Fragment_AddProduct extends Fragment {
         tv_TypeProduct = view.findViewById(R.id.tv_TypeProduct);
         tv_TypeOfProduct = view.findViewById(R.id.tv_TypeOfProduct);
 
+        listProduct = Fragment_Product.listProduct;
+
         dao_product = new DAO_Product();
         Bundle bundle = new Bundle();
 
-        Bundle checkEdit = getArguments();
-        if(checkEdit != null){
-            checkEditPD = checkEdit.getString("edit");
+        Bundle getData = getArguments();
+
+        if (getData != null) {
+            checkEditPD = getData.getString("edit");
+        }
+        String getFrom = getData.getString("from");
+
+        if (getFrom.equals("home") || getFrom.equals("search")) {
+            listProduct.clear();
+            if (Fragment_Product.key.equals("Xem thêm cây trồng")) {
+                listProduct = Fragment_Home.listPlant;
+            } else if (Fragment_Product.key.equals("Xem thêm chậu cây")) {
+
+                listProduct = Fragment_Home.listPots;
+            } else {
+                listProduct = Fragment_Home.listTools;
+            }
         }
 
-        if(checkEditPD != null){
+        if (checkEditPD != null) {
 
             for (Product pd : listProduct
             ) {
@@ -89,6 +105,8 @@ public class Fragment_AddProduct extends Fragment {
                 }
             }
         }
+
+
 
 
 
@@ -122,11 +140,11 @@ public class Fragment_AddProduct extends Fragment {
             dialog.show();
         });
 
-        if(Fragment_Product.key.equals("Xem thêm cây trồng")){
+        if (Fragment_Product.key.equals("Xem thêm cây trồng")) {
             tv_TypeProduct.setText("Cây trồng");
         } else if (Fragment_Product.key.equals("Xem thêm chậu cây")) {
             tv_TypeProduct.setText("Chậu cây");
-        }else {
+        } else {
             tv_TypeProduct.setText("Dụng cụ");
         }
 
@@ -180,7 +198,7 @@ public class Fragment_AddProduct extends Fragment {
             String quantity = edt_Quantity.getText().toString();
             String describe = edt_Describe.getText().toString();
 
-            if(name.isEmpty()){
+            if (name.isEmpty()) {
                 edt_NameProduct.setError("Trống");
                 edt_NameProduct.requestFocus();
             } else if (price.isEmpty()) {
@@ -205,9 +223,9 @@ public class Fragment_AddProduct extends Fragment {
             } else {
 
                 Product product = new Product();
-                if(checkEditPD != null){
+                if (checkEditPD != null) {
                     product.setIdSanPham(Fragment_Edit_Or_Delete.id);
-                }else {
+                } else {
                     product.setIdSanPham(-1);
                 }
 
@@ -220,15 +238,15 @@ public class Fragment_AddProduct extends Fragment {
                 product.setSoLuong(Integer.parseInt(quantity));
                 product.setMoTa(describe);
 
-                if(uri != null){
+                if (uri != null) {
                     dao_product.pushProduct(product, uri);
-                }else {
+                } else {
                     product.setUrl_Img(getURl);
                     dao_product.updateProduct(product);
                 }
 
 
-                if(dao_product.pushProduct(product, uri) || dao_product.updateProduct(product)){
+                if (dao_product.pushProduct(product, uri) || dao_product.updateProduct(product)) {
                     setNullEdt();
                     Toast.makeText(getContext(), "Đã thêm sản phẩm mới", Toast.LENGTH_SHORT).show();
                     Fragment fragment = new Fragment_Product();
@@ -247,7 +265,7 @@ public class Fragment_AddProduct extends Fragment {
         return view;
     }
 
-    public void setNullEdt(){
+    public void setNullEdt() {
         edt_NameProduct.setText(null);
         edt_Price.setText(null);
         edt_Size.setText(null);

@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:padding="40dp"
     android:orientation="vertical">
 
     <LinearLayout
@@ -12,24 +11,18 @@
         android:layout_marginTop="15dp"
         android:orientation="horizontal">
 
-        <ImageView
-            android:id="@+id/vd"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:background="@color/background_item_product"
-            android:src="@drawable/baseline_check_circle_outline_24"
-            android:layout_marginLeft="10dp"/>
-
         <androidx.cardview.widget.CardView
             android:layout_width="77dp"
             android:layout_height="77dp"
             app:cardCornerRadius="8dp">
+
             <ImageView
-                android:id="@+id/img_TB_Product"
+                android:id="@+id/img_Cart_Product"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/background_item_product"
                 android:src="@drawable/plant" />
+
         </androidx.cardview.widget.CardView>
 
         <LinearLayout
@@ -38,85 +31,81 @@
             android:layout_marginStart="15dp"
             android:orientation="vertical">
 
+
+            <TextView
+                android:id="@+id/tv_Cart_ProductName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/lato"
+                android:text="@string/plant_Name"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:layout_marginTop="5dp"
-                >
+                android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/tv_TB_PlantName"
+                    android:id="@+id/tv_Cart_Price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/lato"
-                    android:text="@string/plant_Name"
-                    android:textColor="@color/black"
-                    android:textStyle="bold"
+                    android:text="250.000"
+                    android:textColor="@color/green"
                     android:textSize="16sp" />
-                
-                <View
-                    android:layout_width="1dp"
-                    android:layout_height="20dp"
-                    android:background="@color/black"
-                    android:layout_marginHorizontal="3dp"/>
 
                 <TextView
-                    android:id="@+id/tv_TB_PlantType"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/lato"
-                    android:text="@string/plant_Type"
-                    android:textColor="@color/color_Plant_Type"
-                    android:textSize="14sp" />
+                    android:layout_marginHorizontal="5dp"
+                    android:text="VNĐ"
+                    android:textColor="@color/green"
+                    android:textSize="16sp" />
 
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/tv_Price_Product"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:fontFamily="@font/lato"
-                android:text="250.000đ"
-                android:textColor="@color/green"
-                android:textSize="14sp"
-                 />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center|left"
                 android:orientation="horizontal">
+
                 <ImageView
-                    android:layout_width="17dp"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/baseline_remove"
-                    android:layout_marginTop="10dp"/>
+                    android:id="@+id/img_Minus"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/baseline_remove" />
+
                 <TextView
-                    android:id="@+id/tv_Soluongmua"
+                    android:id="@+id/tv_Cart_Quantity"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginHorizontal="20dp"
                     android:fontFamily="@font/lato"
                     android:text="2"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
                     android:textColor="@color/black"
-                    android:textSize="20sp"/>
+                    android:textSize="20sp" />
+
                 <ImageView
-                    android:layout_width="17dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:src="@drawable/baseline_add_circle_outline_24"/>
-                <EditText
-                    android:id="@+id/edt_delete"
+                    android:id="@+id/imgPlus"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/baseline_add_circle_outline_24" />
+
+                <TextView
+                    android:id="@+id/tv_Delete"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginLeft="20dp"
                     android:fontFamily="@font/lato"
                     android:text="Xóa"
-                    android:layout_marginLeft="20dp"
                     android:textColor="@color/black"
-                    android:textSize="14sp"/>
+                    android:textSize="14sp" />
             </LinearLayout>
         </LinearLayout>
 
