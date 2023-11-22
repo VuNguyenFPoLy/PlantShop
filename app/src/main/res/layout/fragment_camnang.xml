@@ -2,41 +2,40 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:paddingHorizontal="24dp">
-    <LinearLayout
+    android:orientation="vertical">
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="55dp"
+        android:layout_marginTop="20dp"
         android:orientation="horizontal"
-        android:gravity="left|center">
+        android:paddingHorizontal="24dp">
 
         <ImageView
             android:id="@+id/img_Back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/baseline_keyboard_arrow_left_24"/>
+            android:layout_alignParentStart="true"
+            android:src="@drawable/baseline_keyboard_arrow_left_24" />
 
-        <TextView
-            android:layout_width="wrap_content"
+        <EditText
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TRỢ GIÚP"
-            android:textColor="@color/black"
+            android:layout_toEndOf="@+id/img_Back"
+            android:background="@color/white"
             android:fontFamily="@font/lato"
-            android:layout_marginStart="130dp"
-            android:textSize="16sp"
-            />
-    </LinearLayout>
+            android:text="CẨM NANG CÂY TRỒNG"
+            android:textAlignment="center" />
+    </RelativeLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingHorizontal="24dp">
+        android:layout_margin="30dp"
+        android:orientation="vertical">
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rc_help"
+            android:id="@+id/rc_CamNang"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
     </LinearLayout>
-
-
 
 </LinearLayout>

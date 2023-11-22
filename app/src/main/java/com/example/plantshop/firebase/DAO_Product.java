@@ -52,7 +52,6 @@ public class DAO_Product {
                     listProduct.add(product);
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 

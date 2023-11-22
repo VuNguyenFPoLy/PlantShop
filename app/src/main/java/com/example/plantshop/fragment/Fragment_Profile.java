@@ -2,19 +2,21 @@ package com.example.plantshop.fragment;
 
 import static android.app.Activity.RESULT_OK;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.example.plantshop.R;
 import com.example.plantshop.activity.Activity_DangNhap;
@@ -70,8 +72,18 @@ public class Fragment_Profile extends Fragment {
         });
 
         tv_LogOut.setOnClickListener(v -> {
+            Toast.makeText(getActivity(), "Đã đăng xuất", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(getActivity(), Activity_DangNhap.class);
             startActivity(intent);
+        });
+
+        tv_ChangePass.setOnClickListener(v -> {
+            FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.fr_Layout, new Fragnment_test()).commit();
+        });
+        tv_Help.setOnClickListener(v -> {
+            FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.fr_Layout, new Fragment_Help()).commit();
         });
         return view;
     }

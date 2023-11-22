@@ -38,6 +38,7 @@ public class Activity_NewPass extends AppCompatActivity {
         tv_Back = findViewById(R.id.tv_Back);
         tv_SignUp = findViewById(R.id.tv_SignUp);
 
+
         Intent getEmail = getIntent();
         String email = getEmail.getStringExtra("email");
 

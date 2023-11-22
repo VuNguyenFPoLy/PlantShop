@@ -52,7 +52,6 @@
             android:name=".activity.MainActivity"
             android:exported="true"
              >
-
         </activity>
 
         <meta-data
