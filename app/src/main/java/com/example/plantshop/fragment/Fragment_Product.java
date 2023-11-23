@@ -1,6 +1,7 @@
 package com.example.plantshop.fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -63,6 +64,7 @@ public class Fragment_Product extends Fragment {
 
         Bundle bundle = getArguments();
         key = bundle.getString("key");
+
 
         List<View> item_View = new ArrayList<>();
         grid_ItemLayout.removeAllViews();
@@ -234,12 +236,23 @@ public class Fragment_Product extends Fragment {
                 listProduct.add(model);
 
                 holder.itemView.setOnClickListener(v -> {
-                    Fragment fragment = new Fragment_Edit_Or_Delete();
+
+                    Fragment fragment;
+
+                    if (MainActivity.getID == 0) {
+                        fragment = new Fragment_Edit_Or_Delete();
+                    } else {
+                        fragment = new Fragment_ViewProduct();
+                    }
+
                     Bundle bundle1 = new Bundle();
-                    bundle1.putString("from", "product");
                     bundle1.putInt("id", model.getIdSanPham());
+                    bundle1.putString("from", "product");
+                    bundle1.putString("type", model.getLoaiSanPham());
+                    bundle1.putString("key", key);
                     fragment.setArguments(bundle1);
                     getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fr_Layout, fragment).commit();
+
                 });
 
             }
@@ -259,14 +272,17 @@ public class Fragment_Product extends Fragment {
         // Chuyền fragment
         img_Back.setOnClickListener(v -> {
             adapter.stopListening();
-            FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.fr_Layout, new Fragment_Home()).commit();
+            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fr_Layout, new Fragment_Home()).commit();
         });
 
         tv_FAB.setOnClickListener(v -> {
             adapter.stopListening();
-            FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.fr_Layout, new Fragment_AddProduct()).commit();
+            Fragment fragment = new Fragment_AddProduct();
+            Bundle bundle1 = new Bundle();
+            bundle1.putString("key", key);
+            bundle1.putString("from", "product");
+            fragment.setArguments(bundle1);
+            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fr_Layout, fragment).commit();
         });
 
         return view;

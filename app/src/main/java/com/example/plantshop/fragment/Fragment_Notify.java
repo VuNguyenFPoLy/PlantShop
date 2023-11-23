@@ -10,9 +10,15 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.plantshop.R;
+import com.example.plantshop.activity.MainActivity;
+import com.example.plantshop.adapter.NotifyAdapter;
+import com.example.plantshop.model.Notification;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.database.DatabaseReference;
 
 import java.util.Calendar;
 
@@ -31,12 +37,15 @@ public class Fragment_Notify extends Fragment {
         tv_Notify = view.findViewById(R.id.tv_Notify);
         rc_Notify = view.findViewById(R.id.rc_Notify);
 
-//        Calendar calendar = Calendar.getInstance();
-//        int day = calendar.get(Calendar.DAY_OF_MONTH);
-//        int month = calendar.get(Calendar.MONTH);
-//        int year = calendar.get(Calendar.YEAR);
-//
-//        String date = day + ""
+        rc_Notify.setHasFixedSize(true);
+        rc_Notify.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
+        NotifyAdapter notifyAdapter = new NotifyAdapter(getContext(), MainActivity.listNT, MainActivity.listPurchased);
+
+        if(MainActivity.listNT.size() > 0){
+            tv_Notify.setVisibility(View.GONE);
+        }
+
+        rc_Notify.setAdapter(notifyAdapter);
 
         return view;
     }

@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,7 +41,7 @@ public class Fragment_AddProduct extends Fragment {
     private DAO_Product dao_product;
     private Fragment fragment;
     private ArrayList<Product> listProduct;
-    private String getURl, checkEditPD;
+    private String getURl, checkEditPD, getFrom, key;
 
     @Nullable
     @Override
@@ -67,11 +68,17 @@ public class Fragment_AddProduct extends Fragment {
         Bundle bundle = new Bundle();
 
         Bundle getData = getArguments();
+        key = getData.getString("key");
 
         if (getData != null) {
             checkEditPD = getData.getString("edit");
         }
-        String getFrom = getData.getString("from");
+
+
+        if (getData.getString("from") != null) {
+            getFrom = getData.getString("from");
+        }
+
 
         if (getFrom.equals("home") || getFrom.equals("search")) {
             listProduct.clear();
@@ -107,13 +114,10 @@ public class Fragment_AddProduct extends Fragment {
         }
 
 
-
-
-
         // trở về
         img_Back.setOnClickListener(v -> {
             fragment = new Fragment_Product();
-            bundle.putString("key", Fragment_Product.key);
+            bundle.putString("key", getData.getString("key"));
             fragment.setArguments(bundle);
             getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fr_Layout, fragment).commit();
 
@@ -121,9 +125,10 @@ public class Fragment_AddProduct extends Fragment {
 
         // trở về
         btn_Cancel.setOnClickListener(v -> {
-            FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.fr_Layout, new Fragment_Product()).commit();
-            fragmentTransaction.addToBackStack(null);
+            fragment = new Fragment_Product();
+            bundle.putString("key", getData.getString("key"));
+            fragment.setArguments(bundle);
+            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fr_Layout, fragment).commit();
         });
 
         // chọn kích cỡ

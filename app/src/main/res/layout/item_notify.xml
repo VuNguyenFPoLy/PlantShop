@@ -3,23 +3,30 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:padding="40dp"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/tv_Date"
+    <LinearLayout
+        android:id="@+id/ly_Date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="20dp"
-        android:textColor="@color/black"
-        android:fontFamily="@font/lato"
-        android:text="Thứ tư, 03/11/2023" />
+        android:orientation="vertical">
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginTop="4dp"
-        android:background="@color/black"/>
+        <TextView
+            android:id="@+id/tv_Date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/lato"
+            android:text="Thứ 2, 1/1/2023" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="4dp"
+            android:background="@color/black"/>
+    </LinearLayout>
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -36,8 +43,10 @@
                 android:id="@+id/img_TB_Product"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:src="@drawable/plant"
                 android:background="@color/background_item_product"
-                android:src="@drawable/plant" />
+                />
+
         </androidx.cardview.widget.CardView>
 
         <LinearLayout
@@ -47,14 +56,14 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/tv_Search_PlantName"
+                android:id="@+id/tv_TB"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:fontFamily="@font/lato"
-                android:text="Đình Nhân đã đặt hàng"
                 android:textColor="@color/green"
                 android:textSize="16sp"
+                android:text="Đã đặt hàng"
                 android:textStyle="bold" />
 
             <LinearLayout
@@ -69,7 +78,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/lato"
-                    android:text="@string/plant_Name"
+                    android:text="Hoa dâm bụt"
                     android:textColor="@color/black"
                     android:textStyle="bold"
                     android:textSize="16sp" />
@@ -82,10 +91,11 @@
 
                 <TextView
                     android:id="@+id/tv_TB_PlantType"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="Ưa nắng"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/lato"
-                    android:text="@string/plant_Type"
                     android:textColor="@color/color_Plant_Type"
                     android:textSize="14sp" />
 
@@ -96,8 +106,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
+                android:text="1 sản phẩm"
                 android:fontFamily="@font/lato"
-                android:text="2 Sản phẩm"
                 android:textColor="@color/black"
                 android:textSize="14sp"
                  />

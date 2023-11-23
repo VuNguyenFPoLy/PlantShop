@@ -1,7 +1,7 @@
 package com.example.plantshop.model;
 
 public class Product {
-    private int idSanPham, soLuong;
+    private int idSanPham, soLuong, soLuongMua, soLuongBan;
     private String tenSanPham, loaiSanPham, theLoaiSanPham,
             kichCo, xuatXu, moTa, url_Img;
     private double giaTien;
@@ -9,7 +9,7 @@ public class Product {
     public Product() {
     }
 
-    public Product(int idSanPham, String tenSanPham, String loaiSanPham, String theLoaiSanPham, String kichCo, String xuatXu, int soLuong, String moTa, double giaTien, String url_Img) {
+    public Product(int idSanPham, String tenSanPham, String loaiSanPham, String theLoaiSanPham, String kichCo, String xuatXu, int soLuong, String moTa, double giaTien, String url_Img, int soLuongMua, int soLuongBan) {
         this.idSanPham = idSanPham;
         this.tenSanPham = tenSanPham;
         this.loaiSanPham = loaiSanPham;
@@ -20,6 +20,8 @@ public class Product {
         this.giaTien = giaTien;
         this.theLoaiSanPham = theLoaiSanPham;
         this.url_Img = url_Img;
+        this.soLuongMua = soLuongMua;
+        this.soLuongBan = soLuongBan;
     }
 
     public int getIdSanPham() {
@@ -100,5 +102,21 @@ public class Product {
 
     public void setUrl_Img(String url_Img) {
         this.url_Img = url_Img;
+    }
+
+    public int getSoLuongMua() {
+        return soLuongMua;
+    }
+
+    public void setSoLuongMua(int soLuongMua) {
+        this.soLuongMua = soLuongMua;
+    }
+
+    public int getSoLuongBan() {
+        return soLuongBan;
+    }
+
+    public void setSoLuongBan(int soLuongBan) {
+        this.soLuongBan = soLuongBan;
     }
 }

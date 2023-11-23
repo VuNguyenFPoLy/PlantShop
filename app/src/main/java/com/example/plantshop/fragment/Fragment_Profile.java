@@ -2,7 +2,6 @@ package com.example.plantshop.fragment;
 
 import static android.app.Activity.RESULT_OK;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -11,12 +10,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.example.plantshop.R;
 import com.example.plantshop.activity.Activity_DangNhap;
@@ -37,7 +34,7 @@ public class Fragment_Profile extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragnment_profile, container, false);
+        View view = inflater.inflate(R.layout.fragment_profile, container, false);
 
         img_Avatar = view.findViewById(R.id.img_Avatar);
         tv_FullName = view.findViewById(R.id.tv_FullName);
@@ -64,26 +61,29 @@ public class Fragment_Profile extends Fragment {
         }
 
 
-        img_Avatar.setOnClickListener(v -> {
+        img_Avatar.setOnClickListener(v -> { // cập nhật ảnh đại diện
             Intent getIMG = new Intent();
             getIMG.setType("image/*");
             getIMG.setAction(Intent.ACTION_OPEN_DOCUMENT);
             startActivityForResult(Intent.createChooser(getIMG, "Select Picture"), PICK_IMAGE_REQUEST);
         });
 
-        tv_LogOut.setOnClickListener(v -> {
-            Toast.makeText(getActivity(), "Đã đăng xuất", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(getActivity(), Activity_DangNhap.class);
-            startActivity(intent);
+        tv_EditInformation.setOnClickListener(v -> { // chuyển tới frg cập nhật thông tin
+
+            Fragment fragment = new Fragment_EditInformation();
+            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fr_Layout, fragment).commit();
+
         });
 
-        tv_ChangePass.setOnClickListener(v -> {
-            FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.fr_Layout, new Fragnment_test()).commit();
-        });
-        tv_Help.setOnClickListener(v -> {
-            FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.fr_Layout, new Fragment_Help()).commit();
+
+
+
+
+
+
+        tv_LogOut.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), Activity_DangNhap.class);
+            startActivity(intent);
         });
         return view;
     }

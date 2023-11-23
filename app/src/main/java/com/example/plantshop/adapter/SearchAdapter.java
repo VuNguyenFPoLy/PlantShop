@@ -22,6 +22,7 @@ import com.example.plantshop.firebase.DAO_History;
 import com.example.plantshop.fragment.Fragment_Cart;
 import com.example.plantshop.fragment.Fragment_Edit_Or_Delete;
 import com.example.plantshop.fragment.Fragment_Search;
+import com.example.plantshop.fragment.Fragment_ViewProduct;
 import com.example.plantshop.model.Product;
 import com.squareup.picasso.Picasso;
 
@@ -69,24 +70,24 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
             if(onItemClickListener != null){
 
                 Fragment fragment;
+                Bundle bundle1 = new Bundle();
 
 
                 if(MainActivity.getID > 0){
-                    fragment = new Fragment_Cart();
-                    onItemClickListener.onItemClick(fragment);
 
+                    fragment = new Fragment_ViewProduct();
+                    onItemClickListener.onItemClick(fragment);
                     daoH.saveHistory(product.getTenSanPham(), MainActivity.getID);
                 }else {
 
                     fragment = new Fragment_Edit_Or_Delete();
-                    Bundle bundle1 = new Bundle();
-                    bundle1.putInt("id", product.getIdSanPham());
-                    bundle1.putString("from", "search");
-                    bundle1.putString("type", product.getLoaiSanPham());
-                    fragment.setArguments(bundle1);
-
                     onItemClickListener.onItemClick(fragment);
                 }
+
+                bundle1.putInt("id", product.getIdSanPham());
+                bundle1.putString("from", "search");
+                bundle1.putString("type", product.getLoaiSanPham());
+                fragment.setArguments(bundle1);
             }
 
         });

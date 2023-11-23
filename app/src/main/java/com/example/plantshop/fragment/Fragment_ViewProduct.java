@@ -31,7 +31,7 @@ public class Fragment_ViewProduct extends Fragment {
 
     private Button btn_Buy;
     private ArrayList<Product> listProduct;
-    private String getFrom, type;
+    private String getFrom, type, key;
     private int id;
     private Double price;
     private Product product;
@@ -65,6 +65,8 @@ public class Fragment_ViewProduct extends Fragment {
         getFrom = getData.getString("from");
         type = getData.getString("type");
 
+        key = getData.getString("key");
+
         if(getFrom.equals("product")){ // kiểm tra dữ liệu từ fragment nào chuyển đến
             listProduct = Fragment_Product.listProduct;
         }else {
@@ -97,7 +99,18 @@ public class Fragment_ViewProduct extends Fragment {
         }
 
         img_Back.setOnClickListener(v -> {
-            MainActivity.bottom_Navigation.setSelectedItemId(R.id.bt_Home);
+            Fragment fragment;
+            if(getFrom.equals("home")){
+                MainActivity.bottom_Navigation.setSelectedItemId(R.id.bt_Home);
+            } else if (getFrom.equals("product")) {
+                 fragment = new Fragment_Product();
+                 Bundle bundle = new Bundle();
+                 bundle.putString("key", key);
+                 fragment.setArguments(bundle);
+                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fr_Layout, fragment).commit();
+            } else if (getFrom.equals("search")) {
+                MainActivity.bottom_Navigation.setSelectedItemId(R.id.bt_Search);
+            }
         });
 
         // Tăng giảm số lượng và tổng tiền

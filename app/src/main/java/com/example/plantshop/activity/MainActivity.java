@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -20,9 +21,16 @@ import com.example.plantshop.fragment.Fragment_Profile;
 import com.example.plantshop.fragment.Fragment_Search;
 import com.example.plantshop.model.Guest;
 import com.example.plantshop.model.HistorySearch;
+import com.example.plantshop.model.Notification;
+import com.example.plantshop.model.Product;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -33,6 +41,9 @@ public class MainActivity extends AppCompatActivity {
     public static BottomNavigationView bottom_Navigation;
     private AppBarLayout appbarLayout;
     public static ArrayList<Guest> listGuest = new ArrayList<>();
+    private DatabaseReference databaseRef_NT, databaseRef_listCartOfNT;
+    public static ArrayList<Notification> listNT;
+    public static ArrayList<Product> listPurchased;
     public static Guest guest;
     public static int getID;
 
@@ -108,6 +119,87 @@ public class MainActivity extends AppCompatActivity {
         });
 
         bottom_Navigation.setSelectedItemId(R.id.bt_Home);
+
+
+        databaseRef_NT = FirebaseDatabase.getInstance().getReference("Notification").child(String.valueOf(getID));
+        databaseRef_listCartOfNT = FirebaseDatabase.getInstance().getReference("Purchased Product").child(getID+"/");
+
+
+        databaseRef_NT.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                listNT = new ArrayList<>();
+
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()
+                     ) {
+                    Notification notification = dataSnapshot.getValue(Notification.class);
+                    listNT.add(notification);
+                }
+                int size = listNT.size();
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        databaseRef_listCartOfNT.addListenerForSingleValueEvent(new ValueEventListener() { // lấy list sản phẩm đã đặt hàng
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                listPurchased = new ArrayList<>();
+
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()
+                     ) {
+
+                    String key = dataSnapshot.getRef().getKey();
+                    databaseRef_listCartOfNT.child(key).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+
+
+                            for (DataSnapshot dataSnapshot1 : snapshot.getChildren()
+                                 ) {
+
+                                String key2 = dataSnapshot1.getRef().getKey();
+
+                                databaseRef_listCartOfNT.child(key).child(key2).addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                                        for (DataSnapshot dataSnapshot : snapshot.getChildren()
+                                             ) {
+                                            Product PD = dataSnapshot.getValue(Product.class);
+                                            listPurchased.add(PD);
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+
+                                    }
+                                });
+
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
 
     }
 }

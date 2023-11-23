@@ -135,6 +135,7 @@ public class Fragment_Edit_Or_Delete extends Fragment {
             TextView tv_Cancel = bottomDialog.findViewById(R.id.tv_Cancel);
 
             String typeProduct = tv_Type_Product.getText().toString();
+
             btn_Accept.setOnClickListener(v1 -> { // chấp nhận xoá
 
                 if(typeProduct.equals("Cây trồng")){

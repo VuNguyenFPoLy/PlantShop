@@ -1,16 +1,15 @@
 package com.example.plantshop.fragment;
 
-import android.app.AlertDialog;
+import android.app.Dialog;
+import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
-import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -19,7 +18,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.plantshop.R;
 import com.example.plantshop.activity.MainActivity;
@@ -32,7 +30,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,13 +43,13 @@ public class Fragment_Cart extends Fragment {
     private double sumCost = 0;
     private LinearLayout boardCost;
     private int size;
-    private ArrayList<Product> listPD_InCart = new ArrayList<>();
+    public static ArrayList<Product> listPD_InCart;
 
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragnment_cart, container, false);
+        View view = inflater.inflate(R.layout.fragment_cart, container, false);
 
         img_Back = view.findViewById(R.id.img_Back);
         img_DeleteAll = view.findViewById(R.id.img_DeleteAll);
@@ -61,22 +58,28 @@ public class Fragment_Cart extends Fragment {
         btn_LetPay = view.findViewById(R.id.btn_LetPay);
         boardCost = view.findViewById(R.id.boardCost);
 
+        listPD_InCart = new ArrayList<>();
 
         img_Back.setOnClickListener(v -> {
             MainActivity.bottom_Navigation.setSelectedItemId(R.id.bt_Home);
         });
 
+        btn_LetPay.setOnClickListener(v -> {
+            Fragment fragment = new Fragment_Choose_Pay();
+            Bundle bundle = new Bundle();
+            bundle.putDouble("price", sumCost);
+            fragment.setArguments(bundle);
+            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fr_Layout, fragment).commit();
+        });
 
 
         onView();
 
 
-
-
         return view;
     }
 
-    public void onView(){
+    public void onView() {
 
         sumCost = 0;
 
@@ -124,25 +127,37 @@ public class Fragment_Cart extends Fragment {
 
                                 tv_Delete.setOnClickListener(v -> {
 
-                                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                                    builder.setTitle("Xác nhận xoá");
-                                    builder.setMessage("Bạn có muốn xoá sản phẩm ra khỏi giỏ hàng");
+                                    Dialog bottomDialog = new Dialog(getContext());
+                                    bottomDialog.setContentView(R.layout.layout_sheet_bottom);
 
-                                    builder.setPositiveButton("Có", (dialog, which) -> {
-                                        dialog.dismiss();
+                                    Button btn_Accept = bottomDialog.findViewById(R.id.btn_Accept);
+                                    TextView tv_Cancel = bottomDialog.findViewById(R.id.tv_Cancel);
+                                    TextView tv_Title = bottomDialog.findViewById(R.id.tv_Title);
+
+                                    tv_Title.setText("Xác nhận xoá sản phẩm khỏi giỏ hàng?");
+
+                                    btn_Accept.setOnClickListener(v1 -> {
 
                                         databaseRef_getCart.child(product.getLoaiSanPham()).child(String.valueOf(product.getIdSanPham())).removeValue();
 
+                                        if (listPD_InCart.size() == 0) {
+                                            gridlayout_Cart.removeAllViews();
+                                            tv_Cost.setText("0");
+                                        }
                                         onView();
 
+                                        bottomDialog.dismiss();
                                     });
 
-                                    builder.setNegativeButton("Không", (dialog, which) -> {
-                                        dialog.dismiss();
+                                    tv_Cancel.setOnClickListener(v1 -> {
+                                        bottomDialog.dismiss();
                                     });
 
-                                    AlertDialog dialog = builder.create();
-                                    dialog.show();
+                                    bottomDialog.show();
+                                    bottomDialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT); //Thiết lập kích thước cửa sổ
+                                    bottomDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                                    bottomDialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
+                                    bottomDialog.getWindow().setGravity(Gravity.BOTTOM); //Vị trí cửa sổ
 
                                 });
 
@@ -152,9 +167,16 @@ public class Fragment_Cart extends Fragment {
 
                                     tv_Cart_Quantity.setText(String.valueOf(plus_Quantity));
 
-                                    sumCost -= product.getGiaTien();
-                                    sumCost += product.getGiaTien() * plus_Quantity;
+                                    sumCost += product.getGiaTien();
                                     tv_Cost.setText(String.format("%.3f", sumCost / 1000));
+
+
+                                    for (Product PD : listPD_InCart
+                                         ) {
+                                        if(PD.getTenSanPham().equals(product.getTenSanPham())) {
+                                            PD.setSoLuongMua(plus_Quantity);
+                                        }
+                                    }
                                 });
 
                                 img_Minus.setOnClickListener(v -> { // gỉam số lượng
@@ -164,12 +186,18 @@ public class Fragment_Cart extends Fragment {
                                         minus_Quantity = 1;
                                     }
 
-                                    sumCost -= product.getGiaTien() * minus_Quantity;
+                                    sumCost -= product.getGiaTien();
 
                                     if (sumCost <= (product.getGiaTien() * size)) { // không cho giá tiền nhỏ hơn giá trị ban đầu
                                         sumCost = product.getGiaTien() * size;
                                     }
 
+                                    for (Product PD : listPD_InCart
+                                    ) {
+                                        if(PD.getTenSanPham().equals(product.getTenSanPham())) {
+                                            PD.setSoLuongMua(minus_Quantity);
+                                        }
+                                    }
                                     tv_Cart_Quantity.setText(String.valueOf(minus_Quantity));
                                     tv_Cost.setText(String.format("%.3f", sumCost / 1000));
                                 });
@@ -209,29 +237,37 @@ public class Fragment_Cart extends Fragment {
 
         img_DeleteAll.setOnClickListener(v -> {
 
-            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-            builder.setTitle("Thông báo!!!");
-            builder.setMessage("Bạn có muốn xoá tất cả sản phẩm ra khỏi giỏ hàng");
+            Dialog bottomDialog = new Dialog(getContext());
+            bottomDialog.setContentView(R.layout.layout_sheet_bottom);
 
-            builder.setPositiveButton("Có", ((dialog, which) -> {
+            Button btn_Accept = bottomDialog.findViewById(R.id.btn_Accept);
+            TextView tv_Cancel = bottomDialog.findViewById(R.id.tv_Cancel);
+            TextView tv_Title = bottomDialog.findViewById(R.id.tv_Title);
+
+            tv_Title.setText("Xác nhận xoá tất cả đơn hàng?");
+
+            btn_Accept.setOnClickListener(v1 -> {
+                bottomDialog.dismiss();
                 databaseRef_getCart.removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
                         gridlayout_Cart.removeAllViews();
                         onView();
                         tv_Cost.setText("0");
+
                     }
                 });
+            });
 
-            }));
+            tv_Cancel.setOnClickListener(v1 -> {
+                bottomDialog.dismiss();
+            });
 
-            builder.setNegativeButton("Không", ((dialog, which) -> {
-                dialog.dismiss();
-            }));
-
-            AlertDialog dialog = builder.create();
-            dialog.show();
-
+            bottomDialog.show();
+            bottomDialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT); //Thiết lập kích thước cửa sổ
+            bottomDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            bottomDialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
+            bottomDialog.getWindow().setGravity(Gravity.BOTTOM); //Vị trí cửa sổ
 
         });
     }
