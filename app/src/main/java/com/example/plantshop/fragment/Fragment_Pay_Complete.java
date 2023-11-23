@@ -42,7 +42,7 @@ public class Fragment_Pay_Complete extends Fragment {
     private LinearLayout layout_GHNShip, layout_CODShip;
     private RecyclerView rc_NT_Product;
     private Button btn_GoHandBook;
-    private ArrayList<Product> listPayment = Fragment_Cart.listPD_InCart;
+    private ArrayList<Product> listPayment;
     private Guest guest;
     private boolean check_COD, check_GHN, check_Pay;
     private double sumPrice;
@@ -116,7 +116,15 @@ public class Fragment_Pay_Complete extends Fragment {
             tv_PaymentBy.setText("Thanh toán khi nhận hàng");
         }
 
-        tv_SumPrice.setText(String.format("%.3f", sumPrice));
+        tv_SumPrice.setText(String.format("%.3f", (sumPrice/1000)));
+
+
+        listPayment = Fragment_Cart.listPD_InCart;
+
+        if(listPayment == null){
+            listPayment = MainActivity.listPurchased;
+        }
+
 
         rc_NT_Product.setHasFixedSize(true);
         rc_NT_Product.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));

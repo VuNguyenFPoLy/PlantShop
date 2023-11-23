@@ -22,7 +22,7 @@ import com.google.firebase.database.DatabaseReference;
 
 import java.util.Calendar;
 
-public class Fragment_Notify extends Fragment {
+public class Fragment_Notify extends Fragment implements NotifyAdapter.OnItemClickListener {
 
     private ImageView img_Back;
     private TextView tv_Notify;
@@ -39,7 +39,7 @@ public class Fragment_Notify extends Fragment {
 
         rc_Notify.setHasFixedSize(true);
         rc_Notify.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
-        NotifyAdapter notifyAdapter = new NotifyAdapter(getContext(), MainActivity.listNT, MainActivity.listPurchased);
+        NotifyAdapter notifyAdapter = new NotifyAdapter(getContext(), MainActivity.listNT, MainActivity.listPurchased, this);
 
         if(MainActivity.listNT.size() > 0){
             tv_Notify.setVisibility(View.GONE);
@@ -48,5 +48,11 @@ public class Fragment_Notify extends Fragment {
         rc_Notify.setAdapter(notifyAdapter);
 
         return view;
+    }
+
+    @Override
+    public void onItemClick(Fragment fragment) {
+
+        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fr_Layout, fragment).commit();
     }
 }
