@@ -181,8 +181,10 @@ public class DAO {
         return check;
     }
     public boolean checkpass(String passWord) {
+
         boolean check = false;
         if (!passWord.isEmpty()) {
+
             for (Account ac : listAccount
             ) {
                 if (passWord.equals(ac.getPassWord())) {

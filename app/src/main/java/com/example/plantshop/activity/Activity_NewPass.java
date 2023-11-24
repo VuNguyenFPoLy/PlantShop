@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -34,7 +33,7 @@ public class Activity_NewPass extends AppCompatActivity {
 
         edt_NewPass = findViewById(R.id.edt_NewPass);
         edt_ConfirmNewPass = findViewById(R.id.edt_ConfirmNewPass);
-        btn_Login = findViewById(R.id.btn_Login);
+        btn_Login = findViewById(R.id.btn_Submit);
         tv_Back = findViewById(R.id.tv_Back);
         tv_SignUp = findViewById(R.id.tv_SignUp);
 

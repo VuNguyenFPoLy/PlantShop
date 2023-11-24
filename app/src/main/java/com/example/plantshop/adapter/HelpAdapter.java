@@ -34,8 +34,8 @@ public class HelpAdapter extends RecyclerView.Adapter<HelpAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull HelpAdapter.ViewHolder holder, int position) {
         Help help = listHelp.get(position);
-        holder.tv_Question.setText(help.getQuestion());
-        holder.tv_Reply.setText(help.getReply());
+//        holder.tv_Question.setText(help.getQuestion());
+//        holder.tv_Reply.setText(help.getReply());
 
     }
 
@@ -52,7 +52,7 @@ public class HelpAdapter extends RecyclerView.Adapter<HelpAdapter.ViewHolder> {
             super(itemView);
 
             tv_Question = itemView.findViewById(R.id.tv_Question);
-            tv_Reply = itemView.findViewById(R.id.tv_Reply);
+//            tv_Reply = itemView.findViewById(R.id.tv_Reply);
             img_Show = itemView.findViewById(R.id.img_Show);
         }
     }

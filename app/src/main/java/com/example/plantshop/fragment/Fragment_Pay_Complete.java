@@ -116,12 +116,12 @@ public class Fragment_Pay_Complete extends Fragment {
             tv_PaymentBy.setText("Thanh toán khi nhận hàng");
         }
 
-        tv_SumPrice.setText(String.format("%.3f", (sumPrice/1000)));
+        tv_SumPrice.setText(String.format("%.3f", (sumPrice / 1000)));
 
 
         listPayment = Fragment_Cart.listPD_InCart;
 
-        if(listPayment == null){
+        if (listPayment == null) {
             listPayment = MainActivity.listPurchased;
         }
 
@@ -138,66 +138,69 @@ public class Fragment_Pay_Complete extends Fragment {
             MainActivity.bottom_Navigation.setSelectedItemId(R.id.bt_Home);
         });
 
-        databaseRef_NT = FirebaseDatabase.getInstance().getReference("Notification").child(String.valueOf(MainActivity.getID));
-        databaseRef_CartOfNT = FirebaseDatabase.getInstance().getReference("Purchased Product").child(String.valueOf(MainActivity.getID));
+        if (Fragment_Cart.listPD_InCart != null) {
 
-        databaseRef_NT.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
+            databaseRef_NT = FirebaseDatabase.getInstance().getReference("Notification").child(String.valueOf(MainActivity.getID));
+            databaseRef_CartOfNT = FirebaseDatabase.getInstance().getReference("Purchased Product").child(String.valueOf(MainActivity.getID));
 
-                ArrayList<Notification> listNT = new ArrayList<>(); // Lấy danh sách thông báo về và thiết lập id tự động cho thông báo
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()
-                ) {
-                    Notification nt = dataSnapshot.getValue(Notification.class);
-                    if (nt != null) {
-                        listNT.add(nt);
+            databaseRef_NT.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                    ArrayList<Notification> listNT = new ArrayList<>(); // Lấy danh sách thông báo về và thiết lập id tự động cho thông báo
+                    for (DataSnapshot dataSnapshot : snapshot.getChildren()
+                    ) {
+                        Notification nt = dataSnapshot.getValue(Notification.class);
+                        if (nt != null) {
+                            listNT.add(nt);
+                        }
                     }
+
+
+                    if (listNT.size() > 0) {
+                        id = listNT.get(listNT.size() - 1).getIdNT() + 1;
+                    }
+
+                    Date currentDate = new Date(); // lấy ngày tháng hiện tại cho thông báo
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.setTime(currentDate);
+
+                    int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
+                    String dayOfWeekString = getDayOfWeekString(dayOfWeek);
+                    int day = calendar.get(Calendar.DAY_OF_MONTH);
+                    int month = calendar.get(Calendar.MONTH) + 1;
+                    int year = calendar.get(Calendar.YEAR);
+                    String date = dayOfWeekString + ", " + day + "/" + month + "/" + year;
+
+                    Notification nt = new Notification();
+                    nt.setIdNT(id);
+                    nt.setIdGuest(MainActivity.getID);
+                    nt.setCheck_COD(check_COD);
+                    nt.setCheck_GHN(check_GHN);
+                    nt.setCheck_Pay(check_Pay);
+                    nt.setSumPrice(sumPrice);
+                    nt.setDateOder(date);
+                    nt.setStatus(true);
+
+
+                    databaseRef_NT.child(String.valueOf(id)).setValue(nt); // up thông tin thông báo
+
+                    for (Product product : listPayment // thêm các sản phẩm vào thông báo
+                    ) {
+                        databaseRef_CartOfNT.child(String.valueOf(id)).child(product.getLoaiSanPham()).child(String.valueOf(product.getIdSanPham())).setValue(product);
+                    }
+
+                    FirebaseDatabase.getInstance().getReference("Cart").child(String.valueOf(MainActivity.getID)).removeValue(); // xoá sản phẩm trong giỏ hàng
+
+
                 }
 
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
 
-                if (listNT.size() > 0) {
-                    id = listNT.get(listNT.size() - 1).getIdNT() + 1;
                 }
-
-                Date currentDate = new Date(); // lấy ngày tháng hiện tại cho thông báo
-                Calendar calendar = Calendar.getInstance();
-                calendar.setTime(currentDate);
-
-                int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
-                String dayOfWeekString = getDayOfWeekString(dayOfWeek);
-                int day = calendar.get(Calendar.DAY_OF_MONTH);
-                int month = calendar.get(Calendar.MONTH) + 1;
-                int year = calendar.get(Calendar.YEAR);
-                String date = dayOfWeekString + ", " +  day + "/" + month + "/" + year;
-
-                Notification nt = new Notification();
-                nt.setIdNT(id);
-                nt.setIdGuest(MainActivity.getID);
-                nt.setCheck_COD(check_COD);
-                nt.setCheck_GHN(check_GHN);
-                nt.setCheck_Pay(check_Pay);
-                nt.setSumPrice(sumPrice);
-                nt.setDateOder(date);
-                nt.setStatus(true);
-
-
-                databaseRef_NT.child(String.valueOf(id)).setValue(nt); // up thông tin thông báo
-
-                for (Product product : listPayment // thêm các sản phẩm vào thông báo
-                ) {
-                    databaseRef_CartOfNT.child(String.valueOf(id)).child(product.getLoaiSanPham()).child(String.valueOf(product.getIdSanPham())).setValue(product);
-                }
-
-                FirebaseDatabase.getInstance().getReference("Cart").child(String.valueOf(MainActivity.getID)).removeValue(); // xoá sản phẩm trong giỏ hàng
-
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
+            });
+        }
 
 
         return view;

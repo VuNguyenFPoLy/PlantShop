@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingHorizontal="24dp"
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal"
+            android:paddingHorizontal="24dp">
+
+            <ImageView
+                android:id="@+id/img_Back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:src="@drawable/baseline_keyboard_arrow_left_24" />
+
+            <TextView
+                android:id="@+id/tv_NameProduct"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@+id/img_Back"
+                android:fontFamily="@font/lato"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+        </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/img_Product"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:scaleType="fitCenter" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:gravity="center|left"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_Type_Product"
+                android:layout_width="wrap_content"
+                android:layout_height="28dp"
+                android:layout_marginHorizontal="5dp"
+                android:background="@drawable/background_type_product"
+                android:fontFamily="@font/lato"
+                android:gravity="center"
+                android:padding="5dp"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/tv_TypeOf_Product"
+                android:layout_width="wrap_content"
+                android:layout_height="28dp"
+                android:layout_marginHorizontal="5dp"
+                android:background="@drawable/background_type_product"
+                android:fontFamily="@font/lato"
+                android:gravity="center"
+                android:padding="5dp"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/addOrViewStep"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/lato"
+            android:text="Các bước"
+            android:layout_marginTop="15dp"
+            android:paddingVertical="15dp"
+            android:textColor="@color/black"
+            android:drawableEnd="@drawable/baseline_add_24"
+            android:textSize="18sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/green"/>
+
+
+        <TextView
+            android:id="@+id/addOrViewStage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="@font/lato"
+            android:text="Các giai đoạn phát triển"
+            android:paddingVertical="15dp"
+            android:textColor="@color/black"
+            android:drawableEnd="@drawable/baseline_add_24"
+            android:textSize="18sp" />
+
+
+
+    </LinearLayout>
+
+</ScrollView>

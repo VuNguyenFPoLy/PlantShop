@@ -25,11 +25,10 @@ import com.squareup.picasso.Picasso;
 public class Fragment_Profile extends Fragment {
 
     private ImageView img_Avatar;
-    private TextView tv_FullName, tv_EmailUser, tv_EditInformation, tv_HandbookPlant, tv_History
-            , tv_Help, tv_ChangePass, tv_LogOut;
+    private TextView tv_FullName, tv_EmailUser, tv_EditInformation, tv_HandbookPlant, tv_History, tv_Help, tv_ChangePass, tv_LogOut;
     private final int PICK_IMAGE_REQUEST = 2;
     private Uri uri;
-
+    private Fragment fragment;
 
     @Nullable
     @Override
@@ -46,20 +45,21 @@ public class Fragment_Profile extends Fragment {
         tv_ChangePass = view.findViewById(R.id.tv_ChangePass);
         tv_LogOut = view.findViewById(R.id.tv_LogOut);
 
-        if(MainActivity.guest != null){
+        if (MainActivity.guest != null) {
             Guest guest = MainActivity.guest;
 
-            if (guest.getFullName() != null){
+            if (guest.getFullName() != null) {
                 tv_FullName.setText(guest.getFullName());
-            }else {
+            } else {
                 tv_FullName.setText("Guest");
             }
             tv_EmailUser.setText(guest.getEmail());
-            if(guest.getUrl_img() != null){
+            if (guest.getUrl_img() != null) {
                 Picasso.get().load(guest.getUrl_img()).into(img_Avatar);
             }
         }
 
+        DAO dao = new DAO();
 
         img_Avatar.setOnClickListener(v -> { // cập nhật ảnh đại diện
             Intent getIMG = new Intent();
@@ -70,15 +70,20 @@ public class Fragment_Profile extends Fragment {
 
         tv_EditInformation.setOnClickListener(v -> { // chuyển tới frg cập nhật thông tin
 
-            Fragment fragment = new Fragment_EditInformation();
+            fragment = new Fragment_EditInformation();
             getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fr_Layout, fragment).commit();
 
         });
 
+        tv_HandbookPlant.setOnClickListener(v -> {
+            fragment = new Fragment_HandBook();
+            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fr_Layout, fragment).commit();
+        });
 
-
-
-
+        tv_ChangePass.setOnClickListener(v -> {
+            fragment = new Fragment_ChangePassWord();
+            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fr_Layout, fragment).commit();
+        });
 
 
         tv_LogOut.setOnClickListener(v -> {
@@ -88,7 +93,7 @@ public class Fragment_Profile extends Fragment {
         return view;
     }
 
-    public void setImg_Avatar(Uri uri){
+    public void setImg_Avatar(Uri uri) {
         DAO.setIMG(uri);
     }
 

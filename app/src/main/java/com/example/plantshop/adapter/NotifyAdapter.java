@@ -53,13 +53,10 @@ public class NotifyAdapter extends RecyclerView.Adapter<NotifyAdapter.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull NotifyAdapter.ViewHolder holder, int position) {
 
+        if(position < listNT.size()){
             notification = listNT.get(position);
             holder.tv_Date.setText(notification.getDateOder());
-
-//        if (position > 0) {
-//            holder.tv_Date.setVisibility(View.GONE);
-//            holder.underView.setBackgroundColor(Color.WHITE); // nếu ẩn thẻ View đi sẽ bị mất dữ liệu từ thể loại sản phẩm và số lượng
-//        }
+        }
 
         try{
             if(listNT.get(position).getDateOder().equals(listNT.get(position - 1).getDateOder())){

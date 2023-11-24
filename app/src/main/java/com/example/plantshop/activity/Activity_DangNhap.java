@@ -5,21 +5,17 @@ import androidx.core.content.ContextCompat;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.plantshop.R;
 import com.example.plantshop.firebase.DAO;
 import com.example.plantshop.model.Account;
 import com.example.plantshop.model.Guest;
-import com.example.plantshop.model.HistorySearch;
 
 import java.util.ArrayList;
 
@@ -42,7 +38,7 @@ public class Activity_DangNhap extends AppCompatActivity {
 
         edt_LEmai = findViewById(R.id.edt_LEmai);
         edt_Lpass = findViewById(R.id.edt_Lpass);
-        btn_Login = findViewById(R.id.btn_Login);
+        btn_Login = findViewById(R.id.btn_Submit);
         tv_Forgotpass = findViewById(R.id.tv_Forgotpass);
         tv_SignUp = findViewById(R.id.tv_SignUp);
 
