@@ -157,7 +157,6 @@ public class DAO {
         return check;
     }
 
-
     public int getID() {
         int id = 0;
 
@@ -181,6 +180,19 @@ public class DAO {
         }
         return check;
     }
+    public boolean checkpass(String passWord) {
+        boolean check = false;
+        if (!passWord.isEmpty()) {
+            for (Account ac : listAccount
+            ) {
+                if (passWord.equals(ac.getPassWord())) {
+                    check = true;
+                    break;
+                }
+            }
+        }
+        return check;
 
+    }
 
 }

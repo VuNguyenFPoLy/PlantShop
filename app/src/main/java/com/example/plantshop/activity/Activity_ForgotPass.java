@@ -31,6 +31,7 @@ public class Activity_ForgotPass extends AppCompatActivity {
 
         dao = new DAO();
 
+
         tv_BackLogin.setOnClickListener(v -> {
             Intent i_backToLogin = new Intent(Activity_ForgotPass.this, Activity_DangNhap.class);
             startActivity(i_backToLogin);
