@@ -206,28 +206,28 @@ public class MainActivity extends AppCompatActivity {
             });
 
         }else {
-
-            databaseRef_NT = FirebaseDatabase.getInstance().getReference("Notification");
-            databaseRef_listCartOfNT = FirebaseDatabase.getInstance().getReference("Purchased Product");
-
-            databaseRef_NT.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    listNT = new ArrayList<>();
-
-                    for (DataSnapshot dataSnapshot : snapshot.getChildren()
-                    ) {
-                        Notification notification = dataSnapshot.getValue(Notification.class);
-                        listNT.add(notification);
-                    }
-
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-
-                }
-            });
+//
+//            databaseRef_NT = FirebaseDatabase.getInstance().getReference("Notification");
+//            databaseRef_listCartOfNT = FirebaseDatabase.getInstance().getReference("Purchased Product");
+//
+//            databaseRef_NT.addListenerForSingleValueEvent(new ValueEventListener() {
+//                @Override
+//                public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                    listNT = new ArrayList<>();
+//
+//                    for (DataSnapshot dataSnapshot : snapshot.getChildren()
+//                    ) {
+//                        Notification notification = dataSnapshot.getValue(Notification.class);
+//                        listNT.add(notification);
+//                    }
+//
+//                }
+//
+//                @Override
+//                public void onCancelled(@NonNull DatabaseError error) {
+//
+//                }
+//            });
         }
 
 

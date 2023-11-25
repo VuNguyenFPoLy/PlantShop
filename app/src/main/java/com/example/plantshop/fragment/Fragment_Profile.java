@@ -2,12 +2,17 @@ package com.example.plantshop.fragment;
 
 import static android.app.Activity.RESULT_OK;
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -87,8 +92,36 @@ public class Fragment_Profile extends Fragment {
 
 
         tv_LogOut.setOnClickListener(v -> {
-            Intent intent = new Intent(getActivity(), Activity_DangNhap.class);
-            startActivity(intent);
+
+            Dialog bottomDialog = new Dialog(getContext());
+            bottomDialog.setContentView(R.layout.layout_sheet_bottom);
+
+            Button btn_Accept = bottomDialog.findViewById(R.id.btn_Accept);
+            TextView tv_Cancel = bottomDialog.findViewById(R.id.tv_Cancel);
+            TextView tv_Title = bottomDialog.findViewById(R.id.tv_Title);
+            TextView tv_Message = bottomDialog.findViewById(R.id.tv_Message);
+
+            tv_Title.setText("Xác nhận đăng xuất");
+            tv_Message.setText("Bạn có muốn đăng xuất?");
+
+            btn_Accept.setOnClickListener(v1 -> {
+                Intent intent = new Intent(getActivity(), Activity_DangNhap.class);
+                startActivity(intent);
+
+                bottomDialog.dismiss();
+            });
+
+            tv_Cancel.setOnClickListener(v1 -> { // huỷ xoá
+                bottomDialog.dismiss();
+            });
+
+            bottomDialog.show();
+            bottomDialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT); //Thiết lập kích thước cửa sổ
+            bottomDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            bottomDialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
+            bottomDialog.getWindow().setGravity(Gravity.BOTTOM); //Vị trí cửa sổ
+
+
         });
         return view;
     }
