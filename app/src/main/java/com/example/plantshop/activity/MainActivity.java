@@ -140,7 +140,6 @@ public class MainActivity extends AppCompatActivity {
                         Notification notification = dataSnapshot.getValue(Notification.class);
                         listNT.add(notification);
                     }
-                    int size = listNT.size();
 
                 }
 

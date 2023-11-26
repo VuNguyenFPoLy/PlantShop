@@ -259,7 +259,7 @@ public class Fragment_Info_CreditCard extends Fragment {
                     bundle.putBoolean("check_COD", check_COD);
                     bundle.putBoolean("check_GHN", check_GHN);
                     bundle.putBoolean("check_Pay", check_Pay); //true là thẻ tín dụng, false là tiền mặt
-                    bundle.putDouble("sumPrice", sumPrice);
+                    bundle.putDouble("sumPrice", (sumPrice*1000));
 
                     fragment.setArguments(bundle);
                     getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fr_Layout, fragment).commit();

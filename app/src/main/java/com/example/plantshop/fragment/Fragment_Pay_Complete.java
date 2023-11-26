@@ -101,6 +101,7 @@ public class Fragment_Pay_Complete extends Fragment {
         check_GHN = getData.getBoolean("check_GHN");
         check_Pay = getData.getBoolean("check_Pay");
         sumPrice = getData.getDouble("sumPrice");
+        sumPrice = sumPrice / 1000;
 
         if (check_COD) {
             layout_CODShip.setVisibility(View.VISIBLE);
@@ -116,7 +117,7 @@ public class Fragment_Pay_Complete extends Fragment {
             tv_PaymentBy.setText("Thanh toán khi nhận hàng");
         }
 
-        tv_SumPrice.setText(String.format("%.3f", (sumPrice / 1000)));
+        tv_SumPrice.setText(String.format("%.3f", sumPrice));
 
 
         listPayment = Fragment_Cart.listPD_InCart;

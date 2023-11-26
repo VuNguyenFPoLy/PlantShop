@@ -3,24 +3,24 @@ package com.example.plantshop.model;
 import android.widget.ImageView;
 
 public class Help {
-    private ImageView imgShow;
+    private int idHelp;
     private String tv_Question, tv_Content;
 
     public Help() {
     }
 
-    public Help(ImageView imgShow, String tv_Question, String tv_Content) {
-        this.imgShow = imgShow;
+    public Help(int idHelp, String tv_Question, String tv_Content) {
+        this.idHelp = idHelp;
         this.tv_Question = tv_Question;
         this.tv_Content = tv_Content;
     }
 
-    public ImageView getImgShow() {
-        return imgShow;
+    public int getIdHelp() {
+        return idHelp;
     }
 
-    public void setImgShow(ImageView imgShow) {
-        this.imgShow = imgShow;
+    public void setIdHelp(int idHelp) {
+        this.idHelp = idHelp;
     }
 
     public String getTv_Question() {
@@ -31,11 +31,11 @@ public class Help {
         this.tv_Question = tv_Question;
     }
 
-    public String getTv_Reply() {
+    public String getTv_Content() {
         return tv_Content;
     }
 
-    public void setTv_Reply(String tv_Reply) {
+    public void setTv_Content(String tv_Content) {
         this.tv_Content = tv_Content;
     }
 }

@@ -1,5 +1,7 @@
 package com.example.plantshop.firebase;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 
 import com.example.plantshop.model.Help;
@@ -16,8 +18,9 @@ public class DAO_Help {
     private ArrayList<Help> listHelp;
 
     public DAO_Help(){
-        databaseRef_Help = FirebaseDatabase.getInstance().getReference("Help");
+
         listHelp = new ArrayList<>();
+        databaseRef_Help = FirebaseDatabase.getInstance().getReference("Help");
 
         databaseRef_Help.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -26,16 +29,39 @@ public class DAO_Help {
                 ) {
                     Help help = dataSnapshot.getValue(Help.class);
                     listHelp.add(help);
+
                 }
+
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
-            public ArrayList<Help> getListHelp() {
-                return listHelp;
-            }
+
         });
+    }
+
+    public ArrayList<Help> getListHelp() {
+        return listHelp;
+    }
+
+    public boolean pushHelp(Help help){
+        databaseRef_Help.child(String.valueOf(help.getIdHelp())).setValue(help);
+        return true;
+    }
+
+    public boolean deleteHelp(int id){
+        databaseRef_Help.child(String.valueOf(id)).removeValue();
+        return true;
+    }
+
+    public int getIdHelp(){
+        int idHelp = 0;
+
+        if(listHelp.size() > 0){
+            idHelp = listHelp.get(listHelp.size() - 1).getIdHelp() + 1;
+        }
+        return idHelp;
     }
 }

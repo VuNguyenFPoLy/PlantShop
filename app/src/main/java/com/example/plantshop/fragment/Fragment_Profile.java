@@ -80,6 +80,11 @@ public class Fragment_Profile extends Fragment {
 
         });
 
+        tv_Help.setOnClickListener(v -> {
+            fragment = new Fragment_Help();
+            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fr_Layout, fragment).commit();
+        });
+
         tv_HandbookPlant.setOnClickListener(v -> {
             fragment = new Fragment_HandBook();
             getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fr_Layout, fragment).commit();

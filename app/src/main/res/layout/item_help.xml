@@ -5,28 +5,31 @@
     android:orientation="vertical"
     android:paddingHorizontal="24dp">
 
-    <LinearLayout
+    <RelativeLayout
+        android:id="@+id/ly_Question"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="0dp"
-        android:orientation="horizontal">
+        >
 
         <TextView
             android:id="@+id/tv_Question"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="5"
             android:fontFamily="@font/lato"
             android:text="Tôi trộn các chất dinh dưỡng theo thứ tự nào?"
             android:textColor="@color/black"
+            android:layout_alignParentStart="true"
+            android:layout_toStartOf="@+id/img_Show"
             android:textSize="15sp" />
 
         <ImageView
             android:id="@+id/img_Show"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
             android:src="@drawable/arrow_down"/>
-    </LinearLayout>
+    </RelativeLayout>
+
     <TextView
         android:id="@+id/tv_Content"
         android:layout_width="match_parent"
@@ -34,6 +37,7 @@
         android:fontFamily="@font/lato"
         android:layout_marginTop="15dp"
         android:textSize="15sp"
+        android:visibility="gone"
         android:layout_marginBottom="15dp"
         android:textColor="@color/color_Plant_Type"
         android:text="@string/nd1"/>
