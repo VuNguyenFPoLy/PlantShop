@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:paddingHorizontal="24dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        >
+
+        <ImageView
+            android:id="@+id/img_Back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:src="@drawable/baseline_keyboard_arrow_left_24" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/img_Back"
+            android:background="@color/white"
+            android:fontFamily="@font/lato"
+            android:textSize="18sp"
+            android:text="DOANH THU"
+            android:textAlignment="center" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/green"
+        android:padding="5dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_Year"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="2023"
+            android:textSize="18sp"
+            android:textColor="@color/white"/>
+
+        <TextView
+            android:id="@+id/tv_Date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="CN, 2 Th11"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:textSize="20sp"/>
+    </LinearLayout>
+
+    <CalendarView
+        android:id="@+id/calendarView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/tv_SumDay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Tổng ngày: 500.000 VNĐ"
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        android:fontFamily="@font/lato"/>
+
+    <TextView
+        android:id="@+id/tv_SumMonth"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Tổng tháng: 50.000.000 VNĐ"
+        android:layout_marginTop="10dp"
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        android:fontFamily="@font/lato"/>
+
+    <Button
+        android:id="@+id/btn_Back"
+        style="?attr/materialButtonOutlinedStyle"
+        android:layout_width="170dp"
+        android:layout_height="50dp"
+        android:text="Trở về"
+        android:textColor="@color/delete"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:textSize="20dp"
+        app:cornerRadius="8dp" />
+</LinearLayout>

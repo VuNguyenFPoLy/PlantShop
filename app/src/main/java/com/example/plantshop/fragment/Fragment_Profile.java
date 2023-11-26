@@ -45,7 +45,6 @@ public class Fragment_Profile extends Fragment {
         tv_EmailUser = view.findViewById(R.id.tv_EmailUser);
         tv_EditInformation = view.findViewById(R.id.tv_EditInformation);
         tv_HandbookPlant = view.findViewById(R.id.tv_HandbookPlant);
-        tv_History = view.findViewById(R.id.tv_History);
         tv_Help = view.findViewById(R.id.tv_Help);
         tv_ChangePass = view.findViewById(R.id.tv_ChangePass);
         tv_LogOut = view.findViewById(R.id.tv_LogOut);
@@ -73,10 +72,20 @@ public class Fragment_Profile extends Fragment {
             startActivityForResult(Intent.createChooser(getIMG, "Select Picture"), PICK_IMAGE_REQUEST);
         });
 
+        if(MainActivity.getID == 0){
+            tv_EditInformation.setText("Doanh thu");
+        }
+
         tv_EditInformation.setOnClickListener(v -> { // chuyển tới frg cập nhật thông tin
 
-            fragment = new Fragment_EditInformation();
-            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fr_Layout, fragment).commit();
+            if(MainActivity.getID > 0){
+                fragment = new Fragment_EditInformation();
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fr_Layout, fragment).commit();
+            }else {
+                fragment = new Fragment_DoanhThu();
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fr_Layout, fragment).commit();
+            }
+
 
         });
 

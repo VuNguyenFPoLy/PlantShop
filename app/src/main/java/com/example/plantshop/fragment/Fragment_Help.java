@@ -15,7 +15,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -97,8 +96,8 @@ public class Fragment_Help extends Fragment {
 
                     Help help = new Help();
                     help.setIdHelp(daoHelp.getIdHelp());
-                    help.setTv_Question(questtion);
-                    help.setTv_Content(answer);
+                    help.setQuestion(questtion);
+                    help.setContent(answer);
 
                     daoHelp.pushHelp(help);
                     if (daoHelp.pushHelp(help)) {
@@ -165,8 +164,8 @@ public class Fragment_Help extends Fragment {
                         ImageView img_Show = view.findViewById(R.id.img_Show);
                         RelativeLayout ly_Question = view.findViewById(R.id.ly_Question);
 
-                        tv_Question.setText(help.getTv_Question());
-                        tv_Content.setText(help.getTv_Content());
+                        tv_Question.setText(help.getQuestion());
+                        tv_Content.setText(help.getContent());
 
                         isContentVisibleList.add(false);
 
@@ -224,8 +223,8 @@ public class Fragment_Help extends Fragment {
                                     lb_Step.setText("Câu hỏi");
                                     lb_Content.setText("Trả lời");
 
-                                    edt_Question.setText(help.getTv_Question());
-                                    edt_Content.setText(help.getTv_Content());
+                                    edt_Question.setText(help.getQuestion());
+                                    edt_Content.setText(help.getContent());
 
                                     btn_Add.setOnClickListener(v2 -> {
 
@@ -242,8 +241,8 @@ public class Fragment_Help extends Fragment {
                                         } else {
 
 
-                                            help.setTv_Question(questtion);
-                                            help.setTv_Content(answer);
+                                            help.setQuestion(questtion);
+                                            help.setContent(answer);
 
                                             daoHelp.pushHelp(help);
                                             if (daoHelp.pushHelp(help)) {

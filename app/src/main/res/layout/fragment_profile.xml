@@ -107,16 +107,6 @@
             android:textSize="18dp" />
 
         <TextView
-            android:id="@+id/tv_History"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:fontFamily="@font/lato"
-            android:text="Lịch sử giao dịch"
-            android:textColor="@color/black"
-            android:textSize="18dp" />
-
-        <TextView
             android:id="@+id/tv_Help"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
