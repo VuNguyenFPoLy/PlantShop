@@ -2,7 +2,7 @@ package com.example.plantshop.model;
 
 public class Notification {
 
-    private int idNT, idGuest;
+    private int idNT, idGuest, currentStatus;
     private String dateOder, urlImage;
     private boolean check_COD, check_GHN, check_Pay, status;
     private double sumPrice;
@@ -11,7 +11,7 @@ public class Notification {
     public Notification() {
     }
 
-    public Notification(int idNT, int idGuest, String dateOder, boolean check_COD, boolean check_GHN, boolean check_Pay, boolean status, double sumPrice, String urlImage) {
+    public Notification(int idNT, int idGuest, String dateOder, boolean check_COD, boolean check_GHN, boolean check_Pay, boolean status, double sumPrice, String urlImage, int currentStatus ) {
         this.idNT = idNT;
         this.idGuest = idGuest;
         this.dateOder = dateOder;
@@ -21,6 +21,7 @@ public class Notification {
         this.status = status;
         this.sumPrice = sumPrice;
         this.urlImage = urlImage;
+        this.currentStatus = currentStatus;
     }
 
     public int getIdNT() {
@@ -93,5 +94,13 @@ public class Notification {
 
     public void setUrlImage(String urlImage) {
         this.urlImage = urlImage;
+    }
+
+    public int getCurrentStatus() {
+        return currentStatus;
+    }
+
+    public void setCurrentStatus(int currentStatus) {
+        this.currentStatus = currentStatus;
     }
 }

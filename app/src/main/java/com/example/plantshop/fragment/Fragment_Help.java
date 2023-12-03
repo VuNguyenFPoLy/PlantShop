@@ -130,8 +130,6 @@ public class Fragment_Help extends Fragment {
         return view;
     }
 
-    public Fragment_Help() {
-    }
 
     public void getListHelp() {
 

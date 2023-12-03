@@ -6,6 +6,9 @@ import androidx.core.content.ContextCompat;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -48,8 +51,25 @@ public class Activity_DangNhap extends AppCompatActivity {
         listGuest = new ArrayList<>();
 
 
-        listAccount = dao.getListAccount();
-        listGuest = dao.getListGuest();
+
+
+        Handler handler = new Handler(Looper.getMainLooper());
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+
+                listAccount = dao.getListAccount();
+                listGuest = dao.getListGuest();
+
+                Log.d("TAG", "run: "+listAccount.size());
+                if(listAccount.size() > 0){
+                    handler.removeCallbacks(this);
+                }else {
+                    handler.postDelayed(this, 500);
+                }
+            }
+        };
+        handler.postDelayed(runnable, 500);
 
         tv_SignUp.setOnClickListener(v -> {
             Intent intent = new Intent(Activity_DangNhap.this, Activity_DangKy.class);

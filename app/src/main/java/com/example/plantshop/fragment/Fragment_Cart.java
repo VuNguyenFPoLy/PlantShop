@@ -79,6 +79,8 @@ public class Fragment_Cart extends Fragment {
         return view;
     }
 
+
+
     public void onView() {
 
         sumCost = 0;
@@ -219,6 +221,8 @@ public class Fragment_Cart extends Fragment {
 
 
                             }
+
+
                         }
 
                         @Override

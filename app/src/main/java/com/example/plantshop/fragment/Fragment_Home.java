@@ -20,12 +20,16 @@ import com.example.plantshop.R;
 import com.example.plantshop.activity.MainActivity;
 import com.example.plantshop.firebase.DAO_Product;
 import com.example.plantshop.model.Product;
+import com.google.android.material.badge.BadgeDrawable;
+import com.google.android.material.badge.BadgeUtils;
+import com.google.android.material.badge.ExperimentalBadgeUtils;
+import com.google.android.material.imageview.ShapeableImageView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Fragment_Home extends Fragment {
+@ExperimentalBadgeUtils public class Fragment_Home extends Fragment {
 
     private TextView tv_ViewAllPlant, tv_ViewAllPots, tv_ViewAllTools;
     private ImageView img_cart;
@@ -34,6 +38,8 @@ public class Fragment_Home extends Fragment {
     public static ArrayList<Product> listPlant, listPots, listTools;
     private int size = -1;
     boolean firstTime = true;
+
+
 
     @Nullable
     @Override
@@ -45,6 +51,7 @@ public class Fragment_Home extends Fragment {
         tv_ViewAllTools = view.findViewById(R.id.tv_ViewAllTools);
         img_cart = view.findViewById(R.id.img_cart);
 
+
         gridLayout_Plant = view.findViewById(R.id.gridLayout_Plant);
         gridLayout_Pots = view.findViewById(R.id.gridLayout_Pots);
         gridLayout_Tool = view.findViewById(R.id.gridLayout_Tool);
@@ -53,6 +60,7 @@ public class Fragment_Home extends Fragment {
         tv_ViewAllPlant.setPaintFlags(tv_ViewAllPlant.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
         tv_ViewAllTools.setPaintFlags(tv_ViewAllTools.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
         tv_ViewAllPots.setPaintFlags(tv_ViewAllPots.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+
 
         if (MainActivity.getID == 0) {
             img_cart.setVisibility(View.GONE);
@@ -263,4 +271,6 @@ public class Fragment_Home extends Fragment {
 
         return view;
     }
+
+
 }

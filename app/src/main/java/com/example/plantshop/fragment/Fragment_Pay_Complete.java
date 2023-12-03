@@ -182,6 +182,7 @@ public class Fragment_Pay_Complete extends Fragment {
                     nt.setSumPrice(sumPrice);
                     nt.setDateOder(date);
                     nt.setStatus(true);
+                    nt.setCurrentStatus(0);
 
 
                     databaseRef_NT.child(String.valueOf(id)).setValue(nt); // up thông tin thông báo

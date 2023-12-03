@@ -34,7 +34,8 @@ public class Fragment_Edit_Or_Delete extends Fragment {
     private ArrayList<Product> listProduct;
     public static int id;
     private boolean check = false;
-    private String getFrom, type;
+    private String getFrom, type, key;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -58,14 +59,14 @@ public class Fragment_Edit_Or_Delete extends Fragment {
         getFrom = getData.getString("from");
         type = getData.getString("type");
 
-        if(getFrom.equals("product")){ // kiểm tra dữ liệu từ fragment nào chuyển đến
+        if (getFrom.equals("product")) { // kiểm tra dữ liệu từ fragment nào chuyển đến
             listProduct = Fragment_Product.listProduct;
-        }else {
-            if(type.equals("Cây trồng")){
+        } else {
+            if (type.equals("Cây trồng")) {
                 listProduct = Fragment_Home.listPlant;
             } else if (type.equals("Chậu cây")) {
                 listProduct = Fragment_Home.listPots;
-            }else {
+            } else {
                 listProduct = Fragment_Home.listTools;
             }
         }
@@ -85,6 +86,19 @@ public class Fragment_Edit_Or_Delete extends Fragment {
                 tv_Quantity_Product.setText("Còn " + pd.getSoLuong() + " sản phẩm");
                 tv_Describe_Product.setText(pd.getMoTa());
 
+                String type = tv_Type_Product.getText().toString();
+
+                if (type.equals("Cây trồng")) {
+                    key = "Xem thêm cây trồng";
+                    Fragment_Product.key = key;
+                } else if (type.equals("Chậu cây")) {
+                    key = "Xem thêm chậu cây";
+                    Fragment_Product.key = key;
+                } else {
+                    key = "Xem thêm dụng cụ";
+                    Fragment_Product.key = key;
+                }
+                break;
             }
         }
 
@@ -93,15 +107,8 @@ public class Fragment_Edit_Or_Delete extends Fragment {
             Bundle bundle = new Bundle();
             bundle.putString("edit", "edit");
             bundle.putString("from", getFrom);
-            String type = tv_Type_Product.getText().toString();
+            bundle.putString("key", key);
 
-            if(type.equals("Cây trồng")){
-                Fragment_Product.key = "Xem thêm cây trồng";
-            } else if (type.equals("Chậu cây")) {
-                Fragment_Product.key = "Xem thêm chậu cây";
-            }else {
-                Fragment_Product.key = "Xem thêm dụng cụ";
-            }
 
             fragment.setArguments(bundle);
             getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fr_Layout, fragment).commit();
@@ -109,15 +116,15 @@ public class Fragment_Edit_Or_Delete extends Fragment {
         });
 
         img_BackToProduct.setOnClickListener(v -> {
-            if(getFrom.equals("product")){
+            if (getFrom.equals("product")) {
                 Fragment fragment = new Fragment_Product();
                 Bundle bundle = new Bundle();
 
-                bundle.putString("key", Fragment_Product.key);
+                bundle.putString("key", key);
                 fragment.setArguments(bundle);
 
                 getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fr_Layout, fragment).commit();
-            }else if (getFrom.equals("home")){
+            } else if (getFrom.equals("home")) {
                 MainActivity.bottom_Navigation.setSelectedItemId(R.id.bt_Home);
             } else if (getFrom.equals("search")) {
                 MainActivity.bottom_Navigation.setSelectedItemId(R.id.bt_Search);
@@ -138,18 +145,18 @@ public class Fragment_Edit_Or_Delete extends Fragment {
 
             btn_Accept.setOnClickListener(v1 -> { // chấp nhận xoá
 
-                if(typeProduct.equals("Cây trồng")){
+                if (typeProduct.equals("Cây trồng")) {
                     DAO_Product.deletePlant(id);
                     check = true;
                 } else if (typeProduct.equals("Chậu cây")) {
                     DAO_Product.deletePots(id);
                     check = true;
-                }else {
+                } else {
                     DAO_Product.deleteTools(id);
                     check = true;
                 }
 
-                if(check){
+                if (check) {
                     Fragment fragment = new Fragment_Product();
                     Bundle bundle = new Bundle();
                     bundle.putString("key", Fragment_Product.key);

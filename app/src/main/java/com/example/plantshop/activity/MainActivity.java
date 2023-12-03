@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.example.plantshop.R;
 import com.example.plantshop.firebase.DAO;
+import com.example.plantshop.firebase.DAO_Notify;
 import com.example.plantshop.fragment.Fragment_Home;
 import com.example.plantshop.fragment.Fragment_Notify;
 import com.example.plantshop.fragment.Fragment_Profile;
@@ -24,6 +25,7 @@ import com.example.plantshop.model.HistorySearch;
 import com.example.plantshop.model.Notification;
 import com.example.plantshop.model.Product;
 import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.database.DataSnapshot;
@@ -41,11 +43,11 @@ public class MainActivity extends AppCompatActivity {
     public static BottomNavigationView bottom_Navigation;
     private AppBarLayout appbarLayout;
     public static ArrayList<Guest> listGuest = new ArrayList<>();
-    private DatabaseReference databaseRef_NT, databaseRef_listCartOfNT;
     public static ArrayList<Notification> listNT;
     public static ArrayList<Product> listPurchased;
     public static Guest guest;
     public static int getID;
+    public static BadgeDrawable badgeNT;
 
 
     @Override
@@ -89,6 +91,9 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "Xin chào quản lý", Toast.LENGTH_SHORT).show();
         }
 
+        new DAO_Notify();
+
+        badgeNT = bottom_Navigation.getOrCreateBadge(R.id.bt_Notify);
 
         bottom_Navigation.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
@@ -122,113 +127,15 @@ public class MainActivity extends AppCompatActivity {
         listNT = new ArrayList<>();
         listPurchased = new ArrayList<>();
 
+    }
 
-        if (getID > 0) {
+    public static void setNumberBadge(int number){
 
-            databaseRef_NT = FirebaseDatabase.getInstance().getReference("Notification").child(String.valueOf(getID));
-            databaseRef_listCartOfNT = FirebaseDatabase.getInstance().getReference("Purchased Product").child(getID + "/");
-
-
-            databaseRef_NT.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                    listNT.clear();
-
-                    for (DataSnapshot dataSnapshot : snapshot.getChildren()
-                    ) {
-                        Notification notification = dataSnapshot.getValue(Notification.class);
-                        listNT.add(notification);
-                    }
-
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-
-                }
-            });
-
-            databaseRef_listCartOfNT.addListenerForSingleValueEvent(new ValueEventListener() { // lấy list sản phẩm đã đặt hàng
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-
-
-                    for (DataSnapshot dataSnapshot : snapshot.getChildren()
-                    ) {
-
-                        String key = dataSnapshot.getRef().getKey();
-                        databaseRef_listCartOfNT.child(key).addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                                listPurchased.clear();
-
-                                for (DataSnapshot dataSnapshot1 : snapshot.getChildren()
-                                ) {
-
-                                    String key2 = dataSnapshot1.getRef().getKey();
-
-                                    databaseRef_listCartOfNT.child(key).child(key2).addListenerForSingleValueEvent(new ValueEventListener() {
-                                        @Override
-                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                                            for (DataSnapshot dataSnapshot : snapshot.getChildren()
-                                            ) {
-                                                Product PD = dataSnapshot.getValue(Product.class);
-                                                listPurchased.add(PD);
-                                            }
-                                        }
-
-                                        @Override
-                                        public void onCancelled(@NonNull DatabaseError error) {
-
-                                        }
-                                    });
-
-                                }
-                            }
-
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
-
-                            }
-                        });
-                    }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-
-                }
-            });
-
+        if(number != 0){
+            badgeNT.setVisible(true);
+            badgeNT.setNumber(number);
         }else {
-//
-//            databaseRef_NT = FirebaseDatabase.getInstance().getReference("Notification");
-//            databaseRef_listCartOfNT = FirebaseDatabase.getInstance().getReference("Purchased Product");
-//
-//            databaseRef_NT.addListenerForSingleValueEvent(new ValueEventListener() {
-//                @Override
-//                public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                    listNT = new ArrayList<>();
-//
-//                    for (DataSnapshot dataSnapshot : snapshot.getChildren()
-//                    ) {
-//                        Notification notification = dataSnapshot.getValue(Notification.class);
-//                        listNT.add(notification);
-//                    }
-//
-//                }
-//
-//                @Override
-//                public void onCancelled(@NonNull DatabaseError error) {
-//
-//                }
-//            });
+            badgeNT.setVisible(false);
         }
-
-
     }
 }

@@ -117,7 +117,7 @@ public class Fragment_AddProduct extends Fragment {
         // trở về
         img_Back.setOnClickListener(v -> {
             fragment = new Fragment_Product();
-            bundle.putString("key", getData.getString("key"));
+            bundle.putString("key", key);
             fragment.setArguments(bundle);
             getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fr_Layout, fragment).commit();
 
@@ -126,7 +126,7 @@ public class Fragment_AddProduct extends Fragment {
         // trở về
         btn_Cancel.setOnClickListener(v -> {
             fragment = new Fragment_Product();
-            bundle.putString("key", getData.getString("key"));
+            bundle.putString("key", key);
             fragment.setArguments(bundle);
             getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fr_Layout, fragment).commit();
         });
